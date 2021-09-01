@@ -1,3 +1,24 @@
+# This file must not be executed. It contains useful commands examples.
+
+# Archive and un-archive notations:
+tar -czvf notations.tar.gz notations_*
+tar -zxvf notations.tar.gz
+# Archive and un-archive input data:
+tar -czvf input_data_5e13m-2.tar.gz input_data_5e13m-2
+tar -czvf input_data_5e14m-2.tar.gz input_data_5e14m-2
+tar -czvf input_data_5e15m-2.tar.gz input_data_5e15m-2
+tar -zxvf input_data_5e13m-2.tar.gz
+tar -zxvf input_data_5e14m-2.tar.gz
+tar -zxvf input_data_5e15m-2.tar.gz
+# Archive and un-archive output data:
+tar -czvf output_data_5e13m-2.tar.gz output_data_5e13m-2
+tar -czvf output_data_5e14m-2.tar.gz output_data_5e14m-2
+tar -czvf output_data_5e15m-2.tar.gz output_data_5e15m-2
+tar -zxvf output_data_5e13m-2.tar.gz
+tar -zxvf output_data_5e14m-2.tar.gz
+tar -zxvf output_data_5e15m-2.tar.gz
+
+# Clear scratch repositories on the cluster:
 ssh compute-0-1; cd /scratch/; rm becht* -r;
 ssh compute-0-2; cd /scratch/; rm becht* -r;
 ssh compute-0-3; cd /scratch/; rm becht* -r;
