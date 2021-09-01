@@ -8,6 +8,7 @@ Default parameter values.
 import copy
 import numpy as np
 import math
+import fractions
 
 from lpa.input import models
 from lpa.input import notation
@@ -18,7 +19,8 @@ densities = [d*1e-18 for d in densities_m] # [nm^-2]
 
 def arguments(
     d: float,
-    s: int = 2000,
+    s: int = 3200,
+    b: str = 'PBCR1',
     c: int = (200, 400),
     p: float = 0.2,
     k: tuple = (0.25, 0.5, 1, 2.5, 5),
@@ -29,6 +31,7 @@ def arguments(
     Input:
         d: dislocation density [nm^-2]
         s: side of the region of interest [nm] (RDD, RRDD-*)
+        b: boundary conditions
         c: sides of the subareas [nm] (RRDD-*)
         p: ratio of the area occupied by the cell walls (RCDD-*)
         k: multiplier of the inter-dislocation distance for dipole length
@@ -36,33 +39,42 @@ def arguments(
     Output:
         t: tuples containing the instantiation arguments
     """
-    q = (1+np.sqrt(1-p))/p # multiplier of wall thickness for cell side
+    for subarea in c:
+        if s%subarea != 0:
+            raise ValueError("incorret subarea side: "+str(subarea)+" nm")
     i = 1/np.sqrt(d) # inter dislocation distance [nm]
+    # parameters for RCDD-*
+    q = (1+np.sqrt(1-p))/p # multiplier of wall thickness for cell side
     # parameters for RCDD-E and RCDD-R
     t1 = i # thickness of the cell walls [nm]
     c1 = t1*q # cell sides [nm]
-    s1 = (1+s//c1)*c1 # shape side [nm]
+    s1 = max(round(s/c1), 1)*c1 # shape side [nm]
     # parameters for RCDD-D
-    l = [m*i for m in k] # dipole lengths [nm]
+    frac = [fractions.Fraction(n).limit_denominator() for n in k]
+    mult = np.lcm.reduce([f.denominator for f in frac])
+    ints = [round(f*mult) for f in frac]
+    lcm = np.lcm.reduce(ints)/mult # least common multiple of k
+    l = [m*i for m in frac] # dipole lengths [nm]
     t2 = [t/2 for t in l] # thickness of the cell walls [nm]
     c2 = [t*q for t in t2] # cell sides [nm]
-    s2 = [math.ceil(max(c2[-1], s)/c)*c for c in c2] # shape side [nm]
+    s0 = lcm*max(c2)/max(k) # least common multiple of c2
+    s2 = max(round(s/s0), 1)*s0 # shape side [nm]
     # instantiation arguments
     t = []
     # RDD
-    t.append(('square', s, models.RDD, {'d': d}, 'edge', 'PBCR2'))
+    t.append(('square', s, models.RDD, {'d': d}, 'edge', b))
     # RRDD
     for pv in ('E', 'R'):
         for ps in c:
             r = {'d': d, 'v': pv, 's': ps}
-            t.append(('square', s, models.RRDD, r, 'edge', 'PBCR2'))
+            t.append(('square', s, models.RRDD, r, 'edge', b))
     # RCDD
     for pv in ('E', 'R'):
         r = {'d': d, 'v': pv, 's': c1, 't': t1}
-        t.append(('square', s1, models.RCDD, r, 'edge', 'PBCR2'))
+        t.append(('square', s1, models.RCDD, r, 'edge', b))
     for i in range(len(k)):
         r = {'d': d, 'v': 'D', 's': c2[i], 't': t2[i], 'l': l[i]}
-        t.append(('square', s2[i], models.RCDD, r, 'edge', 'PBCR2'))
+        t.append(('square', s2, models.RCDD, r, 'edge', b))
     return t
 
 if __name__ == "__main__":
