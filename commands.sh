@@ -10,6 +10,13 @@ tar -czvf input_data_5e15m-2.tar.gz input_data_5e15m-2
 tar -zxvf input_data_5e13m-2.tar.gz
 tar -zxvf input_data_5e14m-2.tar.gz
 tar -zxvf input_data_5e15m-2.tar.gz
+# Archive and un-archive analyses:
+tar -czvf input_analyses_5e13m-2.tar.gz input_analyses_5e13m-2
+tar -czvf input_analyses_5e14m-2.tar.gz input_analyses_5e14m-2
+tar -czvf input_analyses_5e15m-2.tar.gz input_analyses_5e15m-2
+tar -zxvf input_analyses_5e13m-2.tar.gz
+tar -zxvf input_analyses_5e14m-2.tar.gz
+tar -zxvf input_analyses_5e15m-2.tar.gz
 # Archive and un-archive output data:
 tar -czvf output_data_5e13m-2.tar.gz output_data_5e13m-2
 tar -czvf output_data_5e14m-2.tar.gz output_data_5e14m-2
