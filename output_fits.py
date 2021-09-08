@@ -6,6 +6,7 @@ Fit the models on the simulation outputs.
 """
 
 import os
+import numpy as np
 
 from lpa.output import analyze
 from lpa.input import notation
@@ -39,6 +40,7 @@ for i in range(len(settings.densities_m)):
                     exdir=exdir,
                     title=title,
                     d=settings.densities[i],
+                    j=np.array([1, 2]),
                 )
 
 input("\nPress 'enter' to exit...")
