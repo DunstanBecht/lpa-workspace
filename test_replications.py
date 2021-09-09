@@ -17,16 +17,16 @@ from lpa.output import collect
 import settings
 
 replications = { # maximum number of replications tested
-    5e13: 4,
-    5e14: 3,
-    5e15: 2,
+    5e13: 3,
+    5e14: 2,
+    5e15: 1,
 }
 
 if input("\nGenerate input? (y/n) ")=="y":
     for i in range(len(settings.densities_m)):
-        density_stm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-        print("\n"+density_stm+":")
-        input_dir = "input_data_"+density_stm
+        dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
+        print("\n"+dststm+":")
+        input_dir = "input_data_"+dststm
         if not os.path.isdir(input_dir):
             os.mkdir(input_dir)
         for r in range(replications[settings.densities_m[i]]+1):
@@ -36,7 +36,7 @@ if input("\nGenerate input? (y/n) ")=="y":
                 c = 'PBCR'+str(r)
             s = sets.Sample(100,
                 'square',
-                2000,
+                4000,
                 models.RDD,
                 {'d': settings.densities[i]},
                 'edge',
@@ -52,12 +52,12 @@ if input("\nGenerate input? (y/n) ")=="y":
 
 if input("\nPlot outputs (y/n) ")=="y":
     for i in range(len(settings.densities_m)):
-        density_stm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-        print("\n"+density_stm+":")
-        output_dir = "output_data_"+density_stm
-        for stm in os.listdir(output_dir):
+        dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
+        print("\n"+dststm+":")
+        outdir = "output_data_"+dststm
+        for stm in os.listdir(outdir):
             if 'test' in stm:
-                x, y = collect.load(['L', 'A'], stm, output_dir)
+                x, y = collect.load(['L', 'A'], stm, outdir)
                 plt.plot(x, y[0], label=stm)
         plt.legend()
         plt.yscale("log")

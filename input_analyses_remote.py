@@ -13,25 +13,25 @@ from remote import custom_put, custom_execute
 
 print("[INPUT REMOTE ANALYSES]")
 
-rem_dir = 'workspace-input' # remote directory
+remdir = 'workspace-input' # remote directory
 job = 'input_analyses' # .py and .job stem name
 
 with pysftp.Connection(hostname, username=username, password=password) as sftp:
-    if not sftp.exists(rem_dir):
-        sftp.mkdir(rem_dir)
-    with sftp.cd(rem_dir):
+    if not sftp.exists(remdir):
+        sftp.mkdir(remdir)
+    with sftp.cd(remdir):
         if input("\nSend files ? (y/n) ") == "y":
             custom_put(sftp, job+'.job')
             custom_put(sftp, job+'.py')
             custom_put(sftp, 'settings.py')
         if input("\nSubmit job ? (y/n) ") == "y":
-            out = custom_execute(sftp, 'cd '+rem_dir+'; sbatch '+job+'.job')
+            out = custom_execute(sftp, 'cd '+remdir+'; sbatch '+job+'.job')
             id = out.split(" ")[-1].strip("\n")
             out = custom_execute(sftp, 'scontrol show jobid -dd '+id)
             print("".join(out))
             if input("\nWait results ? (y/n) ") == "y":
-                output_fil = "slurm-"+id+".out"
-                output_dir = username+"-"+id
+                outfil = "slurm-"+id+".out"
+                outdir = username+"-"+id
                 terminated = False
                 while not terminated:
                     terminated = True
@@ -43,15 +43,15 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
                             print(date+" ".join(l.split()))
                     time.sleep(10)
                 time.sleep(10)
-                if sftp.exists(output_dir):
-                    print("(<) "+output_dir)
-                    sftp.get_r(output_dir, "")
+                if sftp.exists(outdir):
+                    print("(<) "+outdir)
+                    sftp.get_r(outdir, "")
                 else:
-                    print(output_dir+" not found")
-                if sftp.exists(output_fil):
-                    print("(<) "+output_fil)
-                    sftp.get(output_fil, output_fil)
+                    print(outdir+" not found")
+                if sftp.exists(outfil):
+                    print("(<) "+outfil)
+                    sftp.get(outfil, outfil)
                 else:
-                    print(output_fil+" not found")
+                    print(outfil+" not found")
 
 input("\nPress 'enter' to exit...")

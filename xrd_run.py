@@ -30,20 +30,20 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
     run.make(executer=sftp.execute)
 
     for i in range(len(settings.densities_m)):
-        density_csl = notation.quantity(settings.densities_m[i], "m-2", 'csl')
-        density_stm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-        print("\n"+density_csl+":")
-        imdir = "input_data_"+density_stm
-        exdir = "output_data_"+density_stm
-        if imdir in sftp.listdir(path):
-            if not exdir in sftp.listdir(path):
-                sftp.mkdir(os.path.join(path, exdir))
-            for stm in sftp.listdir(os.path.join(path, imdir)):
+        dstcsl = notation.quantity(settings.densities_m[i], "m-2", 'csl')
+        dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
+        print("\n"+dstcsl+":")
+        impdir = "input_data_"+dststm
+        expdir = "output_data_"+dststm
+        if impdir in sftp.listdir(path):
+            if not expdir in sftp.listdir(path):
+                sftp.mkdir(os.path.join(path, expdir))
+            for stm in sftp.listdir(os.path.join(path, impdir)):
                 run.run(
                     imstm=stm,
                     executer=sftp.execute,
-                    imdir=imdir,
-                    exdir=exdir,
+                    impdir=impdir,
+                    expdir=expdir,
                     **options[settings.densities_m[i]],
                 )
 

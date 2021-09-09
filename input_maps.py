@@ -16,15 +16,15 @@ import settings
 print("[INPUT MAPS]")
 
 for i in range(len(settings.densities_m)):
-    density_csl = notation.quantity(settings.densities_m[i], "m-2", 'csl')
-    density_stm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-    print("\n"+density_csl+":")
-    exdir = "input_maps_"+density_stm
-    if not os.path.isdir(exdir):
-        os.mkdir(exdir)
+    dstcsl = notation.quantity(settings.densities_m[i], "m-2", 'csl')
+    dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
+    print("\n"+dstcsl+":")
+    dirmap = "input_maps_"+dststm
+    if not os.path.isdir(dirmap):
+        os.mkdir(dirmap)
     for args in settings.arguments(settings.densities[i]):
         d = sets.Distribution(*args, S=0)
         print(d)
-        maps.export(d, exdir=exdir, exfmt='pdf')
+        maps.export(d, expdir=dirmap, expfmt='pdf')
 
 input("\nPress 'enter' to exit...")
