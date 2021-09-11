@@ -23,7 +23,6 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
         sftp.mkdir(remdir)
     with sftp.cd(remdir):
         if input("\nSend files ? (y/n) ")=="y":
-            custom_put(sftp, 'xrd')
             custom_put(sftp, script)
             custom_put(sftp, 'settings.py')
             custom_put(sftp, 'logins.py')

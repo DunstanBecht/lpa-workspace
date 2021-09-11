@@ -7,8 +7,10 @@ Script to be launched for the automatic execution of the simulations.
 
 import pysftp
 import os
+import time
 
 from lpa.xrd import run
+from lpa.xrd import code
 from lpa.input import notation
 
 from logins import username, password
@@ -24,7 +26,14 @@ options = { # run options
     5e15: {'f': round(150/2), 'r': 1000},
 }
 
+clndir='xrd'
+
 with pysftp.Connection(hostname, username=username, password=password) as sftp:
+
+    if not os.path.isdir(clndir):
+        print('\nClone code.')
+        code.clone(clndir)
+        time.sleep(5) # wait for tree synchronization
 
     print('\nMake file.')
     run.make(executer=sftp.execute)
@@ -39,12 +48,15 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
             if not expdir in sftp.listdir(path):
                 sftp.mkdir(os.path.join(path, expdir))
             for stm in sftp.listdir(os.path.join(path, impdir)):
-                run.run(
-                    imstm=stm,
+                t = time.time()
+                print(stm, end='')
+                cmd, res = run.sample(
                     executer=sftp.execute,
+                    impstm=stm,
                     impdir=impdir,
                     expdir=expdir,
+                    clndir=clndir,
                     **options[settings.densities_m[i]],
                 )
-
+                print(" ("+str(round((time.time()-t)/60))+"mn)")
 print("\nFinished")
