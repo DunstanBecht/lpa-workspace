@@ -4,16 +4,23 @@
 
 # Line Profile Analysis - Workspace
 
-This repository is related to the analysis of crystals containing dislocations by X-ray diffraction. It is part of a project conducted during a research internship at the laboratory of material and structural sciences of the *École Nationale Supérieure des Mines de Saint-Étienne*. Three python packages have been developed to conduct line profile analyses based on simulation results:
-* [`lpa.input`](https://github.com/DunstanBecht/lpa-input) (line profile analysis input generator)
-* [`lpa.xrd`](https://github.com/DunstanBecht/lpa-xrd) (line profile analysis x-ray diffraction simulation program)
-* [`lpa.output`](https://github.com/DunstanBecht/lpa-output) (line profile analysis output analyzer)
+This project is related to the analysis of crystals containing dislocations by X-ray diffraction. It was developed and used for a study conducted during a research internship at the laboratory of material and structural sciences of the *École Nationale Supérieure des Mines de Saint-Étienne*. This repository contains the parameters and the scripts for the generation of the data used in the study. You can then easily replicate the results obtained or use it as inspiration to take the code in hand and conduct your own calculations.
+
+The installation of the three following python packages is necessary for the scripts to work.
+* [`lpa-input`](https://github.com/DunstanBecht/lpa-input) (line profile analysis input generator)
+* [`lpa-xrd`](https://github.com/DunstanBecht/lpa-xrd) (line profile analysis x-ray diffraction simulation program)
+* [`lpa-output`](https://github.com/DunstanBecht/lpa-output) (line profile analysis output analyzer)
+
+These packages are released and can be installed with the following command.
+```bash
+pip install -U lpa-input lpa-xrd lpa-output
+```
 
 # Results reproducibility
 
 The objective of this study was to calculate the error of the Wilkens model applied to dislocation distributions that do not meet the conditions of the RRDD model. The analyses were carried out for different dislocation densities, models and generation parameters of the distributions. This repository makes available the scripts and parameters used to obtain the published data in order to facilitate the reproducibility of the results.
 
-Below are the parameters for the generation of the studied sample distributions.
+Below is the description of the studied sample of distributions.
 ```
 Density of 5e13nm-2:
 square 3200nm edge PBCR1 RDD (d=5e-5nm-2)
@@ -61,11 +68,10 @@ square 3349nm edge PBCR1 RCDD-D (d=5e-3nm-2 s= 335nm t= 35nm l= 71nm)
 # User guide
 
 Here are the scripts to execute in order:
-* run input_data_and_notations.py
-* run xrd_run.py on centaure (directly, not ssh-loged in the GPU)
-* run output_average.py
-* run output_fits.py
+* `input_data_and_notations.py` to generate input data
+* `xrd_run.py` to calculate line profile
+* `output_fits.py` to fit the models on the output
 
 These scripts can be executed at any time:
-* input_analyses_remote.py
-* input_maps.py
+* `input_analyses_remote.py` to facilitate remote input analysis
+* `input_maps.py` to generate dislocation maps
