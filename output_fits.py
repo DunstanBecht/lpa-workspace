@@ -40,7 +40,6 @@ for i in range(len(settings.densities_m)):
                     expdir=expdir,
                     title=title,
                     d=settings.densities[i],
-                    j=np.array([1, 2]),
                 )
 
 input("\nPress 'enter' to exit...")
