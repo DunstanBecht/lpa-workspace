@@ -27,7 +27,7 @@ for i in range(len(settings.densities_m[:])):
         for args in settings.arguments(settings.densities[i]):
             s = sets.Sample(n, *args, S=0+parallel.rank)
             t2 = time.time()
-            parallel.export(s)
+            parallel.export(s, edgcon='GBB')
             if parallel.rank == parallel.root:
                 print((str(parallel.size)+ " * "+ str(s)
                     + " ("+str(round((time.time()-t2)/60))+"mn)"))
