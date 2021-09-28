@@ -39,6 +39,9 @@ tar -zxvf output_fits_5e13m-2.tar.gz
 tar -zxvf output_fits_5e14m-2.tar.gz
 tar -zxvf output_fits_5e15m-2.tar.gz
 
+# to repatriate files from the root node to the front of the cluster
+scp -r /scratch/becht-83073/* becht@centaure:/export/home/becht/transit
+
 # Clear scratch repositories on the cluster:
 ssh compute-0-1; cd /scratch/; rm becht* -r;
 ssh compute-0-2; cd /scratch/; rm becht* -r;
