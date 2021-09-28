@@ -35,7 +35,7 @@ for i in range(len(settings.densities_m)):
         for args in settings.arguments(settings.densities[i]):
             s = sets.Sample(n, *args, S=0)
             print(s)
-            data.export(s, expdir=dirdat)
+            data.export(s, expdir=dirdat, pbc=1)
             stem = s.name(c='stm')
             with open(os.path.join(dirnot, stem+".tex"), "w") as f:
                 f.write(s.name(f='nmgsd', c='ttl'))

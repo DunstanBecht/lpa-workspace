@@ -13,14 +13,18 @@ import fractions
 from lpa.input import models
 from lpa.input import notation
 
-densities_m = [5e13, 5e14, 5e15] # studied dislocation densities [m^-2]
+densities_m = [ # studied dislocation densities [m^-2]
+    5e13,
+    5e14,
+    #5e15,
+]
 
 densities = [d*1e-18 for d in densities_m] # [nm^-2]
 
 def arguments(
     d: float,
     s: int = 3200,
-    b: str = 'PBCR1',
+    b: str = None,
     c: int = (200, 400),
     p: float = 0.2,
     k: tuple = (0.25, 0.5, 1, 2.5, 5),
