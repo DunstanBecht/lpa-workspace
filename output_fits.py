@@ -19,7 +19,7 @@ for i in range(len(settings.densities_m)):
     dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
     impdir = 'output_data_'+dststm
     if impdir in os.listdir():
-        print("\n"+impdir+":")
+        print(f"\n{impdir}:")
         expdir = 'output_fits_'+dststm
         if not os.path.isdir(expdir):
             os.mkdir(expdir)
@@ -38,8 +38,7 @@ for i in range(len(settings.densities_m)):
                     stm,
                     impdir=impdir,
                     expdir=expdir,
-                    title=title,
-                    d=settings.densities[i],
+                    figttl=title,
                 )
 
 input("\nPress 'enter' to exit...")

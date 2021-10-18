@@ -44,10 +44,10 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
         f = str(options[settings.densities_m[i]]['f'])
         r = str(options[settings.densities_m[i]]['r'])
         b = str(options[settings.densities_m[i]]['b'])
-        print("\n"+dstcsl+":", end=" ")
-        print("Fourier coefficients: "+f, end=", ")
-        print("block repetitions: "+r, end=", ")
-        print("block size: "+b)
+        print(f"\n{dstcsl}:", end=" ")
+        print(f"Fourier coefficients: {f}", end=", ")
+        print(f"block repetitions: {r}", end=", ")
+        print(f"block size: {b}")
         impdir = "input_data_"+dststm
         expdir = "output_data_"+dststm
         if impdir in sftp.listdir(path):
@@ -64,5 +64,6 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
                     clndir=clndir,
                     **options[settings.densities_m[i]],
                 )
-                print(" ("+str(round((time.time()-t)/60))+"mn)")
+                print(f" ({round((time.time()-t)/60)}mn)")
+
 print("\nFinished")

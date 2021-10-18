@@ -25,13 +25,13 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
             custom_put(sftp, job+'.py')
             custom_put(sftp, 'settings.py')
         if input("\nSubmit job ? (y/n) ") == "y":
-            out = custom_execute(sftp, 'cd '+remdir+'; sbatch '+job+'.job')
+            out = custom_execute(sftp, f'cd {remdir}; sbatch {job}.job')
             id = out.split(" ")[-1].strip("\n")
-            out = custom_execute(sftp, 'scontrol show jobid -dd '+id)
+            out = custom_execute(sftp, f'scontrol show jobid -dd {id}')
             print("".join(out))
             if input("\nWait results ? (y/n) ") == "y":
-                outfil = "slurm-"+id+".out"
-                outdir = username+"-"+id
+                outfil = f'slurm-{id}.out'
+                outdir = f'{username}-{id}'
                 terminated = False
                 while not terminated:
                     terminated = True
@@ -39,19 +39,15 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
                     for l in lines:
                         if id in l:
                             terminated = False
-                            date = "("+time.strftime("%Y-%m-%d %H:%M:%S")+") "
+                            date = f"({time.strftime('%Y-%m-%d %H:%M:%S')}) "
                             print(date+" ".join(l.split()))
                     time.sleep(10)
                 time.sleep(10)
-                if sftp.exists(outdir):
-                    print("(<) "+outdir)
-                    sftp.get_r(outdir, "")
-                else:
-                    print(outdir+" not found")
-                if sftp.exists(outfil):
-                    print("(<) "+outfil)
-                    sftp.get(outfil, outfil)
-                else:
-                    print(outfil+" not found")
+                for pth in (outdir, outfil):
+                    if sftp.exists(pth):
+                        print(f"(<) {pth}")
+                        sftp.get_r(pth, "")
+                    else:
+                        print(f"{pth} not found")
 
 input("\nPress 'enter' to exit...")

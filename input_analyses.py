@@ -29,7 +29,6 @@ for i in range(len(settings.densities_m[:])):
             t2 = time.time()
             parallel.export(s, edgcon='GBB', savtxt=True)
             if parallel.rank == parallel.root:
-                print((str(parallel.size)+ " * "+ str(s)
-                    + " ("+str(round((time.time()-t2)/60))+"mn)"))
+                print(f"{parallel.size}*{s} ({round((time.time()-t2)/60)}mn)")
 if parallel.rank == parallel.root:
-    print("total time: "+str(round((time.time()-t1)/60))+" mn")
+    print(f"total time: {round((time.time()-t1)/60)} mn")

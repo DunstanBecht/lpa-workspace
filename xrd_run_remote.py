@@ -27,6 +27,6 @@ with pysftp.Connection(hostname, username=username, password=password) as sftp:
             custom_put(sftp, 'settings.py')
             custom_put(sftp, 'logins.py')
     print("\nRun the following command with ssh:")
-    print('cd '+remdir+'; nohup python3 '+script+' &')
+    print(f"cd {remdir}; nohup python3 {script} &")
 
 input("\nPress 'enter' to exit...")

@@ -23,14 +23,14 @@ def custom_put(
         ignore: regular expression of the nodes that should not be sent
     """
     if ignore==None or re.search(ignore, node)==None:
-        print("(>) "+ node)
+        print(f"(>) {node}")
         if os.path.isfile(node):
             sftp.put(node, node)
         else:
             if not sftp.exists(node):
                 sftp.mkdir(node)
             for child in os.listdir(node):
-                custom_put(sftp, node + "/" + child, ignore)
+                custom_put(sftp, node+"/"+child, ignore)
 
 def custom_execute(
     sftp: pysftp.Connection,

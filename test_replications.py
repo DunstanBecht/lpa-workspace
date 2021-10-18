@@ -25,22 +25,17 @@ replications = { # maximum number of replications tested
 if input("\nGenerate input? (y/n) ")=="y":
     for i in range(len(settings.densities_m)):
         dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-        print("\n"+dststm+":")
+        print(f"\n{dststm}:")
         input_dir = "input_data_"+dststm
         if not os.path.isdir(input_dir):
             os.mkdir(input_dir)
         for r in range(replications[settings.densities_m[i]]+1):
-            if r == 0:
-                c = None
-            else:
-                c = 'PBCR'+str(r)
             s = sets.Sample(100,
                 'square',
                 4000,
                 models.RDD,
                 {'d': settings.densities[i]},
                 'edge',
-                c,
                 S=0,
             )
             print(s)
@@ -48,12 +43,13 @@ if input("\nGenerate input? (y/n) ")=="y":
                 s,
                 exdir=input_dir,
                 exstm='test_'+s.name(c='stm', f='dc'),
+                pbc=c,
             )
 
 if input("\nPlot outputs (y/n) ")=="y":
     for i in range(len(settings.densities_m)):
         dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-        print("\n"+dststm+":")
+        print(f"\n{dststm}:")
         outdir = "output_data_"+dststm
         for stm in os.listdir(outdir):
             if 'test' in stm:

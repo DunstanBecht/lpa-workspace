@@ -18,7 +18,7 @@ print("[INPUT MAPS]")
 for i in range(len(settings.densities_m)):
     dstcsl = notation.quantity(settings.densities_m[i], "m-2", 'csl')
     dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-    print("\n"+dstcsl+":")
+    print(f"\n{dstcsl}:")
     dirmap = "input_maps_"+dststm
     if not os.path.isdir(dirmap):
         os.mkdir(dirmap)
