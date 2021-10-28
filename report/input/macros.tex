@@ -41,18 +41,20 @@
 }
 
 % data
-\newcommand\res[6]{
+\newcommand\res[7]{
 \null
 \vfill
+\subsubsection{#7}\label{#7}
 \includegraphics[width=\linewidth]{../data/fits_5e#1m-2/#3/output_plot.pdf}
-\captionof{figure}{Distribution map and analysis}
+\captionof{figure}{Simulation output}
 \begin{center}
 \includegraphics[width=0.7\linewidth]{../data/maps_5e#1m-2/#2}
-\captionof{figure}{Distribution map and analysis}
+\captionof{figure}{Dislocation map}
 \end{center}
 \includegraphics[width=\linewidth]{../data/stats_5e#1m-2/#5}
 \includegraphics[width=\linewidth]{../data/stats_5e#1m-2/#6}
-\captionof{figure}{Distribution map and analysis}
+\captionof{figure}{Spatial analysis}
+\columnbreak
 }
 
 % maths
