@@ -2,16 +2,14 @@
 # coding: utf-8
 
 """
-Perform parallel spatial analyses.
+Perform parallel spatial analyses on the supercomputer.
+
+Submit with:
+$ sbatch stats.job
 """
 
 import time
-import os
-
-from lpa.input import sets
-from lpa.input import parallel
-from lpa.input import notation
-
+from lpa.input import sets, parallel
 import settings
 
 sizes = { # number of distributions per sample
@@ -21,7 +19,7 @@ sizes = { # number of distributions per sample
 }
 
 t1 = time.time()
-for i in range(len(settings.densities_m[:])):
+for i in range(len(settings.densities)):
     n = sizes[settings.densities_m[i]]
     if n > 0:
         for args in settings.arguments(settings.densities[i]):

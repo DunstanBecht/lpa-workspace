@@ -6,39 +6,32 @@ Fit the models on the simulation outputs.
 """
 
 import os
-import numpy as np
-
 from lpa.output import analyze
-from lpa.input import notation
-
 import settings
 
-print("[OUTPUT FITS]")
+datpth = '../../data' # path to the data storage directory
 
-for i in range(len(settings.densities_m)):
-    dststm = notation.quantity(settings.densities_m[i], "m-2", 'stm')
-    impdir = 'output_data_'+dststm
-    if impdir in os.listdir():
-        print(f"\n{impdir}:")
-        expdir = 'output_fits_'+dststm
+for i in range(len(settings.densities)):
+    print(f"\n{settings.densities_csl[i]}:")
+    impdir = os.path.join(datpth, f'outputs_{settings.densities_stm[i]}')
+    if os.path.isdir(impdir):
+        expdir = os.path.join(datpth, f'fits_{settings.densities_stm[i]}')
         if not os.path.isdir(expdir):
-            os.mkdir(expdir)
+            os.makedirs(expdir)
         for entry in os.listdir(impdir):
             stm = os.path.splitext(entry)[0]
             if not os.path.isdir(os.path.join(expdir, stm)):
                 print(stm)
-                notdir = 'notations_'+dststm
-                ttlfil = os.path.join(notdir, stm+'.tex')
+                notdir = f'notations_{settings.densities_stm[i]}'
+                ttlfil = os.path.join(notdir, f'{stm}.tex')
                 if os.path.isfile(ttlfil):
                     with open(ttlfil) as f:
-                        title = f.read()
+                        figttl = f.read()
                 else:
-                    title = stm
+                    figttl = stm
                 analyze.export(
                     stm,
                     impdir=impdir,
                     expdir=expdir,
-                    figttl=title,
+                    figttl=figttl,
                 )
-
-input("\nPress 'enter' to exit...")

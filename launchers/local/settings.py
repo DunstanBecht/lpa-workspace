@@ -2,24 +2,22 @@
 # coding: utf-8
 
 """
-Default parameter values.
+Distribution parameter values.
 """
 
-import copy
 import numpy as np
-import math
-import fractions
-
-from lpa.input import models
-from lpa.input import notation
+from lpa.input import models, notation
 
 densities_m = [ # studied dislocation densities [m^-2]
     5e13,
     5e14,
-    5e15,
+    #5e15,
 ]
 
 densities = [d*1e-18 for d in densities_m] # [nm^-2]
+
+densities_csl = [notation.quantity(d, "m-2", 'csl') for d in densities_m]
+densities_stm = [notation.quantity(d, "m-2", 'stm') for d in densities_m]
 
 def arguments(
     d: float,
@@ -30,20 +28,20 @@ def arguments(
     Return a list of tuples containing the instantiation arguments.
 
     Input:
-        d: dislocation density [nm^-2]
-        s: side of the region of interest [nm] (RDD, RRDD-*)
-        b: boundary conditions
+        d (float): dislocation density [nm^-2]
+        s (int): side of the region of interest [nm] (default: 3200)
+        b (NoneType|str): boundary conditions (default: None)
 
     Output:
-        t: tuples containing the instantiation arguments
+        t (tuple): tuples containing the instantiation arguments
     """
-    intdis = 1/np.sqrt(d) # inter dislocation distance [nm]
+    intdis = 1/np.sqrt(d) # mean inter dislocation distance [nm]
     # parameters for RRDD-*
     subsid = (200, 400) # subareas side [nm]
     # parameters for RCDD-*
     p = 0.2 # ratio of the area occupied by the cell walls
     q = (1+np.sqrt(1-p))/p # multiplier of wall thickness for cell side
-    k = (0.5, 1, 2) # multiplier of the inter dislocation distance
+    k = (0.5, 1, 2) # multiplier of the inter dislocation distance for dipoles
     celsid = s/4 # cell sides [nm]
     walthc = celsid/q # thickness of the cell walls [nm]
     diplen = [m*intdis for m in k] # dipole lengths [nm]
@@ -64,15 +62,3 @@ def arguments(
         r = {'d': d, 'v': 'D', 's': celsid, 't': walthc, 'l': diplen[i]}
         prmtup.append(('square', s, models.RCDD, r, 'edge', b))
     return prmtup
-
-if __name__ == "__main__":
-
-    print("[SETTINGS]")
-
-    for i in range(len(densities_m)):
-        print(f"\nDensity of {notation.quantity(densities_m[i], 'nm^-2')}:")
-        for args in arguments(densities[i]):
-                print((f"{args[0]} {args[1]}nm {args[4]} {args[5]} "
-                       f"{args[2].__name__}{notation.parameters(args[3])}"))
-
-    input("\nPress 'enter' to exit...")
