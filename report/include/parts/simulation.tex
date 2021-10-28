@@ -1,0 +1,70 @@
+\section{Simulation}
+
+This section is related to X-ray diffraction and Fourier analysis.
+
+\subsection{Method}
+
+\subsubsection{The diffracted intensity profile and its Fourier transform}
+
+Let \gls{difint} be the \glsdesc{difint} as defined by \textcite{W1979}.
+\gls{difint} is a function of \gls{radcdn} the \glsdesc{radcdn} defined in \eqref{eq:S}.
+\gls{wavlen} is the \glsdesc{wavlen} and \( \gls{brgang}_B \) is the Bragg angle of the average lattice.
+\gls{difint} is normalized according to \eqref{eq:norm-I}.
+
+\begin{equation}\label{eq:S}
+\gls{radcdn} = \frac{2 \left( \sin \gls{brgang} - \sin \gls{brgang}_B \right)}{\gls{wavlen}}
+\end{equation}
+
+\begin{equation}\label{eq:norm-I}
+\int \gls{difint}(\gls{radcdn}) d\gls{radcdn} = 1
+\end{equation}
+
+The \glsdesc{difint} \gls{difint} can be represented in terms of its Fourier transform coefficients \gls{frrcfa} and \gls{frrcfb} for \( {\gls{hmc}} \in \gls{setN}^*_+ \) according to \eqref{eq:fourier-a} and \eqref{eq:fourier-b}.
+
+\begin{equation}\label{eq:fourier-a}
+\gls{frrcfa}(\gls{frrvar}) = \int \gls{difint}(\gls{radcdn}) \cos \left( -2 \pi \gls{hmc} \gls{radcdn} \gls{frrvar} \right) d\gls{radcdn}
+\end{equation}
+
+\begin{equation}\label{eq:fourier-b}
+\gls{frrcfb}(\gls{frrvar}) = \int \gls{difint}(\gls{radcdn}) \sin \left( -2 \pi \gls{hmc} \gls{radcdn} \gls{frrvar} \right) d\gls{radcdn}
+\end{equation}
+
+Let \gls{vecu} be the \glsdesc{vecu}.
+According to the kinematical theory of X-ray scattering \cite{W1990}:
+
+\begin{equation}\label{eq:fourier-a-warren}
+\gls{frrcfa}(\gls{frrvar}) = \frac{\int_{\gls{roi}} \cos \left( 2 \pi \gls{hmc} \gls{vecg} \cdot \left[ \gls{vecu}(\vec{r} + \gls{frrvar} \overrightarrow{u_x}) - \gls{vecu}(\vec{r}) \right] \right) d\vec{r}}{\gls{area}_{\gls{roi}}}
+\end{equation}
+
+\begin{equation}\label{eq:fourier-b-warren}
+\gls{frrcfb}(\gls{frrvar}) = \frac{\int_{\gls{roi}} \sin \left( 2 \pi \gls{hmc} \gls{vecg} \cdot \left[ \gls{vecu}(\vec{r} + \gls{frrvar} \overrightarrow{u_x}) - \gls{vecu}(\vec{r}) \right] \right) d\vec{r}}{\gls{area}_{\gls{roi}}}
+\end{equation}
+
+\subsubsection{Parallelization}
+
+To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
+A large number of random points \( \vec{r} \) are drawn in the crystal and the equations \eqref{eq:fourier-a-warren} and \eqref{eq:fourier-b-warren} are applied. The random draws and the calculations are then parallelized since they are independent.
+
+\newpage
+
+\subsection{Program}
+
+The second program allows the simulation of X-ray diffraction and Fourier analysis.
+It was implemented with OpenCL in order to take advantage of the high capacity of parallelization of the calculations on a graphics card.
+
+\subsubsection{Repository}
+
+Useful information can be found on the project page: \github{lpa-xrd}
+
+\subsubsection{Installation}
+
+The program can be installed or updated with the following command:
+
+\pipinstall{lpa-xrd}
+
+\subsubsection{Output data}
+
+For each simulation a file containing the coefficients \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \) for each harmonic \gls{hmc} and Fourier variable \gls{frrvar} is produced.
+The structure of these files is illustrated by the example file below.
+
+\txtlst{insert/output}{output\_data\_structure.dat}

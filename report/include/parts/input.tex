@@ -1,0 +1,789 @@
+\section{Input}
+
+\subsection{Distribution models}
+
+The input data for the X-ray diffraction line profile simulation program are different dislocation distributions.
+The latter are generated according to a model and the geometry of a \gls{roi}.
+The sections \ref{sec:distribution-model-rdd}, \ref{sec:distribution-model-rrdd} and \ref{sec:distribution-model-rcdd} present the models proposed in the study and their possible variants.
+
+\subsubsection{\glsentrytext{rdd}}\label{sec:distribution-model-rdd}
+
+In a \gls{rdd}, the dislocation positions and Burgers vector senses are randomly chosen in the \gls{roi}.
+Random positioning of points is described by equations \eqref{eq:circle-random-position-theta} and \eqref{eq:circle-random-position-r} in section \ref{sec:circle-random-position} for the circle geometry.
+In a square geometry, the coordinates simply follow a continuous uniform distribution law.
+There are always equal numbers of positive and negative Burgers vectors.
+The model takes as parameter the variable \( d \) giving the density of dislocations.
+\figref{fig:rdd-example-1} and \figref{fig:rdd-example-2} show the dislocations contained in a \gls{rdd} in a circle and a square \gls{roi} geometry.
+
+\medfig{fig:rdd-example-1}{insert/distributions}{rdd_example_1}{\gls{rdd} map in circle geometry}%
+\medfig{fig:rdd-example-2}{insert/distributions}{rdd_example_2}{\gls{rdd} map in square geometry}%
+
+\bigskip \bigskip
+
+The distributions in \figref{fig:rdd-example-1} and \figref{fig:rdd-example-2} can be generated and exported with the following script.
+
+\medskip
+
+\pyscript{insert/distributions}{rdd.py}
+
+\newpage
+
+\subsubsection{\glsentrytext{rrdd}}\label{sec:distribution-model-rrdd}
+
+In a \gls{rrdd}, the dislocations are randomly positioned within sub-areas of the \gls{roi}.
+A fixed number \( f \) of dislocations is sampled in each sub-area of side \( s \).
+For the circular geometry, the points beyond the radius of the \gls{roi} are deleted after the random draw.
+There are two ways to determine the sense of the Burgers vectors.
+The first variant of the model is to set, in each sub-area, the number of Burgers vectors with a positive sense equal to the number of Burgers vectors with a negative sense.
+This is the \gls{rrdde}.
+The second variant of the model is to choose the sense of the Burgers vectors randomly.
+This is the \gls{rrddr}.
+The two variants are shown in \figref{fig:rrdd-example-1} and \figref{fig:rrdd-example-2}.
+The sub-areas are indicated by the grid.
+
+\medfig{fig:rrdd-example-1}{insert/distributions}{rrdd_example_1}{\gls{rrdde} map in circle geometry}%
+\medfig{fig:rrdd-example-2}{insert/distributions}{rrdd_example_2}{\gls{rrddr} map in square geometry}%
+
+\bigskip \bigskip
+
+The distributions in \figref{fig:rrdd-example-1} and \figref{fig:rrdd-example-2} can be generated and exported with the following script.
+
+\medskip
+
+\pyscript{insert/distributions}{rrdd.py}
+
+\newpage
+
+\subsubsection{\glsentrytext{rcdd}}\label{sec:distribution-model-rcdd}
+
+In a \gls{rcdd}, the dislocations are randomly positioned in cell walls.
+The thickness of the walls is given by the variable \( t \) and the side of the cells by the variable \( s \).
+Random positioning of points in cell walls is described in section \ref{sec:cell-random-position}.
+There are three ways to determine the positions and the sense of the Burgers vectors of dislocations in this model.
+In \gls{rcddr} the positions and the Burgers vectors senses are randomly distributed.
+In \gls{rcdde} each cell contains a fixed number of dislocations and the Burgers vectors senses are evenly distributed in each cell.
+In \gls{rcddd} the Burgers vectors with positive sense and negative sense are spaced by a distance defined with the variable \( l \).
+The positions and orientations of these dipoles are then random.
+\gls{rcddr} and \gls{rcddd} variants are shown in \figref{fig:rcdd-example-1} and \figref{fig:rcdd-example-2}.
+The cell walls are indicated by the grid.
+
+\medfig{fig:rcdd-example-1}{insert/distributions}{rcdd_example_1}{\gls{rcdde} map in circle geometry}%
+\medfig{fig:rcdd-example-2}{insert/distributions}{rcdd_example_2}{\gls{rcddd} map in square geometry}%
+
+\bigskip \bigskip
+
+The distributions in \figref{fig:rcdd-example-1} and \figref{fig:rcdd-example-2} can be generated and exported with the following script.
+
+\medskip
+
+\pyscript{insert/distributions}{rcdd.py}
+
+\newpage
+
+\subsection{Boundary conditions}
+
+To simulate the complete diffraction line profile some conditions must be applied at the boundaries of the \gls{roi}.
+The latter allow to obtain realistic physical conditions for the strain and displacement fields.
+Otherwise, it would be necessary to limit the analysis to the asymptotic values of the Fourier variable.
+
+\subsubsection{\glsentrytext{isd}}
+
+The \gls{isd} can be applied to a circular \gls{roi}.
+However, the formula used here only applies to dislocations of type screw.
+If there is a screw dislocation at a distance \( r \) from the center of the cylinder with radius \( R_{\gls{roi}} \) the mechanical equilibrium at the surface requires a stress field which is equivalent to the stress due to the dislocation at \( r \) plus a dislocation outside the cylinder located at \( r_{\gls{isd}} \) given in equation \eqref{eq:image-dislocation-radius}.
+The image dislocation has opposite Burgers vector.
+
+\begin{equation}\label{eq:image-dislocation-radius}
+  r_{\gls{isd}} =
+    \frac{R^2_{\gls{roi}}}{r}
+\end{equation}
+
+\medfig{fig:isd-example-1}{insert/boundaries}{isd_example_1}{\gls{isd} on \gls{rdd}}%
+\medfig{fig:isd-example-2}{insert/boundaries}{isd_example_2}{\gls{isd} on \gls{rcddr}}%
+
+\bigskip \bigskip
+
+The distributions in \figref{fig:isd-example-1} and \figref{fig:isd-example-2} can be generated and exported with the following script.
+
+\smallskip
+
+\pyscript{insert/boundaries}{isd.py}
+
+\newpage
+
+\subsubsection{\glsentrytext{pbc}}
+
+There are no closed formulas for the position of the image dislocations other than screws.
+Another solution that allows to calculate the complete line profile for both edge and screw dislocations is to apply \gls{pbc} to a square geometry.
+Using \gls{pbc} is more versatile than \gls{isd} but also more expensive in computing time.
+With \gls{isd} the number of dislocations is doubled, but with \gls{pbc} it evolves quadratically as a function of the rank of replications around the \gls{roi}.
+The number at the end of the boundary condition name specifies the rank of replications around the \gls{roi}.
+
+\bigskip
+
+Here the replicated dislocations are generated at the creation of the distribution.
+This is useful for the representation in maps like \figref{fig:pbc-example-1} and \figref{fig:pbc-example-2} or for statistical analysis, but it is less relevant for writing the positions in a file.
+To avoid transmission of large files it is possible to set a flag asking the X-ray simulation program to generate the replicated dislocations from those in the ROI.
+
+\medfig{fig:pbc-example-1}{insert/boundaries}{pbc_example_1}{\gls{pbc}1 on \gls{rdd}}%
+\medfig{fig:pbc-example-2}{insert/boundaries}{pbc_example_2}{\gls{pbc}2 on \gls{rdd}}%
+
+\bigskip \bigskip
+
+The distributions in \figref{fig:pbc-example-1} and \figref{fig:pbc-example-2} can be generated and exported with the following script.
+
+\medskip
+
+\pyscript{insert/boundaries}{pbc.py}
+
+\newpage
+
+\subsubsection{\glsentrytext{gbb}}
+
+\gls{pbc} are very useful to simulate a crystal of infinite size.
+However, this boundary condition poses a problem of discontinuity of some analysis functions, in particular those studying the distance between dislocations having the same Burgers vector.
+This phenomenon is due to the periodicity of the position of a dislocation in the different replications of the region of interest.
+If the side of the \gls{roi} is \( S_{\gls{roi}} \), then there will be systematically multiple dislocations counted at distances \( S_{\gls{roi}} \), \( \textstyle \sqrt{2} S_{\gls{roi}} \), \( 2 S_{\gls{roi}} \) etc. as shown in \figref{fig:pbc-issue}
+There will also be statistically fewer dislocations before and after these distance harmonics.
+
+\bigskip
+
+To overcome this problem, a third boundary condition is proposed.
+With the \gls{gbb}, the \gls{roi} is replicated around the boundaries but the dislocations are placed randomly.
+The latter are generated following the same principles as those of the distribution model used to generate those inside the \gls{roi}.
+However, the problem of large files cannot be avoided here.
+As in \gls{pbc}, the number at the end of the boundary condition name specifies the rank of replications around the \gls{roi}.
+
+\medfig{fig:pbc-issue}{insert/boundaries}{gbb_pbc_issue}{Issue with \gls{pbc}}%
+\medfig{fig:gbb-example-1}{insert/boundaries}{gbb_example_1}{\gls{gbb} on \gls{rdd}}%
+
+\bigskip \bigskip
+
+The distribution in \figref{fig:gbb-example-1} can be generated and exported with the following script.
+
+\medskip
+
+\pyscript{insert/boundaries}{gbb.py}
+
+\newpage
+
+\subsection{Spatial analysis of distribution models}\label{sec:analysis-functions}
+
+In sections \ref{sec:analysis-functions-K}, \ref{sec:analysis-functions-g} and \ref{sec:analysis-functions-GaGs} are presented the functions that will be used for the statistical analysis of the distribution models.
+The analyzes shown in \figref{fig:KKKK-example}, \figref{fig:gggg-example} and \figref{fig:GaGs-example} can be obtained from the following script.
+The execution of the latter will require a considerable amount of time on a classic computer.
+For faster results it is recommended to use the module \texttt{lpa.input.parallel} to run the analysis on a supercomputer or to reduce the number of distributions in the sample.
+
+\medskip
+
+\pyscript{insert/analysis}{analysis.py}
+
+\bigskip
+
+Let \( P_2 \subset \gls{setRn} \) be a set of points in a space of dimension \( n \) and \( \vec{p_1} \in \gls{setRn} \) a point of this space.
+\gls{funN} is the function that gives the number of points \( \vec{p_2} \in P_2 \) with \( \vec{p_1} \neq \vec{p_2} \) and \( \vec{p_2} \) contained in a neighborhood \( \gls{nbh}(\vec{p_1}, r) \) of radius \( r \) around \( \vec{p_1} \).
+\gls{funN} is defined in equation \eqref{eq:analysis-function-N} with \gls{dstbtw} the distance between two points.
+
+\begin{equation}\label{eq:analysis-function-N}
+  \define{
+    \gls{funN}
+  }{
+    \gls{setRn} \times \gls{pwrset} \left( \gls{setRn} \right) \times \gls{setR}_+
+  }{
+    \gls{setN}
+  }{
+    (\vec{p_1}, P_2, r)
+  }{
+    \sum_{\vec{p_2} \in P_2} \gls{indfun}_{\gls{dstbtw}(\vec{p_1}, \vec{p_2}) \in ]0, r]}
+  }
+\end{equation}
+
+\medskip
+
+For positions close to the edges, these neighborhoods will sometimes extend outside the \gls{roi}.
+Without special boundary conditions, dislocations are not generated outside the latter.
+This leads to deviations from the results that would be obtained in a crystal of infinite size.
+Four approaches are proposed for the consideration of the edges.
+In the first, the \gls{nec}, nothing is done.
+In the second, the \gls{woa}, the ratio of the intersection of the \gls{roi} and the neighborhood is taken into account.
+The third and fourth approaches (only for square geometries) are to apply the conditions \gls{pbc} or \gls{gbb} with the \gls{roi} replicated enough times for the neighborhood to be included in the grid.
+
+\bigfig{fig:nec-and-woa}{insert/analysis}{considerations}{\gls{nec} and \gls{woa} edge considerations}
+
+Let \( \gls{funw} \) be the weighting function for the correction at the edges of the \gls{roi} used in \gls{woa}.
+The definition of \( \gls{funw} \) in equation \eqref{eq:analysis-function-w} uses the overlapping area \( \gls{area}_{\gls{nbh}(a, r) \cap \gls{roi} } \) of the \gls{roi} and the neighborhood.
+The latter can be expressed with the area of intersection \circir \ defined in equation \eqref{eq:circle-circle-intersection} for circle geometries or \cirsqr \ defined in equation \eqref{eq:circle-square-intersection} for square geometries.
+
+\begin{equation}\label{eq:analysis-function-w}
+  \define{
+    \gls{funw}
+  }{
+    \gls{setRn} \times \gls{setR}_+^*
+  }{
+    ]0, 1]
+  }{
+    (\vec{p}, r)
+  }{
+    \frac{\gls{area}_{\gls{nbh}(\vec{p}, r) \cap \gls{roi}}}{\gls{area}_{\gls{nbh}(\vec{p}, r)}}
+  }
+\end{equation}
+
+Let \( P_+ \) be the positions of dislocations with a positive Burger vector sense and \( P_- \) the positions of dislocations with a negative Burger vector sense.
+Let \( \gls{funM}_{\alpha \beta} \), with \( (\alpha, \beta) \in \{ +, - \}^2 \), be the function that gives the average number of dislocations with sense \( \beta \) around dislocations with sense \( \alpha \) in a radius \( r \).
+\( \gls{funM}_{\alpha \beta} \) is defined in equations \eqref{eq:analysis-function-M-nec}, \eqref{eq:analysis-function-M-woa}, \eqref{eq:analysis-function-M-pbc} and \eqref{eq:analysis-function-M-gbb} for the different edge considerations.
+
+\begin{minipage}{0.5\linewidth}
+  \begin{align}
+    \define{
+      \gls{funM}_{\alpha \beta}^{\gls{nec}} &
+    }{
+      \gls{setR}_+
+    }{
+      \gls{setR}_+
+    }{
+      r
+    }{
+      \frac{\sum_{\vec{p_\alpha} \in P_\alpha} \gls{funN}(\vec{p_\alpha}, P_\beta, r)}{\sum_{\vec{p_\alpha} \in P_\alpha} 1}
+    }
+    \label{eq:analysis-function-M-nec}
+    \\[0.3cm]
+    \define{
+      \gls{funM}_{\alpha \beta}^{\gls{woa}} &
+    }{
+      \gls{setR}_+
+    }{
+      \gls{setR}_+
+    }{
+      r
+    }{
+      \frac{\sum_{\vec{p_\alpha} \in P_\alpha} \gls{funN}(\vec{p_\alpha}, P_\beta, r)}{\sum_{\vec{p_\alpha} \in P_\alpha} \gls{funw} \left(\vec{p_\alpha}, r \right)}
+    }
+    \label{eq:analysis-function-M-woa}
+  \end{align}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+  \begin{align}
+    \define{
+      \gls{funM}_{\alpha \beta}^{\gls{pbc}} &
+    }{
+      \gls{setR}_+
+    }{
+      \gls{setR}_+
+    }{
+      r
+    }{
+      \frac{\sum_{\vec{p_\alpha} \in P_\alpha} \gls{funN}(\vec{p_\alpha}, P_\beta^{\gls{pbc}}, r)}{\sum_{\vec{p_\alpha} \in P_\alpha} 1}
+    }
+    \label{eq:analysis-function-M-pbc}
+    \\[0.3cm]
+    \define{
+      \gls{funM}_{\alpha \beta}^{\gls{gbb}} &
+    }{
+      \gls{setR}_+
+    }{
+      \gls{setR}_+
+    }{
+      r
+    }{
+      \frac{\sum_{\vec{p_\alpha} \in P_\alpha} \gls{funN}(\vec{p_\alpha}, P_\beta^{\gls{gbb}}, r)}{\sum_{\vec{p_\alpha} \in P_\alpha} 1}
+    }
+    \label{eq:analysis-function-M-gbb}
+  \end{align}
+\end{minipage}%
+
+\bigskip \bigskip
+
+In general, to obtain the statistical behaviors, \gls{nec} and \gls{gbb} will be used in priority because \gls{pbc} produces discontinuity peaks and \gls{woa} distorts the results.
+The four possibilities are nevertheless kept to illustrate the differences that can be obtained depending on the technique used and to underline the importance of these considerations.
+
+\subsubsection{Ripley's K function}\label{sec:analysis-functions-K}
+
+Let \( \gls{funK}_{\alpha \beta} \) with \( (\alpha, \beta) \in \{ +, - \}^2 \) be the \glsdesc{funK} \cite{IPSS2008} suitable for the statistical study of the location of dislocations depending on the sense of their Burgers vector.
+\( \gls{funK}_{\alpha \beta} \) is constructed with the function \( \gls{funM}_{\alpha \beta} \) from equation \eqref{eq:analysis-function-M-nec}, \eqref{eq:analysis-function-M-woa}, \eqref{eq:analysis-function-M-pbc} or \eqref{eq:analysis-function-M-gbb} according to the desired edge consideration.
+\( \gls{dst}_\beta \) is the density of dislocations with Burgers vector sense \( \beta \).
+As a point of reference for the observation of the results it is recalled that for a continuous uniform distribution of undifferentiated points in an unbounded two-dimensional space \( \gls{funK}^{\gls{nec}}(r) = \pi r^2 \).
+
+\begin{equation}\label{eq:analysis-functions-K}
+  \define{
+    \gls{funK}^*_{\alpha \beta}
+  }{
+    \gls{setR}_+
+  }{
+    \gls{setR}_+
+  }{
+    r
+  }{
+    \frac{1}{\gls{dst}_\beta} \gls{funM}^*_{\alpha \beta}(r)
+  }
+\end{equation}
+
+\bigfig{fig:KKKK-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_KKKK_GBB}{\gls{funK} on \gls{rdd}}%
+
+\newpage
+
+\subsubsection{Pair correlation function}\label{sec:analysis-functions-g}
+
+Let \( \gls{fung}_{\alpha \beta} \) with \( (\alpha, \beta) \in \{ +, - \}^2 \) be the \glsdesc{fung} \cite{IPSS2008} constructed with the function \( \gls{funK}_{\alpha \beta} \) defined in equation \eqref{eq:analysis-functions-K}.
+It is the derivative of the latter with respect to the area \( \gls{area}_{\gls{nbh}} \) of the neighborhood.
+Differences that are difficult to perceive with \( \gls{funK}_{\alpha \beta} \) can be revealed with \( \gls{fung}_{\alpha \beta} \).
+For a continuous uniform distribution of undifferentiated points in an unbounded two-dimensional space \( \gls{fung}^{\gls{nec}}(r) = 1 \).
+
+\begin{equation}\label{eq:analysis-functions-g}
+  \define{
+    \gls{fung}^*_{\alpha \beta}
+  }{
+    \gls{setR}_+
+  }{
+    \gls{setR}
+  }{
+    r
+  }{
+    \frac{d \gls{funK}^*_{\alpha \beta}}{d \gls{area}_{\gls{nbh}}}(r)
+  }
+\end{equation}
+
+\bigfig{fig:gggg-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_gggg_GBB}{\gls{fung} on \gls{rdd}}%
+
+\subsubsection{Symmetrical and antisymmetrical functions}\label{sec:analysis-functions-GaGs}
+
+Gaal and Geszti \cite{GG1969} proposed two statistical functions \( G^a \) and \( G^s \).
+\( G^a \) is strongly related to the expression of the total energy \gls{totnrg} per unit length. \gls{totnrg} is defined in equation \eqref{eq:total-energy-discrete} with \gls{slfnrg} the \glsdesc{slfnrg}, \( \gls{inttrm}(\gls{dstbtw}, \varphi) \) the \glsdesc{inttrm} spaced by a distance \gls{dstbtw}, \( \gls{vecb}_i \) the Burgers vector of dislocation \( i \) and \( \vec{r}_{k i} \) the relative position of dislocation \( k \) with respect to dislocation \( i \).
+
+\begin{equation}\label{eq:total-energy-discrete}
+  \gls{totnrg} =
+    \gls{dst} \gls{area}_{\gls{roi}} \gls{slfnrg} + \frac{1}{2} \sum_i \sum_{k \neq i} \gls{vecb}_i \cdot \gls{vecb}_k \gls{inttrm} \left( \left| \vec{r}_{k i} \right|, \gls{ang} \left( \gls{vecb}_i, \vec{r}_{k i} \right) \right)
+\end{equation}
+
+\medskip
+
+It was deemed appropriate to incorporate \( G^a \) and \( G^s \) into the study but some ambiguities in the definition of the functions could not be overcome.
+It is proposed here to redefine these functions using \( \gls{funM}_{\alpha \beta} \)
+These new functions are called \gls{funGa} and \gls{funGs} and are close to those of Gaal and Geszti on the principle.
+
+\begin{equation}\label{eq:analysis-functions-Ga}
+  \define{
+    \gls{funGa}^*
+  }{
+    \gls{setR}_+
+  }{
+    \gls{setR}
+  }{
+    r
+  }{
+    \gls{dst}_+ \gls{area}_{\gls{roi}} \left( \frac{d\gls{funM}^*_{++}}{dr}(r) - \frac{d\gls{funM}^*_{+-}}{dr}(r) \right) +
+    \gls{dst}_- \gls{area}_{\gls{roi}} \left( \frac{d\gls{funM}^*_{--}}{dr}(r) - \frac{d\gls{funM}^*_{-+}}{dr}(r) \right)
+  }
+\end{equation}
+
+\begin{equation}\label{eq:analysis-functions-Gs}
+  \define{
+    \gls{funGs}^*
+  }{
+    \gls{setR}_+
+  }{
+    \gls{setR}
+  }{
+    r
+  }{
+    \gls{dst}_+ \gls{area}_{\gls{roi}} \left( \frac{d\gls{funM}^*_{++}}{dr}(r) + \frac{d\gls{funM}^*_{+-}}{dr}(r) \right) +
+    \gls{dst}_- \gls{area}_{\gls{roi}} \left( \frac{d\gls{funM}^*_{--}}{dr}(r) + \frac{d\gls{funM}^*_{-+}}{dr}(r) \right)
+  }
+\end{equation}
+
+\newpage
+
+\bigfig{fig:GaGs-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_GaGs_GBB}{\gls{funGa} and \gls{funGs} on \gls{rdd}}%
+
+The new function \gls{funGa} leads to a reformulation of the total energy per unit length stored in the \gls{roi} in equation \eqref{eq:total-energy-continuous}.
+The calculation can be conducted differently depending on the edge consideration * chosen.
+
+\begin{equation}\label{eq:total-energy-continuous}
+  \gls{totnrg}^* =
+    \gls{dst} \gls{area}_{\gls{roi}} \gls{slfnrg}^* + \frac{1}{2} |\gls{vecb}|^2 \int_{r} \gls{funGa}^* (r) \gls{expval} \left( \gls{inttrm}^* (r, \phi) \right) dr
+\end{equation}
+
+\subsection{Closed-form expressions}
+
+In this section are proposed closed-form expressions for the analysis functions and the stored energy per unit length \gls{totnrg}.
+The expressions of the self and interaction energy per unit length \gls{slfnrg} and \gls{intnrg} of dislocations can be found in the literature \cite{ES1951} \cite{N1967} \cite{HB2011}.
+Let \gls{shrmod} be the \glsdesc{shrmod}, \( r_0 \) the core radius, \gls{pssrat} the \glsdesc{pssrat} and \( \varphi \) is the angle between the Burgers vector \gls{vecb} of a dislocation and the position of the second dislocation of the interacting pair.
+The force exerted by a dislocation 1 on a dislocation 2 is given in equation \eqref{eq:force}.
+
+\medskip
+
+\begin{equation}\label{eq:force}
+  \vec{F}_{12} =
+    \begin{cases}
+      \gls{vecb}_1 \cdot \gls{vecb}_2 \frac{\gls{shrmod}}{2 \pi r} \ur
+      & \text{for screw dislocations}
+      \\[0.3cm]
+      \gls{vecb}_1 \cdot \gls{vecb}_2 \frac{\gls{shrmod}}{2 \pi r (1 - \gls{pssrat})} \left( \ur + \sin \left( 2 \varphi \right) \uphi \right)
+      & \text{for edge dislocations}
+    \end{cases}
+\end{equation}
+
+\bigfig{fig:forces}{insert/expressions}{forces}{Force exerted between dislocations of type screw and edge}%
+
+\newpage
+
+Let \( \mathcal{B}_{\gls{roi}} \) be the the function that gives the expected value of the intersection of the \gls{roi} with a neighbohood \( \gls{nbh}(x, y, r) \) of radius \( r \) around a point \( ( x, y ) \) randomly chosen in the \gls{roi}.
+Let \( S_{\gls{roi}} \) be the side of the \gls{roi} for square geometries and \( R_{\gls{roi}} \) be its radius for circular geometries.
+The definition of \( \mathcal{B}_{\gls{roi}} \) in equation \eqref{eq:function-B} uses \( \gls{expval} \left( \cirsqr \right) \) and \( \gls{expval} \left( \circir \right) \) defined in equation \eqref{eq:mean-circle-circle-intersection} and \eqref{eq:mean-circle-square-intersection}.
+
+\begin{equation}\label{eq:function-B}
+  \mathcal{B}_{\gls{roi}}(r) =
+    \gls{expval} \left( \gls{area}_{\gls{roi} \cap \gls{nbh}(X, Y, r)} \right) =
+    \begin{cases}
+      \gls{expval} \left( \cirsqr(r, S_{\gls{roi}}, X, Y) \right)
+      & \text{for square geometry} \\
+      \gls{expval} \left( \circir(r, R_{\gls{roi}}, D) \right)
+      & \text{for circular geometry} \\
+    \end{cases}
+\end{equation}
+
+\bigskip
+
+The self-energy per unit length \gls{slfnrg} of a dislocation, stored outside the core, is given by integration over the region of interest.
+The strain energy per unit volume is one-half the product of stress times strain for each component.
+For the edge consideration \gls{woa} it is used a cylindrical shell of radius \( r \) and surface \( 2 \pi r dr \) in equation \eqref{eq:self-energy-woa}.
+With \gls{nec} in equation \eqref{eq:self-energy-nec}, the area of the cylindrical shell is expressed with \( \mathcal{B}_{\gls{roi}} \) to correspond to the area actually included in the \gls{roi}.
+
+\begin{equation}
+  \gls{slfnrg} =
+    \int \frac{1}{2} \sum_i \sum_k \sigma_i e_k d\gls{area}
+\end{equation}
+
+\begin{align}
+  \gls{slfnrg}^{\gls{woa}} &=
+    \int_{r=r_0}^{R_{\gls{roi}}} \frac{2 \gls{shrmod}}{1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat}} \left( \frac{| \gls{vecb} |}{4 \pi r} \right)^2 2 \pi r dr
+    \label{eq:self-energy-woa}
+  \\
+  \gls{slfnrg}^{\gls{nec}} &=
+    \int_{r=r_0}^{+\infty} \frac{2 \gls{shrmod}}{1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat}} \left( \frac{| \gls{vecb} |}{4 \pi r} \right)^2 \frac{d \mathcal{B}_{\gls{roi}}}{dr} (r) dr
+    \label{eq:self-energy-nec}
+\end{align}
+
+\bigskip
+
+The interaction enegy per unit length \gls{intnrg} between two dislocations is defined in equation \eqref{eq:interaction-energy} as the work done by displacing the dislocation 2 from the border of the \gls{roi} to its current location is the presence of the stress field of the dislocation 1.
+
+\begin{equation}\label{eq:interaction-energy}
+  \gls{intnrg} =
+  \left( \gls{vecb}_1 \cdot \gls{vecb}_2 \right) \gls{inttrm}(r, \varphi) =
+  - \int \vec{F}_{1 2} \cdot \ux dx
+\end{equation}
+
+\begin{align}
+  \gls{inttrm}^{\gls{woa}} &=
+    - \frac{\gls{shrmod}}{2 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \int \frac{1}{r} dr - \gls{indfun}_{\mathrm{edge}} r^2 \cos \left( 2 \varphi \right) \int \frac{1}{r^3} dr \right)
+    \label{eq:interaction-term-woa}
+  \\
+  \gls{inttrm}^{\gls{nec}} &=
+    - \frac{\gls{shrmod}}{2 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \int \frac{1}{r} \frac{1}{2 \pi r} \frac{d \mathcal{B}_{\gls{roi}}}{dr} (r) dr - \gls{indfun}_{\mathrm{edge}} r^2 \cos \left( 2 \varphi \right) \int \frac{1}{r^3} \frac{1}{2 \pi r} \frac{d \mathcal{B}_{\gls{roi}}}{dr} (r) dr \right)
+    \label{eq:interaction-term-nec}
+\end{align}
+
+\bigskip
+
+In \gls{rdd} and \gls{rrdd} there is no reason why there should be a favored direction in the relative location of dislocations.
+This leads to the final formulation of the interaction term in equations \eqref{eq:average-interaction-term-woa} and \eqref{eq:average-interaction-term-nec}.
+
+\begin{align}
+  \gls{expval} \left( \gls{inttrm}^{\gls{woa}}(r, \phi) \right) &=
+    \frac{\gls{shrmod}}{2 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{R_{\gls{roi}}}{r} \right)
+    \label{eq:average-interaction-term-woa}
+  \\
+  \gls{expval} \left( \gls{inttrm}^{\gls{nec}}(r, \phi) \right) &=
+    \frac{\gls{shrmod}}{2 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \int_{x=r}^{+ \infty} \frac{1}{2 \pi x^2} \frac{d \mathcal{B}_{\gls{roi}}}{dx} (x) dx
+    \label{eq:average-interaction-term-nec}
+\end{align}
+
+\medskip
+
+Finally, the total energy per unit length stored in the \gls{roi} is given in equations \eqref{eq:total-energy-woa} and \eqref{eq:total-energy-nec} for edge consideration \gls{woa} and \gls{nec}.
+
+\begin{align}
+  \gls{totnrg}^{\gls{woa}} &=
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \gls{dst} \gls{area}_{\gls{roi}} \ln \left( \frac{R_{\gls{roi}}}{r_0} \right) + \int_{r=r_0}^{R_{\gls{roi}}} \gls{funGa}^{\gls{woa}} (r) \ln \left( \frac{R_{\gls{roi}}}{r} \right) dr \right)
+    \label{eq:total-energy-woa}
+  \\
+  \gls{totnrg}^{\gls{nec}} &=
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \gls{dst} \gls{area}_{\gls{roi}} \int_{r=r_0}^{+\infty} \frac{1}{2 \pi r^2} d \mathcal{B}_{\gls{roi}}(r) + \int_{r=r_0}^{+\infty} \gls{funGa}^{\gls{nec}} (r) \int_{x=r}^{+\infty} \frac{1}{2 \pi x^2} d \mathcal{B}_{\gls{roi}}(x) dr \right)
+    \label{eq:total-energy-nec}
+\end{align}
+
+\subsubsection{\glsentrytext{rdd}}
+
+The equations \eqref{eq:M-RDD-NEC}, \eqref{eq:M-RDD-WOA} and \eqref{eq:M-RDD-GBB} give the expression of \( \gls{funM}_{\alpha \beta} \) in \gls{rdd} for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb}.
+From these expressions it is possible to establish the expressions of the other analysis functions according to their definitions in section \ref{sec:analysis-functions}.
+In general, \( \gls{funM}_{\alpha \alpha} \) is not equal to \( \gls{funM}_{\alpha \beta} \) because the dislocation from which we look must be subtracted from the dislocations potentially observed.
+
+\begin{align}
+  \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) &=
+    \left( \frac{\gls{dst}}{2} - \frac{\gls{indfun}_{\alpha = \beta}}{\gls{area}_{\gls{roi}}} \right) \mathcal{B}_{\gls{roi}}(r)
+    \label{eq:M-RDD-NEC}
+  \\[3mm]
+  \gls{funM}_{\alpha \beta}^{\gls{woa}} (r) &=
+    \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) \frac{\gls{area}_{\gls{nbh}(r)}}{\mathcal{B}_{\gls{roi}}(r)}
+    \label{eq:M-RDD-WOA}
+  \\[3mm]
+  \gls{funM}_{\alpha \beta}^{\gls{gbb}} (r) &=
+    \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) + \frac{\gls{dst}}{2} \left( \gls{area}_{\gls{nbh}(r)} - \mathcal{B}_{\gls{roi}}(r) \right)
+    \label{eq:M-RDD-GBB}
+\end{align}
+
+\bigskip
+
+\figref{fig:RDD-g-NEC}, \figref{fig:RDD-g-WOA} and \figref{fig:RDD-g-GBB} show the function \( \gls{fung}_{\alpha \beta} \) for the different edge consideration and compare the simulation results to the closed-form expressions obtained from equations \eqref{eq:M-RDD-NEC}, \eqref{eq:M-RDD-WOA} and \eqref{eq:M-RDD-GBB}.
+
+\smallfig{fig:RDD-g-NEC}{insert/expressions/plots}{square_RDD_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rdd}}%
+\smallfig{fig:RDD-g-WOA}{insert/expressions/plots}{square_RDD_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rdd}}%
+\smallfig{fig:RDD-g-GBB}{insert/expressions/plots}{square_RDD_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rdd}}%
+
+\bigskip \bigskip
+
+Equations \eqref{eq:Ga-RDD-NEC-GBB} and \eqref{eq:Ga-RDD-WOA} give the expression of \gls{funGa} and \figref{fig:RDD-Ga-NEC}, \figref{fig:RDD-Ga-WOA} and \figref{fig:RDD-Ga-GBB} compare the simulation results to the closed-form expressions.
+
+\begin{align}
+  \gls{funGa}^{\gls{nec}} (r) =
+  \gls{funGa}^{\gls{gbb}} (r) &=
+    - \gls{dst} \frac{d \mathcal{B}_{\gls{roi}}}{dr}(r)
+    \label{eq:Ga-RDD-NEC-GBB}
+  \\[3mm]
+  \gls{funGa}^{\gls{woa}} (r) &=
+    - \gls{dst} 2 \pi r
+    \label{eq:Ga-RDD-WOA}
+\end{align}
+
+\smallfig{fig:RDD-Ga-NEC}{insert/expressions/plots}{square_RDD_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rdd}}%
+\smallfig{fig:RDD-Ga-WOA}{insert/expressions/plots}{square_RDD_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rdd}}%
+\smallfig{fig:RDD-Ga-GBB}{insert/expressions/plots}{square_RDD_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rdd}}%
+
+\bigskip \bigskip
+
+With equation \eqref{eq:Ga-RDD-WOA} and \eqref{eq:total-energy-woa} it is possible to give a simple expression of the energy for the edge consideration \gls{woa}.
+The effective cut-off radius is given in equation \eqref{eq:cut-rad-rdd}.
+The latter is proportional to \( R_{\gls{roi}} \).
+As shown in \figref{fig:circle-RDD-energy-WOA}, \figref{fig:circle-RDD-energy-NEC} and \figref{fig:square-RDD-energy-NEC} the total energy per unit volume is divergent.
+
+\begin{equation}
+  \gls{totnrg}^{\gls{woa}} =
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \gamma} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
+    \ \underset{\frac{r_0}{R_{\gls{roi}}} \rightarrow 0}{\sim} \
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \gamma} \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right)
+\end{equation}
+
+\begin{equation}\label{eq:cut-rad-rdd}
+\gls{cutrad}^{\gls{woa}} = \frac{R_{\gls{roi}}}{\sqrt{e}}
+\end{equation}
+
+\smallfig{fig:circle-RDD-energy-WOA}{insert/expressions/plots}{circle_RDD_energy_WOA}{\gls{woa} circle \gls{rdd}}%
+\smallfig{fig:circle-RDD-energy-NEC}{insert/expressions/plots}{circle_RDD_energy_NEC}{\gls{nec} circle \gls{rdd}}%
+\smallfig{fig:square-RDD-energy-NEC}{insert/expressions/plots}{square_RDD_energy_NEC}{\gls{nec} square \gls{rdd}}%
+
+\subsubsection{\glsentrytext{rrdd}}
+
+Here is presented the method for finding the closed-form expression of the energy stored in the distributions of type \gls{rrdde} and \gls{rrddr}.
+Let \( s \) be the side of the subareas and \( \mathcal{Z} \) the set of subareas in the \gls{roi}.
+To calculate the number of dislocations with sense \( \beta \) around dislocations with sense \( \alpha \) within a radius \( r \), one must start by placing oneself on one of the dislocations with sense \( \alpha \).
+Let \( (x, y) \) be the position of the selected dislocation relative to the lower left corner of the subarea \( \zeta \in \mathcal{Z} \) in which it is located.
+Let \( \gls{nbh}(x, y, r) \) be a neighbohood of radius \( r \) centered in \( (x, y) \).
+
+\bigfig{fig:overlapping:rrdd}{insert/overlapping}{rrdd}{Selected dislocation in the subarea \( \zeta \) and its neighborhood.}
+
+Let \( \tau_{\alpha \beta} \) be the number of dislocations with Burgers vector sense \( \beta \) that can be observed in a subarea \( Z \) by a dislocation with Burgers vector sense \( \alpha \) outside \( Z \).
+Let \( \eta_{\alpha \beta} \) be the number of dislocations with sense \( \beta \) that can be observed in a subarea \( Z \) by a dislocation with sense \( \alpha \) inside \( Z \).
+Let \( f \) be the number of dislocations in a subarea.
+The position of the chosen dislocation of sense \( \alpha \) is random in a subarea.
+\( X \) and \( Y \) follow a continuous uniform distribution law \( U(0, s) \).
+
+\newpage
+
+The function \( \gls{funM}_{\alpha \beta} \) can be expressed as a sum of the contributions of the intersection of each subarea \( Z \) with the neighborhood \( \gls{nbh}(x, y, r) \) in equation \eqref{eq:RRDD-M}.
+It is the expression \eqref{eq:RRDD-M-easy} that will be easiest to use.
+
+\begin{align}
+  \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) &=
+    \gls{expval} \left( \eta_{\alpha \beta} \frac{\gls{area}_{\zeta \cap \gls{nbh}(X, Y, r)}}{\gls{area}_\zeta} + \sum_{Z \in \mathcal{Z} \neq \zeta} \tau_{\alpha \beta} \frac{\gls{area}_{Z \cap \gls{nbh}(X, Y, r)}}{\gls{area}_Z} \right)
+    \label{eq:RRDD-M}
+  \\[3mm]
+  &=
+    \gls{expval} \left( \left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \frac{\gls{area}_{\zeta \cap \gls{nbh}(X, Y, r)}}{\gls{area}_\zeta} + \tau_{\alpha \beta} \sum_{Z \in \mathcal{Z}} \frac{\gls{area}_{Z \cap \gls{nbh}(X, Y, r)}}{\gls{area}_Z} \right)
+  \\[3mm]
+  &=
+    \frac{1}{s^2} \left( \left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \gls{expval} \left( \cirsqr(r, s, X, Y) \right) + \tau_{\alpha \beta} \gls{expval} \left( \sum_{Z \in \mathcal{Z}} \gls{area}_{Z \cap \gls{nbh}(X, Y, r)} \right) \right)
+    \label{eq:RRDD-M-easy}
+\end{align}
+
+\medskip
+
+From equation \eqref{eq:RRDD-M-easy} it is possible to define \( \gls{funM}_{\alpha \beta} \) for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb} in equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA} and \eqref{eq:RRDD-M-GBB}.
+
+\begin{align}
+  \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) &=
+    \frac{\left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \gls{expval} \left( \cirsqr(r, s, X, Y) \right) + \tau_{\alpha \beta} \mathcal{B}_{\gls{roi}}(r)}{s^2}
+    \label{eq:RRDD-M-NEC}
+  \\[0.1cm]
+  \gls{funM}^{\gls{woa}}_{\alpha \beta} (r) &=
+    \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) \frac{\gls{area}_{\gls{nbh}(r)}}{\mathcal{B}_{\gls{roi}}(r)}
+    \label{eq:RRDD-M-WOA}
+  \\[0.1cm]
+  \gls{funM}^{\gls{gbb}}_{\alpha \beta} (r) &=
+    \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) + \frac{\gls{dst}}{2} \left( \gls{area}_{\gls{nbh}(r)} - \mathcal{B}_{\gls{roi}}(r) \right)
+    \label{eq:RRDD-M-GBB}
+\end{align}
+
+\subsubsection{\glsentrytext{rrdde}}
+
+The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrdde} are given in equation \eqref{eq:tau-rrdde} and \eqref{eq:eta-rrdde}.
+The latter are not equal because the dislocation from which we look must be subtracted from the dislocations potentially observed within the subarea.
+
+\begin{align}
+  \tau_{\alpha \beta} &=
+    \frac{f}{2}
+    \label{eq:tau-rrdde}
+  \\[3mm]
+  \eta_{\alpha \beta} &=
+    \frac{f}{2} - \gls{indfun}_{\alpha = \beta}
+    \label{eq:eta-rrdde}
+\end{align}
+
+\bigskip
+
+From equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA}, \eqref{eq:RRDD-M-GBB} \eqref{eq:tau-rrdde}, \eqref{eq:eta-rrdde} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
+The closed form of the latter is compared to simulation results in \figref{fig:RRDD-E-g-NEC}, \figref{fig:RRDD-E-g-WOA} and \figref{fig:RRDD-E-g-GBB}.
+
+\smallfig{fig:RRDD-E-g-NEC}{insert/expressions/plots}{square_RRDD-E_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rrdde}}%
+\smallfig{fig:RRDD-E-g-WOA}{insert/expressions/plots}{square_RRDD-E_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rrdde}}%
+\smallfig{fig:RRDD-E-g-GBB}{insert/expressions/plots}{square_RRDD-E_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rrdde}}%
+
+\newpage
+
+\figref{fig:RRDD-E-Ga-NEC}, \figref{fig:RRDD-E-Ga-WOA} and \figref{fig:RRDD-E-Ga-GBB} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:Ga-RRDDE-NEC-GBB} and \eqref{eq:Ga-RRDDE-WOA}.
+
+\begin{align}
+  \gls{funGa}^{\gls{nec}} (r) =
+  \gls{funGa}^{\gls{gbb}} (r) &=
+    - \frac{\gls{dst} \gls{area}_{\gls{roi}}}{s^2} \frac{d \gls{expval} \left( \cirsqr(r, s, X, Y) \right)}{dr}
+    \label{eq:Ga-RRDDE-NEC-GBB}
+  \\[3mm]
+  \gls{funGa}^{\gls{woa}} (r) &=
+    - \frac{\gls{dst} \gls{area}_{\gls{roi}}}{s^2} \frac{d}{dr} \left( \frac{\gls{expval} \left( \cirsqr(r, s, X, Y) \right) \pi r^2}{ \mathcal{B}_{\gls{roi}}(r)} \right)
+    \label{eq:Ga-RRDDE-WOA}
+\end{align}
+
+\smallfig{fig:RRDD-E-Ga-NEC}{insert/expressions/plots}{square_RRDD-E_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rrdde}}%
+\smallfig{fig:RRDD-E-Ga-WOA}{insert/expressions/plots}{square_RRDD-E_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rrdde}}%
+\smallfig{fig:RRDD-E-Ga-GBB}{insert/expressions/plots}{square_RRDD-E_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rrdde}}%
+
+\bigskip
+
+\figref{fig:circle-RRDD-E-energy-WOA} to \figref{fig:energy-3D-NEC} show the behavior of the total energy stored per unit volume. It seems to depend little on \gls{cutrad} but more on \( s \).
+
+\smallfig{fig:circle-RRDD-E-energy-WOA}{insert/expressions/plots}{circle_RRDD-E_energy_WOA}{\gls{woa} circle \gls{rrdde}}%
+\smallfig{fig:circle-RRDD-E-energy-NEC}{insert/expressions/plots}{circle_RRDD-E_energy_NEC}{\gls{nec} circle \gls{rrdde}}%
+\smallfig{fig:square-RRDD-E-energy-NEC}{insert/expressions/plots}{square_RRDD-E_energy_NEC}{\gls{nec} square \gls{rrdde}}%
+
+\medfig{fig:energy-3D-WOA}{insert/expressions/plots}{circle_energy3D_WOA}{\gls{woa} circle \gls{rrdde}}%
+\medfig{fig:energy-3D-NEC}{insert/expressions/plots}{circle_energy3D_WOA}{\gls{nec} circle \gls{rrdde}}%
+
+\subsubsection{\glsentrytext{rrddr}}
+
+The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrddr} can be obtained by enumeration.
+In equations \eqref{eq:tau-rrddr} and \eqref{eq:eta-rrddr}, \( i \) is the number of dislocation with Burgers vector sense \( \beta \) in the observed subarea.
+
+\begin{align}
+  \tau_{\alpha \beta} &=
+    \begin{cases}
+      \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} \left( \frac{\gls{dst}}{2} \gls{area}_{\gls{roi}} - i \right) \frac{s^2}{\gls{area}_{\gls{roi}} - s^2} & \text{for } \alpha = \beta \\[4mm]
+      \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} \left( \frac{\gls{dst}}{2} \gls{area}_{\gls{roi}} - (f - i) \right) \frac{s^2}{\gls{area}_{\gls{roi}} - s^2} & \text{for } \alpha \neq \beta
+    \end{cases}
+    \label{eq:tau-rrddr}
+  \\[3mm]
+  \eta_{\alpha \beta} &=
+    \begin{cases}
+      \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} (i - 1)
+      & \text{for } \alpha = \beta \\[4mm]
+      \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} (f - 1)
+      & \text{for } \alpha \neq \beta
+    \end{cases}
+    \label{eq:eta-rrddr}
+\end{align}
+
+\medskip
+
+The expression of \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) can be simplified in equations \eqref{eq:tau-rrddr-simplified} and \eqref{eq:eta-rrddr-simplified}.
+
+\begin{align}
+  \tau_{\alpha \beta} &=
+    \frac{1}{2} \frac{s^2}{\gls{area}_{\gls{roi}}-s^2} \left( \gls{dst} \gls{area}_{\gls{roi}} - f + (-1)^{\gls{indfun}_{\alpha = \beta}} \right)
+    \label{eq:tau-rrddr-simplified}
+  \\[3mm]
+  \eta_{\alpha \beta} &=
+    \frac{f-1}{2}
+    \label{eq:eta-rrddr-simplified}
+\end{align}
+
+\medskip
+
+From equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA}, \eqref{eq:RRDD-M-GBB} \eqref{eq:tau-rrddr-simplified}, \eqref{eq:eta-rrddr-simplified} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
+The closed form of the latter is compared to simulation results in \figref{fig:RRDD-R-g-NEC}, \figref{fig:RRDD-R-g-WOA} and \figref{fig:RRDD-R-g-GBB}.
+
+\smallfig{fig:RRDD-R-g-NEC}{insert/expressions/plots}{square_RRDD-R_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rrddr}}%
+\smallfig{fig:RRDD-R-g-WOA}{insert/expressions/plots}{square_RRDD-R_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rrddr}}%
+\smallfig{fig:RRDD-R-g-GBB}{insert/expressions/plots}{square_RRDD-R_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rrddr}}%
+
+\bigskip
+
+\figref{fig:RRDD-R-Ga-NEC}, \figref{fig:RRDD-R-Ga-WOA} and \figref{fig:RRDD-R-Ga-GBB} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:Ga-RRDDR-NEC-GBB} and \eqref{eq:Ga-RRDDR-NEC-GBB}.
+
+\begin{align}
+  \gls{funGa}^{\gls{nec}} (r) =
+  \gls{funGa}^{\gls{gbb}} (r) &=
+    \frac{\gls{dst} \gls{area}_{\gls{roi}}}{ \gls{area}_{\gls{roi}} - s^2} \frac{d}{dr} \left( \gls{expval} \left( \cirsqr(r, s, X, Y) \right) - \mathcal{B}_{\gls{roi}} (r) \right)
+    \label{eq:Ga-RRDDR-NEC-GBB}
+  \\[3mm]
+  \gls{funGa}^{\gls{woa}} (r) &=
+    \frac{\gls{dst} \gls{area}_{\gls{roi}}}{ \gls{area}_{\gls{roi}} - s^2} \frac{d}{dr} \left( \frac{\gls{expval} \left( \cirsqr(r, s, X, Y) \right)}{\mathcal{B}_{\gls{roi}}(r)} - \pi r^2 \right)
+    \label{eq:Ga-RRDDR-WOA}
+\end{align}
+
+\smallfig{fig:RRDD-R-Ga-NEC}{insert/expressions/plots}{square_RRDD-R_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rrddr}}%
+\smallfig{fig:RRDD-R-Ga-WOA}{insert/expressions/plots}{square_RRDD-R_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rrddr}}%
+\smallfig{fig:RRDD-R-Ga-GBB}{insert/expressions/plots}{square_RRDD-R_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rrddr}}%
+
+\bigskip
+
+\figref{fig:circle-RRDD-R-energy-WOA}, \figref{fig:circle-RRDD-R-energy-NEC} and \figref{fig:square-RRDD-R-energy-NEC} show the behavior of the total energy stored per unit volume. It does not diverge.
+
+\smallfig{fig:circle-RRDD-R-energy-WOA}{insert/expressions/plots}{circle_RRDD-R_energy_WOA}{\gls{woa} circle \gls{rrddr}}%
+\smallfig{fig:circle-RRDD-R-energy-NEC}{insert/expressions/plots}{circle_RRDD-R_energy_NEC}{\gls{nec} circle \gls{rrddr}}%
+\smallfig{fig:square-RRDD-R-energy-NEC}{insert/expressions/plots}{square_RRDD-R_energy_NEC}{\gls{nec} square \gls{rrddr}}%
+
+\newpage
+
+\subsection{Program}
+
+The first program concerns everything that happens before the X-ray diffraction simulation.
+It has notably allowed the generation of the previous figures with the corresponding scripts.
+What is called \textit{input data} is what is transmitted to the X-ray diffraction simulation program (it is not the input of the current program).
+
+\subsubsection{Repository}
+
+Useful information can be found on the project page: \github{lpa-input}
+
+\subsubsection{Installation}
+
+The program can be installed or updated with the following command:
+
+\pipinstall{lpa-input}
+
+\subsubsection{Input data}
+
+The structure of the input data is shown in the sample file below.
+In the header are indications for the simulation program and below the positions and Burgers vector of the generated dislocations.
+A file of this kind can be written for each randomly generated distribution.
+The files resulting from the same set of generation parameter (\gls{roi} shape, distribution model, variant, density...) are called \textit{sample} and can be grouped in a directory.
+Then, in the following programs, the analysis will be performed on the files of this sample and the results will be averaged to obtain representative data associated with the starting parameters.
+
+\txtlst{insert/input}{input\_data\_structure.txt}

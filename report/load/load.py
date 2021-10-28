@@ -68,7 +68,7 @@ for i in range(len(readst)):
                 stmlstmap[dismodord.index(dismod)][i].append(stm)
     for stm in os.listdir(impdirana[i]):
         for dismod in dismodord:
-            if dismod in stm:
+            if dismod in stm and not 'txt' in stm:
                 if 'KKKK' in stm:
                     stmlstanK[dismodord.index(dismod)][i].append(stm)
                 elif 'gggg' in stm:

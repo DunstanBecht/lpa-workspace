@@ -1,0 +1,54 @@
+% Date format
+\renewcommand{\dateseparator}{--}
+
+% Header and footer
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{Ecole Nationale Supérieure des Mines de Saint-Etienne}
+\fancyhead[C]{}
+\fancyhead[R]{\hyperref[contents]{Internship Technical Report}}
+\fancyfoot[L]{Dunstan Becht}
+\fancyfoot[C]{}
+\fancyfoot[R]{Page \thepage \ of \pageref*{LastPage}}
+
+% Fonts
+\renewcommand{\familydefault}{\sfdefault}
+
+% Colors
+\definecolor{Grey}{RGB}{058, 058, 058}
+\definecolor{Red}{RGB}{255, 050, 050}
+\definecolor{Green}{RGB}{000, 153, 000}
+\definecolor{Blue}{RGB}{000, 085, 184}
+\definecolor{Yellow}{RGB}{255, 213, 000}
+
+% Code listings
+\tcbset{colback=white, coltext=black, colframe=Grey, boxrule=0.06cm}
+\lstset{basicstyle=\normalsize\ttfamily,
+        keywordstyle=\color{Green},
+        stringstyle=\color{Red},
+        identifierstyle=\color{Blue},
+        commentstyle=\color{Red},
+        showstringspaces=false}
+
+% Lists
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=*}
+\setitemize[1]{label=\( \bullet \), leftmargin=*}
+\setitemize[0]{label=\( \circ \), leftmargin=*}
+
+% Bibliography
+\addbibresource{input/references.bib}
+
+% Glossaries
+\makenoidxglossaries
+\newglossary*{dismod}{Distribution models}
+\newglossary*{fitmod}{Fit models}
+\newglossary*{bdrcdn}{Boundary conditions}
+\newglossary*{fltrep}{Filters and representations}
+\newglossary*{genmat}{General mathematics}
+\newglossary*{pbmphy}{Problem physics}
+\newglossary*{anafun}{Analysis functions}
+
+% Maths
+\everymath{\displaystyle}

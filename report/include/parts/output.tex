@@ -1,0 +1,337 @@
+\section{Output}
+
+The simulation program gives the coefficients \gls{frrcfa} and \gls{frrcfb} of the Fourier transform of \gls{difint}.
+It is then possible to calculate the latter for each harmonic \gls{hmc} and value of \gls{frrvar} by averaging the coefficients over all the simulation outputs from the same set of starting parameters.
+
+\begin{equation}\label{eq:fourier-amplitude}
+  \gls{frrtrf}(\gls{frrvar}) =
+    \hat{\gls{expval}} \left( \gls{frrcfa}(\gls{frrvar}) \right) + i \times \hat{\gls{expval}} \left( \gls{frrcfb}(\gls{frrvar}) \right)
+\end{equation}
+
+\medskip
+
+\gls{frrtrf} is complex.
+It is either its module or its real part that will be used.
+The functions can be represented according to two methods as shown in \figref{fig:output:rdd-example}.
+In \gls{r1} the functions are represented in logarithmic scale as a function of \gls{frrvar}.
+In \gls{r2} the functions are represented through the transformation \( \ln\left( \cdot \right) / \gls{frrvar}^2 \) as a function of \gls{frrvar} in logarithmic scale.
+With \gls{r2} a linear behavior can be observed for the asymptotic values of \gls{frrvar}.
+
+\bigfig{fig:output:rdd-example}{insert/output}{100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output}{Simulation output of \gls{rdd}}
+
+The example shown in \figref{fig:output:rdd-example} can be exported with the following script.
+
+\pyscript{insert/output}{plot.py}
+
+\bigskip
+
+For the rest it is defined the orthonormal basis \( \left( \ux, \uy, \uz \right) \) as follow.
+\uz \ gives the direction of the dislocation line vectors \gls{vecl}.
+\ux \ gives the direction of the vector associated with the Fourier variable \gls{frrvar}.
+And \( \uy = \uz \times \ux \).
+
+\subsection{Fit models}
+
+To determine the density \gls{dst} and the outer cut-off radius \gls{cutrad}, the theoretical models at our disposal are fitted to the simulation results.
+These models are presented here.
+It is first defined some quantities that will be common to the models.
+\( k \) can be compared to the directing coefficient of the linear part in \gls{r2} in \figref{fig:output:rdd-example}.
+\( \psi \) is the angle between \gls{vecg} and \gls{vecl}.
+\gls{pssrat} is the \glsdesc{pssrat}.
+\( \gamma \) is the angle between the projections of \gls{vecg} and \gls{vecb} in the plane orthogonal to \gls{vecl}.
+Finally \gls{confac} is the contrast factor defined for edge and screw dislocations in elastically isotropic crystals.
+
+\begin{equation}
+  k =
+    \frac{\pi}{2} | \gls{hmc} \gls{vecg} |^2 | \gls{vecb} |^2 \gls{confac} \gls{dst}
+\end{equation}
+
+\begin{equation}
+  \psi =
+    \angle \left( \gls{vecg}, \gls{vecl} \right)
+\end{equation}
+
+\begin{equation}
+  \gamma = \angle \left(
+    \gls{vecg} - \left( \gls{vecg} \cdot \uz \right) \uz,
+    \gls{vecb} - \left( \gls{vecb} \cdot \uz \right) \uz
+    \right)
+\end{equation}
+
+\begin{equation}\label{eq:contrast-factor}
+  \gls{confac}_\mathrm{edge} =
+    \begin{cases}
+      \sin^4 \psi \frac{1}{8(1-\nu)^2} \left( 1 - 4 \nu + 8 \nu^2 + 4 (1 - 2 \nu) \cos^2 \gamma \right)
+      & \text{for edge dislocations} \\[3mm]
+      \sin^2 \psi \cos^2 \psi
+      & \text{for screw dislocations}
+    \end{cases}
+\end{equation}
+
+\subsubsection{\glsentrytext{guw1}}
+
+Equation \eqref{eq:guw1} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{guw1} \cite{GUW1988} \cite{SGL2001}.
+Compared to the original proposal, \( \langle \gls{dst}^2 \rangle - \langle \gls{dst} \rangle^2 \) has been simplified to \( \delta \gls{dst} \) with \( \delta \) a coefficient quantifying the density fluctuation and \( \ln(\gls{frrvar}/R_1) \ln(\gls{frrvar}/R_2) \) has been simplified to \( (\ln(\gls{frrvar}/R_0))^2 \).
+
+\begin{equation}
+  \define{
+    \gls{guw1}_{\gls{hmc}}
+  }{
+    \gls{setR}^*
+  }{
+    \gls{setR}
+  }{
+    \gls{frrvar}
+  }{
+    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+  }
+  \label{eq:guw1}
+\end{equation}
+
+\begin{equation}
+  D_{\gls{hmc}}(\gls{frrvar}) =
+    k \left( \ln \left( \frac{\gls{frrvar}}{\gls{cutrad}} \right) + \frac{\delta}{2} k \gls{frrvar}^2 \left( \ln\left( \frac{\gls{frrvar}}{R_0} \right) \right)^2 \right)
+\end{equation}
+
+\subsubsection{\glsentrytext{guw2}}
+
+Equation \eqref{eq:guw2} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{guw2} \cite{GUW1988}.
+
+\begin{equation}
+  \define{
+    \gls{guw2}_{\gls{hmc}}
+  }{
+    \gls{setR}^*
+  }{
+    \gls{setR}
+  }{
+    \gls{frrvar}
+  }{
+    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+  }
+  \label{eq:guw2}
+\end{equation}
+
+\begin{equation}
+  D_{\gls{hmc}}(\gls{frrvar}) =
+    k \left( \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) \right)
+\end{equation}
+
+\subsubsection{\glsentrytext{w1}}
+
+Equation \eqref{eq:w1} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{w1} \cite{W1970}.
+
+\begin{equation}
+  \define{
+    \gls{w1}_{\gls{hmc}}
+  }{
+    \gls{setR}^*
+  }{
+    \gls{setR}
+  }{
+    \gls{frrvar}
+  }{
+    W_{\gls{hmc}}^S(\gls{frrvar}) W_{\gls{hmc}}^D(\gls{frrvar})
+  }
+  \label{eq:w1}
+\end{equation}
+
+\begin{align}
+  W_{\gls{hmc}}^S(\gls{frrvar}) &= 1 \\
+  W_{\gls{hmc}}^D(\gls{frrvar}) &= \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+\end{align}
+
+\begin{equation}
+  D_{\gls{hmc}}(\gls{frrvar}) =
+    - k f \left( \frac{1}{2e^\frac{1}{4}} \frac{\gls{frrvar}}{\gls{cutrad}} \right)
+\end{equation}
+
+\medskip
+
+\begin{equation}
+  f(\eta) =
+    \begin{cases}
+      - \ln(\eta) + \frac{7}{4} - \ln(2) + \frac{512}{90 \pi} \eta^{-1} \\[5mm]
+      + \frac{2}{\pi} \left( 1 - \frac{1}{4}\eta^{-2} \right) \int_0^\eta \frac{\arcsin(V)}{V} dV \\[5mm]
+      - \frac{1}{\pi} \left( \frac{769}{180} \eta^{-1} + \frac{41}{90} \eta + \frac{2}{90}\eta^3 \right) \sqrt{ 1 - \eta^2 }
+      & \forall \eta \leq 1 \\[1cm]
+      \frac{512}{90 \pi} \eta^{-1} - \left( \frac{11}{24} + \frac{1}{4} \ln(2) \eta \right) \eta^{-2}
+      & \forall \eta > 1
+    \end{cases}
+\end{equation}
+
+\subsubsection{\glsentrytext{w2}}
+
+Equation \eqref{eq:w2} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{w2} proposed by \textcite{KD2001}.
+
+\begin{equation}
+  \define{
+    \gls{w2}_{\gls{hmc}}
+  }{
+    \gls{setR}^*
+  }{
+    \gls{setR}
+  }{
+    \gls{frrvar}
+  }{
+    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+  }
+  \label{eq:w2}
+\end{equation}
+
+\begin{equation}
+  D_{\gls{hmc}}(\gls{frrvar}) =
+    k \left( \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) - 2 \ln(2) +\frac{1}{3} + \ln\left(|\sin(\psi) \gls{vecg} \cdot \gls{vecb}| \right) \right)
+\end{equation}
+
+\subsection{Fits}
+
+For each model, the fits are performed for each harmonic \gls{hmc} and for several maximum values of \gls{frrvar}.
+The Nelder–Mead method is used to find the minimum of the objective function.
+\figref{fig:fit:example:rdd} show a fit for a given \gls{hmc} and a given maximum value of \gls{frrvar}.
+
+\bigfig{fig:fit:example:rdd}{insert/fits/100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output_analysis/fits_plot_GUW2}{j1_118nm}{Fit of \gls{guw2} over \gls{rdd} output}
+
+\subsubsection{Filters}
+
+It has been developed two ways of choosing the maximum value of the maximum values of \gls{frrvar}.
+The first one, named \gls{f1}, aims at keeping only the relevant results and locates the point where \gls{frrtrf} becomes noise (i.e. when it is no longer decreasing).
+The second filter, named \gls{f2}, marks the end of the linearity zone of \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right) / \gls{frrvar}^2 \) as a function of \( \ln(\gls{frrvar}) \).
+Given the application assumptions of the models, the filter \gls{f1} is applied with \gls{w1} and \gls{f2} is applied with \gls{guw2} and \gls{w2}.
+Indeed \gls{guw2} and \gls{w2} are asymptotic models and \gls{w1} is supposed to describe the complete line profile for \gls{rrdd}.
+The purpose of these filters is therefore to apply the models to the intervals for which they are intended.
+
+\medfig{fig:filter-1}{insert/filters}{f1}{Example of filtering with \gls{f1}}%
+\medfig{fig:filter-2}{insert/filters}{f2}{Example of filtering with \gls{f2}}%
+
+\bigskip
+
+\gls{f1} stops at index \( i \) when equation \eqref{eq:filter-1} is not verified.
+In the same way \gls{f2} stops at index \( i \) when equation \eqref{eq:filter-2} is not verified.
+
+\begin{equation}\label{eq:filter-1}
+y_{i+1} < y_i
+\end{equation}
+
+\begin{equation}\label{eq:filter-2}
+\left| \frac{\hat{\gls{stddev}}_{\text{Linear regression of } \{ y_i \}_{j<i}}}{\max \left( \{ y_i \}_{j<i} \right) - \min \left( \{ y_i \}_{j<i} \right)} \right| < 0.01
+\end{equation}
+
+\subsubsection{Residuals}
+
+The models \gls{guw2} and \gls{w2} are fitted within the representation \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right)/L^2 \) as a function of \gls{frrvar} and the model \gls{w1} is fitted within the representation \( \gls{frrtrf}(\gls{frrvar}) \) as a function of \( \ln(\gls{frrvar}) \). Thus the residuals are defined in \eqref{eq:fit-residual-1} for \gls{w1} and in \eqref{eq:fit-residual-2} for \gls{guw2} and \gls{w2}.
+
+\begin{align}
+\hat{\epsilon}_i &=
+\gls{frrtrf}(\gls{frrvar}_i) - \gls{frrtrf}^{M}(\gls{frrvar}_i) \label{eq:fit-residual-1} \\
+\hat{\epsilon}_i &=
+\frac{\ln\left(\gls{frrtrf}(\gls{frrvar}_i)\right)}{\gls{frrvar}^2} -
+\frac{\ln\left(\gls{frrtrf}^{MOD}(\gls{frrvar}_i)\right)}{\gls{frrvar}^2} \label{eq:fit-residual-2}
+\end{align}
+
+\subsubsection{Weighting}
+The application of the logarithmic scale to the abscissa axis in the representation of \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right) / \gls{frrvar}^2 \) as a function of \( \ln(\gls{frrvar}) \) induces a rapprochement of the measurement points with \gls{frrvar} increasing.
+Here is proposed a weighting of each point according to the distance between it and its neighbors.
+With this weighting, the fits fit better to the linear parts in the latter representation.
+
+\begin{align}
+w^{\gls{w1}}_i &= 1 \\
+w^{\gls{guw2}}_i = w^{\gls{w2}}_i &=
+n
+\frac{
+\ln \left(\gls{frrvar}_{i + 1} \right) - \ln \left(\gls{frrvar}_i\right)
+}{
+\ln \left(\gls{frrvar}_{n + 1} \right) - \ln \left(\gls{frrvar}_1\right)
+} =
+\frac{n}{\ln \left( n + 1 \right)} \ln \left( \frac{i+1}{i} \right)
+\end{align}
+
+\subsubsection{Standard fit error}
+The objective function to be minimized for a given model \( M \), a harmonic \gls{hmc} and a maximum value \( \gls{frrvar}_n \) of \gls{frrvar} is the standard error of the fit defined in equation \eqref{eq:fit-standard-error}.
+
+\begin{equation}\label{eq:fit-standard-error}
+\hat{\gls{stddev}} \left( \gls{frrtrf}^M \right) = \sqrt{\sum_{i=1}^n \frac{w^M_i\hat{\epsilon}_i^2}{n-2}}
+\end{equation}
+
+\subsection{Synthesis}\label{sec:synthesis}
+
+An overview of the data generated to conduct the study is presented in section \ref{sec:data}.
+The data from the fits in particular are difficult to compare as they are voluminous and specific.
+It is proposed here a synthesis of the results of the fits.
+The objective was to gather in a single data the fits performed for several maximum values of \gls{frrvar} for a given distribution, model and harmonic.
+For this purpose, three approaches are proposed.
+
+\begin{itemize}
+  \item Calculate the mean of the values.
+  \item Calculate the standard deviation.
+  \item Take the value for the closest value of \gls{frrvar} to the mean inter dislocation distance.
+\end{itemize}
+
+To simplify the reading of the tables, the density values closest to the real densities have been grayed out.
+Sometimes there are several when they are equal.
+Not all decimal places are displayed.
+
+\bigskip
+
+Below is an overview of the parameters of the samples of distributions studied.
+
+\begin{tcolorbox}
+\begin{verbatim}
+Density of 5e13nm-2:
+square 3200nm edge PBCR1 RDD (d=5e-5nm-2)
+square 3200nm edge PBCR1 RRDD-E (d=5e-5nm-2 s= 200nm)
+square 3200nm edge PBCR1 RRDD-E (d=5e-5nm-2 s= 400nm)
+square 3200nm edge PBCR1 RRDD-R (d=5e-5nm-2 s= 200nm)
+square 3200nm edge PBCR1 RRDD-R (d=5e-5nm-2 s= 400nm)
+square 2679nm edge PBCR1 RCDD-E (d=5e-5nm-2 s=1340nm t=141nm)
+square 2679nm edge PBCR1 RCDD-R (d=5e-5nm-2 s=1340nm t=141nm)
+square 3349nm edge PBCR1 RCDD-D (d=5e-5nm-2 s= 167nm t= 18nm l= 35nm)
+square 3349nm edge PBCR1 RCDD-D (d=5e-5nm-2 s= 335nm t= 35nm l= 71nm)
+square 3349nm edge PBCR1 RCDD-D (d=5e-5nm-2 s= 670nm t= 71nm l=141nm)
+square 3349nm edge PBCR1 RCDD-D (d=5e-5nm-2 s=1674nm t=177nm l=354nm)
+square 3349nm edge PBCR1 RCDD-D (d=5e-5nm-2 s=3349nm t=354nm l=707nm)
+
+Density of 5e14nm-2:
+square 3200nm edge PBCR1 RDD (d=5e-4nm-2)
+square 3200nm edge PBCR1 RRDD-E (d=5e-4nm-2 s= 200nm)
+square 3200nm edge PBCR1 RRDD-E (d=5e-4nm-2 s= 400nm)
+square 3200nm edge PBCR1 RRDD-R (d=5e-4nm-2 s= 200nm)
+square 3200nm edge PBCR1 RRDD-R (d=5e-4nm-2 s= 400nm)
+square 3389nm edge PBCR1 RCDD-E (d=5e-4nm-2 s= 424nm t= 45nm)
+square 3389nm edge PBCR1 RCDD-R (d=5e-4nm-2 s= 424nm t= 45nm)
+square 3177nm edge PBCR1 RCDD-D (d=5e-4nm-2 s=  53nm t=  6nm l= 11nm)
+square 3177nm edge PBCR1 RCDD-D (d=5e-4nm-2 s= 106nm t= 11nm l= 22nm)
+square 3177nm edge PBCR1 RCDD-D (d=5e-4nm-2 s= 212nm t= 22nm l= 45nm)
+square 3177nm edge PBCR1 RCDD-D (d=5e-4nm-2 s= 530nm t= 56nm l=112nm)
+square 3177nm edge PBCR1 RCDD-D (d=5e-4nm-2 s=1059nm t=112nm l=224nm)
+\end{verbatim}
+\end{tcolorbox}
+
+\newpage
+
+{\renewcommand{\arraystretch}{2}
+
+\input{load/synthesis}
+
+\newpage
+
+\subsection{Program}
+
+The third and last program is used to process the post-simulation data.
+It allows to average the coefficients from the Fourier analysis, to plot the simulation results, and to export the data and figures of the fits performed for each model.
+
+\subsubsection{Repository}
+
+Useful information can be found on the project page: \github{lpa-output}
+
+\subsubsection{Installation}
+
+The program can be installed or updated with the following command:
+
+\pipinstall{lpa-output}
+
+\subsubsection{Fits data}
+
+For each harmonic and each maximum value of \gls{frrvar}, the optimal density and outer cut-off radius in terms of fit are saved in a file like the one below. These files are produced for each fit model applied to each distribution model.
+
+\txtlst{insert/fits}{fits\_data\_structure.dat}

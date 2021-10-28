@@ -1,0 +1,34 @@
+\documentclass[a4paper]{article}
+\input{input/packages}
+\input{input/definitions}
+\input{input/glossary}
+\input{input/macros}
+
+% compile with:
+% PDFLatex report
+% biber report
+% PDFLatex report
+
+\begin{document}
+
+\include{include/titlepage}
+
+%\include{include/abstract}
+
+\include{include/contents}
+
+\include{include/parts/introduction}
+
+\include{include/parts/input}
+
+\include{include/parts/simulation}
+
+\include{include/parts/output}
+
+%\include{include/parts/discussion}
+
+\include{include/parts/conclusion}
+
+\include{include/appendix}
+
+\end{document}
