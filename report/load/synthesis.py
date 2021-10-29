@@ -66,6 +66,7 @@ sym0 = r"\delta"
 appmtdord = (
     {
         'nam': "Mean values",
+        'stm': 'mean',
         'fun': mean_values,
         'sym': (
             tfmtex1.replace("VALUE", fr"\gls{{expval}}\left({sym1}\right)"),
@@ -77,6 +78,7 @@ appmtdord = (
     },
     {
         'nam': "Standard deviations",
+        'stm': 'std',
         'fun': deviations,
         'sym': (
             tfmtex2.replace("VALUE", fr"\gls{{stddev}}\left({sym1}\right)"),
@@ -159,6 +161,39 @@ with open('synthesis.tex', 'w') as f:
                 + appmtd['nam']+" for harmonic "+str(h)
                 + r" in a square \gls{roi} of side 3200 nm}"+"\n\n")
             f.write(r"\medskip"+"\n\n")
-del f, appmtd
+del higlig, f, appmtd
+
+# export synthesis.csv
+sep = ';'
+for appmtd in appmtdord:
+    for h in range(1, 1+n_j):
+        with open(f"synthesis_{appmtd['stm']}_h{h}.csv", 'w') as f:
+            f.write(f"{sep}fluctuation{len(fitmodord)*(sep+'density')}{len(fitmodord)*(sep+'Re (nm)')}\n")
+            f.write(f"Distribution model{sep}{sep}{sep.join(fitmodord*2).upper()}\n")
+            for j in range(len(dismodord)):
+                for i in range(len(readst)):
+                    for k in range(len(stmlstfit[j][i])):
+                        f.write(f"{lstnicnam[j][i][k]}")
+                        col1, col2 = [], []
+                        for e in range(len(fitmodord)):
+                            datfit = datlstfit[e][j][i][k]
+                            mashmc = datfit[i_j]==h
+                            datfit = datfit.T[mashmc].T
+                            val = appmtd['fun'](readst[i], datfit)
+                            col1.append(val[0])
+                            col2.append(val[1])
+                            if len(val)==3:
+                                col0 = val[2]
+                        bstlst1 = appmtd['bst'][0](col1)
+                        bstlst2 = appmtd['bst'][1](col2)
+                        bstall = bstlst1 + bstlst2
+                        vallst1 = [format(v, appmtd['fmt'][0]) for v in col1]
+                        vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
+                        vallst0 = [format(col0, '1.2e')]
+                        valall = vallst0+vallst1+vallst2
+                        f.write(sep)
+                        f.write(sep.join(valall))
+                        f.write("\n")
+del sep, f, appmtd
 
 input("OK")
