@@ -91,7 +91,7 @@ appmtdord = (
 # number of harmonics displayed
 n_j = 2
 
-higlig = r"\cellcolor{gray} VALUE"
+higlig = r"\cellcolor{Mines} \textcolor{white}{VALUE}"
 
 # export synthesis.tex
 with open('synthesis.tex', 'w') as f:
