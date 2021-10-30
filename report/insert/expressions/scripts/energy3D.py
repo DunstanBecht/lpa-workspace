@@ -16,8 +16,8 @@ varord = (
     'R',
 )
 edgconrad = {
-    'NEC': np.linspace(1000, 2000, 2),
-    'WOA': np.linspace(1000, 2000, 5),
+    'NEC': np.linspace(1000, 2000, 21),
+    'WOA': np.linspace(1000, 2000, 21),
 }
 dst = 5e-4 # nm^-2
 geo = 'circle'
@@ -76,4 +76,3 @@ for edgcon in edgconord:
         #plt.rcParams['axes.titlepad'] = -5
         plt.title(ttl)
         plt.savefig(f"../plots/{geo}_RRDD-{var}_energy3D_{edgcon}.pdf")
-
