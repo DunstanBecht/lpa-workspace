@@ -12,14 +12,14 @@ It is then possible to calculate the latter for each harmonic \gls{hmc} and valu
 
 \gls{frrtrf} is complex.
 It is either its module or its real part that will be used.
-The functions can be represented according to two methods as shown in \figref{fig:output:rdd-example}.
+The functions can be represented according to two methods as shown in \figref{fig:rdd-output}.
 In \gls{r1} the functions are represented in logarithmic scale as a function of \gls{frrvar}.
 In \gls{r2} the functions are represented through the transformation \( \ln\left( \cdot \right) / \gls{frrvar}^2 \) as a function of \gls{frrvar} in logarithmic scale.
 With \gls{r2} a linear behavior can be observed for the asymptotic values of \gls{frrvar}.
 
-\bigfig{fig:output:rdd-example}{insert/output}{100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output}{Simulation output of \gls{rdd}}
+\bigfig{fig:rdd-output}{insert/output}{100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output}{Results of an X-ray diffraction simulation conducted on a sample of \gls{rdd}}
 
-The example shown in \figref{fig:output:rdd-example} can be exported with the following script.
+The example shown in \figref{fig:rdd-output} can be exported with the following script.
 
 \pyscript{insert/output}{plot.py}
 
@@ -35,7 +35,7 @@ And \( \uy = \uz \times \ux \).
 To determine the density \gls{dst} and the outer cut-off radius \gls{cutrad}, the theoretical models at our disposal are fitted to the simulation results.
 These models are presented here.
 It is first defined some quantities that will be common to the models.
-\( k \) can be compared to the directing coefficient of the linear part in \gls{r2} in \figref{fig:output:rdd-example}.
+\( k \) can be compared to the directing coefficient of the linear part in \gls{r2} in \figref{fig:rdd-output}.
 \( \psi \) is the angle between \gls{vecg} and \gls{vecl}.
 \gls{pssrat} is the \glsdesc{pssrat}.
 \( \gamma \) is the angle between the projections of \gls{vecg} and \gls{vecb} in the plane orthogonal to \gls{vecl}.
@@ -190,7 +190,7 @@ For each model, the fits are performed for each harmonic \gls{hmc} and for sever
 The Nelder–Mead method is used to find the minimum of the objective function.
 \figref{fig:fit:example:rdd} show a fit for a given \gls{hmc} and a given maximum value of \gls{frrvar}.
 
-\bigfig{fig:fit:example:rdd}{insert/fits/100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output_analysis/fits_plot_GUW2}{j1_118nm}{Fit of \gls{guw2} over \gls{rdd} output}
+\bigfig{fig:fit:example:rdd}{insert/fits/100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output_analysis/fits_plot_GUW2}{j1_118nm}{Fit of \gls{guw2} over the harmonic 1 of the computed Fourier Transform of \gls{rdd}}
 
 \subsubsection{Filters}
 

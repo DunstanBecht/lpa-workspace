@@ -65,8 +65,8 @@ sym2 = r"\gls{cutrad}^{\mathrm{FIT}}"
 sym0 = r"\delta"
 appmtdord = (
     {
-        'nam': "Mean values",
-        'stm': 'mean',
+        'nam': "Relative deviation of the mean value",
+        'stm': 'rel-dev',
         'fun': mean_values,
         'sym': (
             tfmtex1.replace("VALUE", fr"\gls{{expval}}\left({sym1}\right)"),
@@ -77,8 +77,8 @@ appmtdord = (
         'bst': (minimal, nope),
     },
     {
-        'nam': "Standard deviations",
-        'stm': 'std',
+        'nam': "Standard deviation",
+        'stm': 'std-dev',
         'fun': deviations,
         'sym': (
             tfmtex2.replace("VALUE", fr"\gls{{stddev}}\left({sym1}\right)"),
@@ -158,8 +158,8 @@ with open('synthesis.tex', 'w') as f:
             f.write(r"\end{tabularx}"+"\n\n")
             f.write(r"\end{center}"+"\n")
             f.write(r"\captionof{table}{"
-                + appmtd['nam']+" for harmonic "+str(h)
-                + r" in a square \gls{roi} of side 3200 nm}"+"\n\n")
+                + appmtd['nam']+" of harmonic "+str(h)
+                + r" in a square \gls{roi} of 3200 nm side length}"+"\n\n")
             f.write(r"\medskip"+"\n\n")
 del higlig, f, appmtd
 

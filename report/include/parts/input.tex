@@ -13,14 +13,14 @@ Random positioning of points is described by equations \eqref{eq:circle-random-p
 In a square geometry, the coordinates simply follow a continuous uniform distribution law.
 There are always equal numbers of positive and negative Burgers vectors.
 The model takes as parameter the variable \( d \) giving the density of dislocations.
-\figref{fig:rdd-example-1} and \figref{fig:rdd-example-2} show the dislocations contained in a \gls{rdd} in a circle and a square \gls{roi} geometry.
+\figref{fig:map-rdd-1} and \figref{fig:map-rdd-2} show the dislocations contained in a \gls{rdd} in a circle and a square \gls{roi} geometry.
 
-\medfig{fig:rdd-example-1}{insert/distributions}{rdd_example_1}{\gls{rdd} map in circle geometry}%
-\medfig{fig:rdd-example-2}{insert/distributions}{rdd_example_2}{\gls{rdd} map in square geometry}%
+\medfig{fig:map-rdd-1}{insert/distributions}{rdd_example_1}{Map of a \gls{rdd} in a circular \gls{roi}}%
+\medfig{fig:map-rdd-2}{insert/distributions}{rdd_example_2}{Map of a \gls{rdd} in a square \gls{roi}}%
 
 \bigskip \bigskip
 
-The distributions in \figref{fig:rdd-example-1} and \figref{fig:rdd-example-2} can be generated and exported with the following script.
+The distributions in \figref{fig:map-rdd-1} and \figref{fig:map-rdd-2} can be generated and exported with the following script.
 
 \medskip
 
@@ -38,15 +38,15 @@ The first variant of the model is to set, in each sub-area, the number of Burger
 This is the \gls{rrdde}.
 The second variant of the model is to choose the sense of the Burgers vectors randomly.
 This is the \gls{rrddr}.
-The two variants are shown in \figref{fig:rrdd-example-1} and \figref{fig:rrdd-example-2}.
+The two variants are shown in \figref{fig:map-rrdd-1} and \figref{fig:map-rrdd-2}.
 The sub-areas are indicated by the grid.
 
-\medfig{fig:rrdd-example-1}{insert/distributions}{rrdd_example_1}{\gls{rrdde} map in circle geometry}%
-\medfig{fig:rrdd-example-2}{insert/distributions}{rrdd_example_2}{\gls{rrddr} map in square geometry}%
+\medfig{fig:map-rrdd-1}{insert/distributions}{rrdd_example_1}{Map of a \gls{rrdde} in a circular \gls{roi}}%
+\medfig{fig:map-rrdd-2}{insert/distributions}{rrdd_example_2}{Map of a \gls{rrddr} in a square \gls{roi}}%
 
 \bigskip \bigskip
 
-The distributions in \figref{fig:rrdd-example-1} and \figref{fig:rrdd-example-2} can be generated and exported with the following script.
+The distributions in \figref{fig:map-rrdd-1} and \figref{fig:map-rrdd-2} can be generated and exported with the following script.
 
 \medskip
 
@@ -64,15 +64,15 @@ In \gls{rcddr} the positions and the Burgers vectors senses are randomly distrib
 In \gls{rcdde} each cell contains a fixed number of dislocations and the Burgers vectors senses are evenly distributed in each cell.
 In \gls{rcddd} the Burgers vectors with positive sense and negative sense are spaced by a distance defined with the variable \( l \).
 The positions and orientations of these dipoles are then random.
-\gls{rcddr} and \gls{rcddd} variants are shown in \figref{fig:rcdd-example-1} and \figref{fig:rcdd-example-2}.
+\gls{rcddr} and \gls{rcddd} variants are shown in \figref{fig:map-rcdd-1} and \figref{fig:map-rcdd-2}.
 The cell walls are indicated by the grid.
 
-\medfig{fig:rcdd-example-1}{insert/distributions}{rcdd_example_1}{\gls{rcdde} map in circle geometry}%
-\medfig{fig:rcdd-example-2}{insert/distributions}{rcdd_example_2}{\gls{rcddd} map in square geometry}%
+\medfig{fig:map-rcdd-1}{insert/distributions}{rcdd_example_1}{Map of a \gls{rcdde} in a circular \gls{roi}}%
+\medfig{fig:map-rcdd-2}{insert/distributions}{rcdd_example_2}{Map of a \gls{rcddd} in a square \gls{roi}}%
 
 \bigskip \bigskip
 
-The distributions in \figref{fig:rcdd-example-1} and \figref{fig:rcdd-example-2} can be generated and exported with the following script.
+The distributions in \figref{fig:map-rcdd-1} and \figref{fig:map-rcdd-2} can be generated and exported with the following script.
 
 \medskip
 
@@ -98,12 +98,12 @@ The image dislocation has opposite Burgers vector.
     \frac{R^2_{\gls{roi}}}{r}
 \end{equation}
 
-\medfig{fig:isd-example-1}{insert/boundaries}{isd_example_1}{\gls{isd} on \gls{rdd}}%
-\medfig{fig:isd-example-2}{insert/boundaries}{isd_example_2}{\gls{isd} on \gls{rcddr}}%
+\medfig{fig:map-isd-1}{insert/boundaries}{isd_example_1}{\gls{isd} applied on a \gls{rdd}}%
+\medfig{fig:map-isd-2}{insert/boundaries}{isd_example_2}{\gls{isd} applied on a \gls{rcddr}}%
 
 \bigskip \bigskip
 
-The distributions in \figref{fig:isd-example-1} and \figref{fig:isd-example-2} can be generated and exported with the following script.
+The distributions in \figref{fig:map-isd-1} and \figref{fig:map-isd-2} can be generated and exported with the following script.
 
 \smallskip
 
@@ -122,15 +122,15 @@ The number at the end of the boundary condition name specifies the rank of repli
 \bigskip
 
 Here the replicated dislocations are generated at the creation of the distribution.
-This is useful for the representation in maps like \figref{fig:pbc-example-1} and \figref{fig:pbc-example-2} or for statistical analysis, but it is less relevant for writing the positions in a file.
+This is useful for the representation in maps like \figref{fig:map-pbc-1} and \figref{fig:map-pbc-2} or for statistical analysis, but it is less relevant for writing the positions in a file.
 To avoid transmission of large files it is possible to set a flag asking the X-ray simulation program to generate the replicated dislocations from those in the ROI.
 
-\medfig{fig:pbc-example-1}{insert/boundaries}{pbc_example_1}{\gls{pbc}1 on \gls{rdd}}%
-\medfig{fig:pbc-example-2}{insert/boundaries}{pbc_example_2}{\gls{pbc}2 on \gls{rdd}}%
+\medfig{fig:map-pbc-1}{insert/boundaries}{pbc_example_1}{\gls{pbc}1 applied on a \gls{rdd}}%
+\medfig{fig:map-pbc-2}{insert/boundaries}{pbc_example_2}{\gls{pbc}2 applied on a \gls{rdd}}%
 
 \bigskip \bigskip
 
-The distributions in \figref{fig:pbc-example-1} and \figref{fig:pbc-example-2} can be generated and exported with the following script.
+The distributions in \figref{fig:map-pbc-1} and \figref{fig:map-pbc-2} can be generated and exported with the following script.
 
 \medskip
 
@@ -155,11 +155,11 @@ However, the problem of large files cannot be avoided here.
 As in \gls{pbc}, the number at the end of the boundary condition name specifies the rank of replications around the \gls{roi}.
 
 \medfig{fig:pbc-issue}{insert/boundaries}{gbb_pbc_issue}{Issue with \gls{pbc}}%
-\medfig{fig:gbb-example-1}{insert/boundaries}{gbb_example_1}{\gls{gbb} on \gls{rdd}}%
+\medfig{fig:map-gbb}{insert/boundaries}{gbb_example_1}{\gls{gbb}2 applied on a \gls{rdd}}%
 
 \bigskip \bigskip
 
-The distribution in \figref{fig:gbb-example-1} can be generated and exported with the following script.
+The distribution in \figref{fig:map-gbb} can be generated and exported with the following script.
 
 \medskip
 
@@ -208,7 +208,7 @@ In the first, the \gls{nec}, nothing is done.
 In the second, the \gls{woa}, the ratio of the intersection of the \gls{roi} and the neighborhood is taken into account.
 The third and fourth approaches (only for square geometries) are to apply the conditions \gls{pbc} or \gls{gbb} with the \gls{roi} replicated enough times for the neighborhood to be included in the grid.
 
-\bigfig{fig:nec-and-woa}{insert/analysis}{considerations}{\gls{nec} and \gls{woa} edge considerations}
+\bigfig{fig:nec-and-woa}{insert/analysis}{considerations}{Neighborhood considered with \gls{nec} and \gls{woa}}
 
 Let \( \gls{funw} \) be the weighting function for the correction at the edges of the \gls{roi} used in \gls{woa}.
 The definition of \( \gls{funw} \) in equation \eqref{eq:analysis-function-w} uses the overlapping area \( \gls{area}_{\gls{nbh}(a, r) \cap \gls{roi} } \) of the \gls{roi} and the neighborhood.
@@ -317,7 +317,7 @@ As a point of reference for the observation of the results it is recalled that f
   }
 \end{equation}
 
-\bigfig{fig:KKKK-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_KKKK_GBB}{\gls{funK} on \gls{rdd}}%
+\bigfig{fig:KKKK-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_KKKK_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{funK}}%
 
 \newpage
 
@@ -342,7 +342,7 @@ For a continuous uniform distribution of undifferentiated points in an unbounded
   }
 \end{equation}
 
-\bigfig{fig:gggg-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_gggg_GBB}{\gls{fung} on \gls{rdd}}%
+\bigfig{fig:gggg-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_gggg_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{fung}}%
 
 \subsubsection{Symmetrical and antisymmetrical functions}\label{sec:analysis-functions-GaGs}
 
@@ -392,7 +392,7 @@ These new functions are called \gls{funGa} and \gls{funGs} and are close to thos
 
 \newpage
 
-\bigfig{fig:GaGs-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_GaGs_GBB}{\gls{funGa} and \gls{funGs} on \gls{rdd}}%
+\bigfig{fig:GaGs-example}{../data/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_GaGs_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the functions \gls{funGa} and \gls{funGs}}%
 
 The new function \gls{funGa} leads to a reformulation of the total energy per unit length stored in the \gls{roi} in equation \eqref{eq:total-energy-continuous}.
 The calculation can be conducted differently depending on the edge consideration * chosen.
@@ -514,72 +514,68 @@ Finally, the total energy per unit length stored in the \gls{roi} is given in eq
 
 \subsubsection{\glsentrytext{rdd}}
 
-The equations \eqref{eq:M-RDD-NEC}, \eqref{eq:M-RDD-WOA} and \eqref{eq:M-RDD-GBB} give the expression of \( \gls{funM}_{\alpha \beta} \) in \gls{rdd} for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb}.
+The equations \eqref{eq:rdd-M-nec}, \eqref{eq:rdd-M-woa} and \eqref{eq:rdd-M-gbb} give the expression of \( \gls{funM}_{\alpha \beta} \) in \gls{rdd} for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb}.
 From these expressions it is possible to establish the expressions of the other analysis functions according to their definitions in section \ref{sec:analysis-functions}.
 In general, \( \gls{funM}_{\alpha \alpha} \) is not equal to \( \gls{funM}_{\alpha \beta} \) because the dislocation from which we look must be subtracted from the dislocations potentially observed.
 
 \begin{align}
   \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) &=
     \left( \frac{\gls{dst}}{2} - \frac{\gls{indfun}_{\alpha = \beta}}{\gls{area}_{\gls{roi}}} \right) \mathcal{B}_{\gls{roi}}(r)
-    \label{eq:M-RDD-NEC}
+    \label{eq:rdd-M-nec}
   \\[3mm]
   \gls{funM}_{\alpha \beta}^{\gls{woa}} (r) &=
     \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) \frac{\gls{area}_{\gls{nbh}(r)}}{\mathcal{B}_{\gls{roi}}(r)}
-    \label{eq:M-RDD-WOA}
+    \label{eq:rdd-M-woa}
   \\[3mm]
   \gls{funM}_{\alpha \beta}^{\gls{gbb}} (r) &=
     \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) + \frac{\gls{dst}}{2} \left( \gls{area}_{\gls{nbh}(r)} - \mathcal{B}_{\gls{roi}}(r) \right)
-    \label{eq:M-RDD-GBB}
+    \label{eq:rdd-M-gbb}
 \end{align}
 
 \bigskip
 
-\figref{fig:RDD-g-NEC}, \figref{fig:RDD-g-WOA} and \figref{fig:RDD-g-GBB} show the function \( \gls{fung}_{\alpha \beta} \) for the different edge consideration and compare the simulation results to the closed-form expressions obtained from equations \eqref{eq:M-RDD-NEC}, \eqref{eq:M-RDD-WOA} and \eqref{eq:M-RDD-GBB}.
+\figref{fig:rdd-g-nec}, \figref{fig:rdd-g-woa} and \figref{fig:rdd-g-gbb} show the function \( \gls{fung}_{\alpha \beta} \) for the different edge consideration and compare the simulation results to the closed-form expressions obtained from equations \eqref{eq:rdd-M-nec}, \eqref{eq:rdd-M-woa} and \eqref{eq:rdd-M-gbb}.
 
-\smallfig{fig:RDD-g-NEC}{insert/expressions/plots}{square_RDD_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rdd}}%
-\smallfig{fig:RDD-g-WOA}{insert/expressions/plots}{square_RDD_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rdd}}%
-\smallfig{fig:RDD-g-GBB}{insert/expressions/plots}{square_RDD_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rdd}}%
+\smallfig{fig:rdd-g-nec}{insert/expressions/plots}{square_RDD_g_NEC}{\( \gls{fung}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rdd-g-woa}{insert/expressions/plots}{square_RDD_g_WOA}{\( \gls{fung}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rdd-g-gbb}{insert/expressions/plots}{square_RDD_g_GBB}{\( \gls{fung}^{\gls{gbb}}(r) \)}%
 
 \bigskip \bigskip
 
-Equations \eqref{eq:Ga-RDD-NEC-GBB} and \eqref{eq:Ga-RDD-WOA} give the expression of \gls{funGa} and \figref{fig:RDD-Ga-NEC}, \figref{fig:RDD-Ga-WOA} and \figref{fig:RDD-Ga-GBB} compare the simulation results to the closed-form expressions.
+Equations \eqref{eq:rdd-Ga-nec-gbb} and \eqref{eq:rdd-Ga-woa} give the expression of \gls{funGa} and \figref{fig:rdd-Ga-nec}, \figref{fig:rdd-Ga-woa} and \figref{fig:rdd-Ga-gbb} compare the simulation results to the closed-form expressions.
 
 \begin{align}
   \gls{funGa}^{\gls{nec}} (r) =
   \gls{funGa}^{\gls{gbb}} (r) &=
     - \gls{dst} \frac{d \mathcal{B}_{\gls{roi}}}{dr}(r)
-    \label{eq:Ga-RDD-NEC-GBB}
+    \label{eq:rdd-Ga-nec-gbb}
   \\[3mm]
   \gls{funGa}^{\gls{woa}} (r) &=
     - \gls{dst} 2 \pi r
-    \label{eq:Ga-RDD-WOA}
+    \label{eq:rdd-Ga-woa}
 \end{align}
 
-\smallfig{fig:RDD-Ga-NEC}{insert/expressions/plots}{square_RDD_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rdd}}%
-\smallfig{fig:RDD-Ga-WOA}{insert/expressions/plots}{square_RDD_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rdd}}%
-\smallfig{fig:RDD-Ga-GBB}{insert/expressions/plots}{square_RDD_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rdd}}%
+\smallfig{fig:rdd-Ga-nec}{insert/expressions/plots}{square_RDD_Ga_NEC}{\( \gls{funGa}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rdd-Ga-woa}{insert/expressions/plots}{square_RDD_Ga_WOA}{\( \gls{funGa}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rdd-Ga-gbb}{insert/expressions/plots}{square_RDD_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}}(r) \)}%
 
-\bigskip \bigskip
+\newpage
 
-With equation \eqref{eq:Ga-RDD-WOA} and \eqref{eq:total-energy-woa} it is possible to give a simple expression of the energy for the edge consideration \gls{woa}.
-The effective cut-off radius is given in equation \eqref{eq:cut-rad-rdd}.
-The latter is proportional to \( R_{\gls{roi}} \).
-As shown in \figref{fig:circle-RDD-energy-WOA}, \figref{fig:circle-RDD-energy-NEC} and \figref{fig:square-RDD-energy-NEC} the total energy per unit volume is divergent.
+From equations \eqref{eq:rdd-Ga-woa} and \eqref{eq:total-energy-woa} the total energy per unit volume for the edge consideration \gls{woa} can be expressed in equation \eqref{eq:rdd-energy-woa}.
+As shown in \figref{fig:rdd-energy-woa} to \figref{fig:rdd-energy-nec-square} the latter is divergent.
 
-\begin{equation}
-  \gls{totnrg}^{\gls{woa}} =
-    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \gamma} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
-    \ \underset{\frac{r_0}{R_{\gls{roi}}} \rightarrow 0}{\sim} \
-    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \gamma} \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right)
-\end{equation}
+\begin{align}
+  \gls{totnrg}^{\gls{woa}} &=
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
+  \\
+  \gls{totnrg}^{\gls{woa}} &\sim
+    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{\gls{cutrad}}{r_0} \right) \ \ \text{with} \ \ \gls{cutrad} = \frac{R_{\gls{roi}}}{\sqrt{e}}
+    \label{eq:rdd-energy-woa}
+\end{align}
 
-\begin{equation}\label{eq:cut-rad-rdd}
-\gls{cutrad}^{\gls{woa}} = \frac{R_{\gls{roi}}}{\sqrt{e}}
-\end{equation}
-
-\smallfig{fig:circle-RDD-energy-WOA}{insert/expressions/plots}{circle_RDD_energy_WOA}{\gls{woa} circle \gls{rdd}}%
-\smallfig{fig:circle-RDD-energy-NEC}{insert/expressions/plots}{circle_RDD_energy_NEC}{\gls{nec} circle \gls{rdd}}%
-\smallfig{fig:square-RDD-energy-NEC}{insert/expressions/plots}{square_RDD_energy_NEC}{\gls{nec} square \gls{rdd}}%
+\smallfig{fig:rdd-energy-woa}{insert/expressions/plots}{circle_RDD_energy_WOA}{\( e_T^{\gls{woa}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rdd-energy-nec-circle}{insert/expressions/plots}{circle_RDD_energy_NEC}{\( e_T^{\gls{nec}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rdd-energy-nec-square}{insert/expressions/plots}{square_RDD_energy_NEC}{\( e_T^{\gls{nec}} \left( S_{\gls{roi}} \right) \)}%
 
 \subsubsection{\glsentrytext{rrdd}}
 
@@ -589,7 +585,7 @@ To calculate the number of dislocations with sense \( \beta \) around dislocatio
 Let \( (x, y) \) be the position of the selected dislocation relative to the lower left corner of the subarea \( \zeta \in \mathcal{Z} \) in which it is located.
 Let \( \gls{nbh}(x, y, r) \) be a neighbohood of radius \( r \) centered in \( (x, y) \).
 
-\bigfig{fig:overlapping:rrdd}{insert/overlapping}{rrdd}{Selected dislocation in the subarea \( \zeta \) and its neighborhood.}
+\bigfig{fig:overlapping:rrdd}{insert/overlapping}{rrdd}{Cutting of the neighborhood of the selected dislocation in the subarea \( \zeta \)}
 
 Let \( \tau_{\alpha \beta} \) be the number of dislocations with Burgers vector sense \( \beta \) that can be observed in a subarea \( Z \) by a dislocation with Burgers vector sense \( \alpha \) outside \( Z \).
 Let \( \eta_{\alpha \beta} \) be the number of dislocations with sense \( \beta \) that can be observed in a subarea \( Z \) by a dislocation with sense \( \alpha \) inside \( Z \).
@@ -599,98 +595,98 @@ The position of the chosen dislocation of sense \( \alpha \) is random in a suba
 
 \newpage
 
-The function \( \gls{funM}_{\alpha \beta} \) can be expressed as a sum of the contributions of the intersection of each subarea \( Z \) with the neighborhood \( \gls{nbh}(x, y, r) \) in equation \eqref{eq:RRDD-M}.
-It is the expression \eqref{eq:RRDD-M-easy} that will be easiest to use.
+The function \( \gls{funM}_{\alpha \beta} \) can be expressed as a sum of the contributions of the intersection of each subarea \( Z \) with the neighborhood \( \gls{nbh}(x, y, r) \) in equation \eqref{eq:rrdd-M}.
+It is the expression \eqref{eq:rrdd-M-easy} that will be easiest to use.
 
 \begin{align}
   \gls{funM}_{\alpha \beta}^{\gls{nec}} (r) &=
     \gls{expval} \left( \eta_{\alpha \beta} \frac{\gls{area}_{\zeta \cap \gls{nbh}(X, Y, r)}}{\gls{area}_\zeta} + \sum_{Z \in \mathcal{Z} \neq \zeta} \tau_{\alpha \beta} \frac{\gls{area}_{Z \cap \gls{nbh}(X, Y, r)}}{\gls{area}_Z} \right)
-    \label{eq:RRDD-M}
+    \label{eq:rrdd-M}
   \\[3mm]
   &=
     \gls{expval} \left( \left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \frac{\gls{area}_{\zeta \cap \gls{nbh}(X, Y, r)}}{\gls{area}_\zeta} + \tau_{\alpha \beta} \sum_{Z \in \mathcal{Z}} \frac{\gls{area}_{Z \cap \gls{nbh}(X, Y, r)}}{\gls{area}_Z} \right)
   \\[3mm]
   &=
     \frac{1}{s^2} \left( \left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \gls{expval} \left( \cirsqr(r, s, X, Y) \right) + \tau_{\alpha \beta} \gls{expval} \left( \sum_{Z \in \mathcal{Z}} \gls{area}_{Z \cap \gls{nbh}(X, Y, r)} \right) \right)
-    \label{eq:RRDD-M-easy}
+    \label{eq:rrdd-M-easy}
 \end{align}
 
 \medskip
 
-From equation \eqref{eq:RRDD-M-easy} it is possible to define \( \gls{funM}_{\alpha \beta} \) for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb} in equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA} and \eqref{eq:RRDD-M-GBB}.
+From equation \eqref{eq:rrdd-M-easy} it is possible to define \( \gls{funM}_{\alpha \beta} \) for the edge considerations \gls{nec}, \gls{woa} and \gls{gbb} in equations \eqref{eq:rrdd-M-nec}, \eqref{eq:rrdd-M-woa} and \eqref{eq:rrdd-M-gbb}.
 
 \begin{align}
   \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) &=
     \frac{\left( \eta_{\alpha \beta} - \tau_{\alpha \beta} \right) \gls{expval} \left( \cirsqr(r, s, X, Y) \right) + \tau_{\alpha \beta} \mathcal{B}_{\gls{roi}}(r)}{s^2}
-    \label{eq:RRDD-M-NEC}
+    \label{eq:rrdd-M-nec}
   \\[0.1cm]
   \gls{funM}^{\gls{woa}}_{\alpha \beta} (r) &=
     \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) \frac{\gls{area}_{\gls{nbh}(r)}}{\mathcal{B}_{\gls{roi}}(r)}
-    \label{eq:RRDD-M-WOA}
+    \label{eq:rrdd-M-woa}
   \\[0.1cm]
   \gls{funM}^{\gls{gbb}}_{\alpha \beta} (r) &=
     \gls{funM}^{\gls{nec}}_{\alpha \beta} (r) + \frac{\gls{dst}}{2} \left( \gls{area}_{\gls{nbh}(r)} - \mathcal{B}_{\gls{roi}}(r) \right)
-    \label{eq:RRDD-M-GBB}
+    \label{eq:rrdd-M-gbb}
 \end{align}
 
 \subsubsection{\glsentrytext{rrdde}}
 
-The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrdde} are given in equation \eqref{eq:tau-rrdde} and \eqref{eq:eta-rrdde}.
+The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrdde} are given in equation \eqref{eq:rrdde-tau} and \eqref{eq:rrdde-eta}.
 The latter are not equal because the dislocation from which we look must be subtracted from the dislocations potentially observed within the subarea.
 
 \begin{align}
   \tau_{\alpha \beta} &=
     \frac{f}{2}
-    \label{eq:tau-rrdde}
+    \label{eq:rrdde-tau}
   \\[3mm]
   \eta_{\alpha \beta} &=
     \frac{f}{2} - \gls{indfun}_{\alpha = \beta}
-    \label{eq:eta-rrdde}
+    \label{eq:rrdde-eta}
 \end{align}
 
 \bigskip
 
-From equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA}, \eqref{eq:RRDD-M-GBB} \eqref{eq:tau-rrdde}, \eqref{eq:eta-rrdde} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
-The closed form of the latter is compared to simulation results in \figref{fig:RRDD-E-g-NEC}, \figref{fig:RRDD-E-g-WOA} and \figref{fig:RRDD-E-g-GBB}.
+From equations \eqref{eq:rrdd-M-nec}, \eqref{eq:rrdd-M-woa}, \eqref{eq:rrdd-M-gbb} \eqref{eq:rrdde-tau}, \eqref{eq:rrdde-eta} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
+The closed form of the latter is compared to simulation results in \figref{fig:rrdde-g-nec}, \figref{fig:rrdde-g-woa} and \figref{fig:rrdde-g-gbb}.
 
-\smallfig{fig:RRDD-E-g-NEC}{insert/expressions/plots}{square_RRDD-E_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rrdde}}%
-\smallfig{fig:RRDD-E-g-WOA}{insert/expressions/plots}{square_RRDD-E_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rrdde}}%
-\smallfig{fig:RRDD-E-g-GBB}{insert/expressions/plots}{square_RRDD-E_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rrdde}}%
+\smallfig{fig:rrdde-g-nec}{insert/expressions/plots}{square_RRDD-E_g_NEC}{\( \gls{fung}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rrdde-g-woa}{insert/expressions/plots}{square_RRDD-E_g_WOA}{\( \gls{fung}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rrdde-g-gbb}{insert/expressions/plots}{square_RRDD-E_g_GBB}{\( \gls{fung}^{\gls{gbb}}(r) \)}%
 
 \newpage
 
-\figref{fig:RRDD-E-Ga-NEC}, \figref{fig:RRDD-E-Ga-WOA} and \figref{fig:RRDD-E-Ga-GBB} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:Ga-RRDDE-NEC-GBB} and \eqref{eq:Ga-RRDDE-WOA}.
+\figref{fig:rrdde-Ga-nec}, \figref{fig:rrdde-Ga-woa} and \figref{fig:rrdde-Ga-gbb} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:rrdde-Ga-nec-gbb} and \eqref{eq:rrdde-Ga-woa}.
 
 \begin{align}
   \gls{funGa}^{\gls{nec}} (r) =
   \gls{funGa}^{\gls{gbb}} (r) &=
     - \frac{\gls{dst} \gls{area}_{\gls{roi}}}{s^2} \frac{d \gls{expval} \left( \cirsqr(r, s, X, Y) \right)}{dr}
-    \label{eq:Ga-RRDDE-NEC-GBB}
+    \label{eq:rrdde-Ga-nec-gbb}
   \\[3mm]
   \gls{funGa}^{\gls{woa}} (r) &=
     - \frac{\gls{dst} \gls{area}_{\gls{roi}}}{s^2} \frac{d}{dr} \left( \frac{\gls{expval} \left( \cirsqr(r, s, X, Y) \right) \pi r^2}{ \mathcal{B}_{\gls{roi}}(r)} \right)
-    \label{eq:Ga-RRDDE-WOA}
+    \label{eq:rrdde-Ga-woa}
 \end{align}
 
-\smallfig{fig:RRDD-E-Ga-NEC}{insert/expressions/plots}{square_RRDD-E_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rrdde}}%
-\smallfig{fig:RRDD-E-Ga-WOA}{insert/expressions/plots}{square_RRDD-E_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rrdde}}%
-\smallfig{fig:RRDD-E-Ga-GBB}{insert/expressions/plots}{square_RRDD-E_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rrdde}}%
+\smallfig{fig:rrdde-Ga-nec}{insert/expressions/plots}{square_RRDD-E_Ga_NEC}{\( \gls{funGa}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rrdde-Ga-woa}{insert/expressions/plots}{square_RRDD-E_Ga_WOA}{\( \gls{funGa}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rrdde-Ga-gbb}{insert/expressions/plots}{square_RRDD-E_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}}(r) \)}%
 
 \bigskip
 
-\figref{fig:circle-RRDD-E-energy-WOA} to \figref{fig:circle-RRDD-E-energy3D-NEC} show the behavior of the total energy stored per unit volume. It seems to depend little on \gls{cutrad} but more on \( s \).
+\figref{fig:rrdde-energy-woa} to \figref{fig:rrdde-energy3D-nec} show the behavior of the total energy stored per unit volume. It seems to depend little on \gls{cutrad} but more on \( s \).
 
-\smallfig{fig:circle-RRDD-E-energy-WOA}{insert/expressions/plots}{circle_RRDD-E_energy_WOA}{\gls{woa} circle \gls{rrdde}}%
-\smallfig{fig:circle-RRDD-E-energy-NEC}{insert/expressions/plots}{circle_RRDD-E_energy_NEC}{\gls{nec} circle \gls{rrdde}}%
-\smallfig{fig:square-RRDD-E-energy-NEC}{insert/expressions/plots}{square_RRDD-E_energy_NEC}{\gls{nec} square \gls{rrdde}}%
+\smallfig{fig:rrdde-energy-woa}{insert/expressions/plots}{circle_RRDD-E_energy_WOA}{\( e_T^{\gls{woa}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rrdde-energy-nec-circle}{insert/expressions/plots}{circle_RRDD-E_energy_NEC}{\( e_T^{\gls{nec}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rrdde-energy-nec-square}{insert/expressions/plots}{square_RRDD-E_energy_NEC}{\( e_T^{\gls{nec}} \left( S_{\gls{roi}} \right) \)}%
 
-\medfig{fig:circle-RRDD-E-energy3D-WOA}{insert/expressions/plots}{circle_RRDD-E_energy3D_WOA}{\gls{woa} circle \gls{rrdde}}%
-\medfig{fig:circle-RRDD-E-energy3D-NEC}{insert/expressions/plots}{circle_RRDD-E_energy3D_NEC}{\gls{nec} circle \gls{rrdde}}%
+\medfig{fig:rrdde-energy3D-woa}{insert/expressions/plots}{circle_RRDD-E_energy3D_WOA}{\( e_T^{\gls{woa}} \left( s, R_{\gls{roi}} \right) \)}%
+\medfig{fig:rrdde-energy3D-nec}{insert/expressions/plots}{circle_RRDD-E_energy3D_NEC}{\( e_T^{\gls{nec}} \left( s, R_{\gls{roi}} \right) \)}%
 
 \subsubsection{\glsentrytext{rrddr}}
 
 The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrddr} can be obtained by enumeration.
-In equations \eqref{eq:tau-rrddr} and \eqref{eq:eta-rrddr}, \( i \) is the number of dislocation with Burgers vector sense \( \beta \) in the observed subarea.
+In equations \eqref{eq:rrddr-tau} and \eqref{eq:rrddr-eta}, \( i \) is the number of dislocation with Burgers vector sense \( \beta \) in the observed subarea.
 
 \begin{align}
   \tau_{\alpha \beta} &=
@@ -698,7 +694,7 @@ In equations \eqref{eq:tau-rrddr} and \eqref{eq:eta-rrddr}, \( i \) is the numbe
       \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} \left( \frac{\gls{dst}}{2} \gls{area}_{\gls{roi}} - i \right) \frac{s^2}{\gls{area}_{\gls{roi}} - s^2} & \text{for } \alpha = \beta \\[4mm]
       \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} \left( \frac{\gls{dst}}{2} \gls{area}_{\gls{roi}} - (f - i) \right) \frac{s^2}{\gls{area}_{\gls{roi}} - s^2} & \text{for } \alpha \neq \beta
     \end{cases}
-    \label{eq:tau-rrddr}
+    \label{eq:rrddr-tau}
   \\[3mm]
   \eta_{\alpha \beta} &=
     \begin{cases}
@@ -707,61 +703,61 @@ In equations \eqref{eq:tau-rrddr} and \eqref{eq:eta-rrddr}, \( i \) is the numbe
       \sum_{i=1}^f \binom{f}{i} \frac{i}{f 2^{f-1}} (f - 1)
       & \text{for } \alpha \neq \beta
     \end{cases}
-    \label{eq:eta-rrddr}
+    \label{eq:rrddr-eta}
 \end{align}
 
 \medskip
 
-The expression of \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) can be simplified in equations \eqref{eq:tau-rrddr-simplified} and \eqref{eq:eta-rrddr-simplified}.
+The expression of \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) can be simplified in equations \eqref{eq:rrddr-tau-simplified} and \eqref{eq:rrddr-eta-simplified}.
 
 \begin{align}
   \tau_{\alpha \beta} &=
     \frac{1}{2} \frac{s^2}{\gls{area}_{\gls{roi}}-s^2} \left( \gls{dst} \gls{area}_{\gls{roi}} - f + (-1)^{\gls{indfun}_{\alpha = \beta}} \right)
-    \label{eq:tau-rrddr-simplified}
+    \label{eq:rrddr-tau-simplified}
   \\[3mm]
   \eta_{\alpha \beta} &=
     \frac{f-1}{2}
-    \label{eq:eta-rrddr-simplified}
+    \label{eq:rrddr-eta-simplified}
 \end{align}
 
 \medskip
 
-From equations \eqref{eq:RRDD-M-NEC}, \eqref{eq:RRDD-M-WOA}, \eqref{eq:RRDD-M-GBB} \eqref{eq:tau-rrddr-simplified}, \eqref{eq:eta-rrddr-simplified} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
-The closed form of the latter is compared to simulation results in \figref{fig:RRDD-R-g-NEC}, \figref{fig:RRDD-R-g-WOA} and \figref{fig:RRDD-R-g-GBB}.
+From equations \eqref{eq:rrdd-M-nec}, \eqref{eq:rrdd-M-woa}, \eqref{eq:rrdd-M-gbb} \eqref{eq:rrddr-tau-simplified}, \eqref{eq:rrddr-eta-simplified} and \eqref{eq:analysis-functions-g} it is possible to express the function \gls{fung} for each edge consideration.
+The closed form of the latter is compared to simulation results in \figref{fig:rrddr-g-nec}, \figref{fig:rrddr-g-woa} and \figref{fig:rrddr-g-gbb}.
 
-\smallfig{fig:RRDD-R-g-NEC}{insert/expressions/plots}{square_RRDD-R_g_NEC}{\( \gls{fung}^{\gls{nec}} \) on \gls{rrddr}}%
-\smallfig{fig:RRDD-R-g-WOA}{insert/expressions/plots}{square_RRDD-R_g_WOA}{\( \gls{fung}^{\gls{woa}} \) on \gls{rrddr}}%
-\smallfig{fig:RRDD-R-g-GBB}{insert/expressions/plots}{square_RRDD-R_g_GBB}{\( \gls{fung}^{\gls{gbb}} \) on \gls{rrddr}}%
+\smallfig{fig:rrddr-g-nec}{insert/expressions/plots}{square_RRDD-R_g_NEC}{\( \gls{fung}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rrddr-g-woa}{insert/expressions/plots}{square_RRDD-R_g_WOA}{\( \gls{fung}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rrddr-g-gbb}{insert/expressions/plots}{square_RRDD-R_g_GBB}{\( \gls{fung}^{\gls{gbb}}(r) \)}%
 
 \bigskip
 
-\figref{fig:RRDD-R-Ga-NEC}, \figref{fig:RRDD-R-Ga-WOA} and \figref{fig:RRDD-R-Ga-GBB} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:Ga-RRDDR-NEC-GBB} and \eqref{eq:Ga-RRDDR-NEC-GBB}.
+\figref{fig:rrddr-Ga-nec}, \figref{fig:rrddr-Ga-woa} and \figref{fig:rrddr-Ga-gbb} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:rrddr-Ga-nec-gbb} and \eqref{eq:rrddr-Ga-nec-gbb}.
 
 \begin{align}
   \gls{funGa}^{\gls{nec}} (r) =
   \gls{funGa}^{\gls{gbb}} (r) &=
     \frac{\gls{dst} \gls{area}_{\gls{roi}}}{ \gls{area}_{\gls{roi}} - s^2} \frac{d}{dr} \left( \gls{expval} \left( \cirsqr(r, s, X, Y) \right) - \mathcal{B}_{\gls{roi}} (r) \right)
-    \label{eq:Ga-RRDDR-NEC-GBB}
+    \label{eq:rrddr-Ga-nec-gbb}
   \\[3mm]
   \gls{funGa}^{\gls{woa}} (r) &=
     \frac{\gls{dst} \gls{area}_{\gls{roi}}}{ \gls{area}_{\gls{roi}} - s^2} \frac{d}{dr} \left( \frac{\gls{expval} \left( \cirsqr(r, s, X, Y) \right)}{\mathcal{B}_{\gls{roi}}(r)} - \pi r^2 \right)
-    \label{eq:Ga-RRDDR-WOA}
+    \label{eq:rrddr-Ga-woa}
 \end{align}
 
-\smallfig{fig:RRDD-R-Ga-NEC}{insert/expressions/plots}{square_RRDD-R_Ga_NEC}{\( \gls{funGa}^{\gls{nec}} \) on \gls{rrddr}}%
-\smallfig{fig:RRDD-R-Ga-WOA}{insert/expressions/plots}{square_RRDD-R_Ga_WOA}{\( \gls{funGa}^{\gls{woa}} \) on \gls{rrddr}}%
-\smallfig{fig:RRDD-R-Ga-GBB}{insert/expressions/plots}{square_RRDD-R_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}} \) on \gls{rrddr}}%
+\smallfig{fig:rrddr-Ga-nec}{insert/expressions/plots}{square_RRDD-R_Ga_NEC}{\( \gls{funGa}^{\gls{nec}}(r) \)}%
+\smallfig{fig:rrddr-Ga-woa}{insert/expressions/plots}{square_RRDD-R_Ga_WOA}{\( \gls{funGa}^{\gls{woa}}(r) \)}%
+\smallfig{fig:rrddr-Ga-gbb}{insert/expressions/plots}{square_RRDD-R_Ga_GBB}{\( \gls{funGa}^{\gls{gbb}}(r) \)}%
 
 \bigskip
 
-\figref{fig:circle-RRDD-R-energy-WOA}, to \figref{fig:circle-RRDD-R-energy3D-NEC} show the behavior of the total energy stored per unit volume. It does not diverge.
+\figref{fig:rrddr-energy-woa}, to \figref{fig:rrddr-energy3D-nec} show the behavior of the total energy stored per unit volume. It does not diverge.
 
-\smallfig{fig:circle-RRDD-R-energy-WOA}{insert/expressions/plots}{circle_RRDD-R_energy_WOA}{\gls{woa} circle \gls{rrddr}}%
-\smallfig{fig:circle-RRDD-R-energy-NEC}{insert/expressions/plots}{circle_RRDD-R_energy_NEC}{\gls{nec} circle \gls{rrddr}}%
-\smallfig{fig:square-RRDD-R-energy-NEC}{insert/expressions/plots}{square_RRDD-R_energy_NEC}{\gls{nec} square \gls{rrddr}}%
+\smallfig{fig:rrddr-energy-woa}{insert/expressions/plots}{circle_RRDD-R_energy_WOA}{\( e_T^{\gls{woa}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rrddr-energy-nec-circle}{insert/expressions/plots}{circle_RRDD-R_energy_NEC}{\( e_T^{\gls{nec}} \left( R_{\gls{roi}} \right) \)}%
+\smallfig{fig:rrddr-energy-nec-square}{insert/expressions/plots}{square_RRDD-R_energy_NEC}{\( e_T^{\gls{nec}} \left( S_{\gls{roi}} \right) \)}%
 
-\medfig{fig:circle-RRDD-R-energy3D-WOA}{insert/expressions/plots}{circle_RRDD-R_energy3D_WOA}{\gls{woa} circle \gls{rrddr}}%
-\medfig{fig:circle-RRDD-R-energy3D-NEC}{insert/expressions/plots}{circle_RRDD-R_energy3D_NEC}{\gls{nec} circle \gls{rrddr}}%
+\medfig{fig:rrddr-energy3D-woa}{insert/expressions/plots}{circle_RRDD-R_energy3D_WOA}{\( e_T^{\gls{woa}} \left( s, R_{\gls{roi}} \right) \)}%
+\medfig{fig:rrddr-energy3D-nec}{insert/expressions/plots}{circle_RRDD-R_energy3D_NEC}{\( e_T^{\gls{nec}} \left( s, R_{\gls{roi}} \right) \)}%
 
 \newpage
 
