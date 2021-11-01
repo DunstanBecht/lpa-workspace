@@ -38,7 +38,7 @@ edgconlbl = {
     'NEC': (r"\int_{r=r_0}^{+\infty} \frac{1}{2 \pi r^2} d \mathcal{B}_{ROI} (r)",
             r"\frac{1}{\rho \mathcal{A}_{ROI}} \int_{r=r_0}^{+\infty} G_A^{NEC} (r) \int_{x=r}^{+\infty} \frac{1}{2 \pi x^2} d \mathcal{B}_{ROI} (x) dr"),
     'WOA': (r"\ln \left( \frac{R_{ROI}}{r_0} \right)",
-            r"\frac{1}{\rho \mathcal{A}_{ROI}} \int_{r=r_0}^{R_{ROI}} G_A^{WOA} (r) \ln (\frac{R_{ROI}}{r}) dr"),
+            r"\frac{1}{\rho \mathcal{A}_{ROI}} \int_{r=r_0}^{R_{ROI}} G_A^{WOA} (r) \ln \left( \frac{R_{ROI}}{r} \right) dr"),
 }
 dismodprm = {
     'RDD': {'d': dst},
@@ -59,9 +59,9 @@ for dis in disord:
             args = (r0, R, modfun, modprm, geo, edgcon)
             Es, Ei, Et = expression.energies(*args).T
             lbs, lbi = edgconlbl[edgcon]
-            plt.plot(R, Es, label="$e_S = "+lbs+r"$")
-            plt.plot(R, Ei, label="$e_I = "+lbi+r"$")
-            plt.plot(R, Et, label="$e_T = e_S + e_I$")
+            plt.plot(R, Es, label=f"$e_S^{{{edgcon}}} = {lbs}$")
+            plt.plot(R, Ei, label=f"$e_I^{{{edgcon}}} = {lbi}$")
+            plt.plot(R, Et, label=f"$e_T^{{{edgcon}}} = e_S^{{{edgcon}}} + e_I^{{{edgcon}}}$")
             if dis=='RDD' and edgcon=='WOA':
                 Re = R/np.sqrt(np.e)
                 plt.plot(
@@ -73,6 +73,6 @@ for dis in disord:
             plt.legend()
             plt.grid()
             plt.xlabel(geoxax[geo])
-            plt.title(modfun.__name__+notation.parameters(modprm, c='ttl')+" "+geo+" "+edgcon)
-            plt.savefig("../plots/"+geo+"_"+dis+"_energy_"+edgcon+".pdf")
+            plt.title(f"{modfun.__name__+notation.parameters(modprm, c='ttl')} {geo} {edgcon} ($ r_0 = {r0} $ nm)")
+            plt.savefig(f"../plots/{geo}_{dis}_energy_{edgcon}.pdf")
             plt.clf()

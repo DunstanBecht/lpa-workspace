@@ -569,7 +569,7 @@ As shown in \figref{fig:rdd-energy-woa} to \figref{fig:rdd-energy-nec-square} th
     \frac{\gls{shrmod} | \gls{vecb} |^2 \gls{dst} \gls{area}_{\gls{roi}}}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
   \\
   \gls{totnrg}^{\gls{woa}} &\sim
-    \frac{\gls{shrmod} | \gls{vecb} |^2 \gls{dst} \gls{area}_{\gls{roi}}}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{\gls{cutrad}}{r_0} \right) \ \ \text{with} \ \ \gls{cutrad} = \frac{R_{\gls{roi}}}{\sqrt{e}}
+    \frac{\gls{shrmod} | \gls{vecb} |^2 \gls{dst} \gls{area}_{\gls{roi}}}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{\gls{cutrad}^{\gls{woa}}}{r_0} \right) \ \ \text{with} \ \ \gls{cutrad}^{\gls{woa}} = \frac{R_{\gls{roi}}}{\sqrt{e}}
     \label{eq:rdd-energy-woa}
 \end{align}
 
@@ -674,14 +674,14 @@ The closed form of the latter is compared to simulation results in \figref{fig:r
 
 \bigskip
 
-\figref{fig:rrdde-energy-woa} to \figref{fig:rrdde-energy3D-nec} show the behavior of the total energy stored per unit volume. It seems to depend little on \gls{cutrad} but more on \( s \).
+\figref{fig:rrdde-energy-woa} to \figref{fig:rrdde-cutrad3D-nec} show the behavior of the total energy stored per unit volume. It seems to depend little on \( R_{\gls{roi}} \) but more on \( s \).
 
 \smallfig{fig:rrdde-energy-woa}{insert/expressions/plots}{circle_RRDD-E_energy_WOA}{\( e_T^{\gls{woa}} \left( R_{\gls{roi}} \right) \)}%
 \smallfig{fig:rrdde-energy-nec-circle}{insert/expressions/plots}{circle_RRDD-E_energy_NEC}{\( e_T^{\gls{nec}} \left( R_{\gls{roi}} \right) \)}%
 \smallfig{fig:rrdde-energy-nec-square}{insert/expressions/plots}{square_RRDD-E_energy_NEC}{\( e_T^{\gls{nec}} \left( S_{\gls{roi}} \right) \)}%
 
-\medfig{fig:rrdde-energy3D-woa}{insert/expressions/plots}{circle_RRDD-E_energy3D_WOA}{\( e_T^{\gls{woa}} \left( s, R_{\gls{roi}} \right) \)}%
-\medfig{fig:rrdde-energy3D-nec}{insert/expressions/plots}{circle_RRDD-E_energy3D_NEC}{\( e_T^{\gls{nec}} \left( s, R_{\gls{roi}} \right) \)}%
+\medfig{fig:rrdde-cutrad3D-woa}{insert/expressions/plots}{circle_RRDD-E_cutrad3D_WOA}{\( \gls{cutrad}^{\gls{woa}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
+\medfig{fig:rrdde-cutrad3D-nec}{insert/expressions/plots}{circle_RRDD-E_cutrad3D_NEC}{\( \gls{cutrad}^{\gls{nec}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
 
 \subsubsection{\glsentrytext{rrddr}}
 
@@ -750,14 +750,15 @@ The closed form of the latter is compared to simulation results in \figref{fig:r
 
 \bigskip
 
-\figref{fig:rrddr-energy-woa}, to \figref{fig:rrddr-energy3D-nec} show the behavior of the total energy stored per unit volume. It does not diverge.
+\figref{fig:rrddr-energy-woa}, to \figref{fig:rrddr-cutrad3D-nec} show the behavior of the total energy stored per unit volume.
+Unlike \gls{rrdde}, it depends mainly on \( R_{\gls{roi}} \) and little on \( s \).
 
 \smallfig{fig:rrddr-energy-woa}{insert/expressions/plots}{circle_RRDD-R_energy_WOA}{\( e_T^{\gls{woa}} \left( R_{\gls{roi}} \right) \)}%
 \smallfig{fig:rrddr-energy-nec-circle}{insert/expressions/plots}{circle_RRDD-R_energy_NEC}{\( e_T^{\gls{nec}} \left( R_{\gls{roi}} \right) \)}%
 \smallfig{fig:rrddr-energy-nec-square}{insert/expressions/plots}{square_RRDD-R_energy_NEC}{\( e_T^{\gls{nec}} \left( S_{\gls{roi}} \right) \)}%
 
-\medfig{fig:rrddr-energy3D-woa}{insert/expressions/plots}{circle_RRDD-R_energy3D_WOA}{\( e_T^{\gls{woa}} \left( s, R_{\gls{roi}} \right) \)}%
-\medfig{fig:rrddr-energy3D-nec}{insert/expressions/plots}{circle_RRDD-R_energy3D_NEC}{\( e_T^{\gls{nec}} \left( s, R_{\gls{roi}} \right) \)}%
+\medfig{fig:rrddr-cutrad3D-woa}{insert/expressions/plots}{circle_RRDD-R_cutrad3D_WOA}{\( \gls{cutrad}^{\gls{woa}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
+\medfig{fig:rrddr-cutrad3D-nec}{insert/expressions/plots}{circle_RRDD-R_cutrad3D_NEC}{\( \gls{cutrad}^{\gls{nec}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
 
 \newpage
 

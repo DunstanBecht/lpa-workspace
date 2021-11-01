@@ -31,7 +31,7 @@ for edgcon in edgconord:
         stm = (f"{geo}_RRDD-{var}_energy3D_{edgcon}_"
                f"R_{R[0]:1.0f}_{R[-1]:1.0f}_{len(R)}_"
                f"s_{s[0]:1.0f}_{s[-1]:1.0f}_{len(s)}.txt")
-        ttl = f"RRDD-E {geo} {edgcon}"
+        ttl = f"RRDD-{var} {geo} {edgcon} ($ r_0 = {r0} $ nm)"
 
         # load or compute
         X, Y = np.meshgrid(R, s)
@@ -63,7 +63,7 @@ for edgcon in edgconord:
             hspace=0,
         )
         ax.view_init(elev=20, azim=-135)
-        
+
         # plot energy
         ax.plot_surface(
             X,
@@ -74,7 +74,7 @@ for edgcon in edgconord:
         )
         ax.set_xlabel(r"$ R_{ROI} $ (nm)")
         ax.set_ylabel(r"$ s $ (nm)")
-        ax.set_zlabel(r"$ e_T $")
+        ax.set_zlabel(fr"$ e_T^{{{edgcon}}} $")
         plt.title(ttl)
         plt.savefig(f"../plots/{geo}_RRDD-{var}_energy3D_{edgcon}.pdf")
 
@@ -90,6 +90,6 @@ for edgcon in edgconord:
         )
         ax.set_xlabel(r"$ R_{ROI} $ (nm)")
         ax.set_ylabel(r"$ s $ (nm)")
-        ax.set_zlabel(r"$ R_e = r_0 \exp \left( e_T \right) $")
+        ax.set_zlabel(fr"$ R_e^{{{edgcon}}} = r_0 \exp \left( e_T^{{{edgcon}}} \right) $ (nm)")
         plt.title(ttl)
         plt.savefig(f"../plots/{geo}_RRDD-{var}_cutrad3D_{edgcon}.pdf")
