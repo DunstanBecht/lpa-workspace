@@ -50,8 +50,10 @@ for edgcon in edgconord:
             Z = fun3Dvec(X, Y)
             np.savetxt(os.path.join("../saved", stm), Z)
 
-        # plot
+        # plot settings
         plt.figure(figsize=(7, 5))
+        ax = plt.axes(projection='3d')
+        plt.rcParams['axes.titley'] = 1.0
         plt.subplots_adjust(
             left=0,
             bottom=0,
@@ -60,19 +62,34 @@ for edgcon in edgconord:
             wspace=0,
             hspace=0,
         )
-        ax = plt.axes(projection='3d')
+        ax.view_init(elev=20, azim=-135)
+        
+        # plot energy
         ax.plot_surface(
             X,
             Y,
             Z,
             cmap=cm.coolwarm,
             edgecolor=None,
-            )
-        ax.view_init(elev=20, azim=-135)
+        )
         ax.set_xlabel(r"$ R_{ROI} $ (nm)")
-        ax.set_ylabel(r"$s$ (nm)")
-        ax.set_zlabel(r"$e_T$")
-        plt.rcParams['axes.titley'] = 1.0
-        #plt.rcParams['axes.titlepad'] = -5
+        ax.set_ylabel(r"$ s $ (nm)")
+        ax.set_zlabel(r"$ e_T $")
         plt.title(ttl)
         plt.savefig(f"../plots/{geo}_RRDD-{var}_energy3D_{edgcon}.pdf")
+
+        plt.cla()
+
+        # plot effective cut-off radius
+        ax.plot_surface(
+            X,
+            Y,
+            r0*np.exp(Z),
+            cmap=cm.coolwarm,
+            edgecolor=None,
+        )
+        ax.set_xlabel(r"$ R_{ROI} $ (nm)")
+        ax.set_ylabel(r"$ s $ (nm)")
+        ax.set_zlabel(r"$ R_e = r_0 \exp \left( e_T \right) $")
+        plt.title(ttl)
+        plt.savefig(f"../plots/{geo}_RRDD-{var}_cutrad3D_{edgcon}.pdf")
