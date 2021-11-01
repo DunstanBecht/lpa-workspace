@@ -6,29 +6,33 @@
 
 \subsection{Random positioning optimization}
 
-This section presents the techniques used to optimize the random positioning of points that must respect certain properties.
-A first approach would be to hide the points not respecting the required conditions, the goal here is to draw only points having the required properties.
+This section presents the methods used for the random positioning of points that must respect certain properties.
+A first approach would be to hide the points not respecting the required conditions.
+It is more efficient to draw only points having already the required properties.
 
 \subsubsection{Continuous uniform distribution in a circle}\label{sec:circle-random-position}
 
-A polar coordinate system \( (\varphi, r)\) is used.
-The probability density of presence of a point in the disk of radius \( R_0 \) is \( \frac{1}{\pi {R_0}^2} \).
+A polar coordinate system \( (\varphi, r) \) is used in a disk of radius \( R_0 \) in which random positions are to be drawn.
+The probability density of presence of a point in the disk is \( 1 / \left( \pi {R_0}^2 \right) \).
 At each random draw, the probability to find the dislocation in the surface element \( r dr d\varphi\) is then:
 
 \begin{equation}
-\frac{r dr d\varphi}{\pi {R_0}^2} = \frac{2 r}{{R_0}^2} dr \frac{1}{2 \pi} d\varphi
+  \frac{r dr d\varphi}{\pi {R_0}^2} =
+    \frac{2 r}{{R_0}^2} dr \frac{1}{2 \pi} d\varphi
 \end{equation}
 
 \bigskip
 
-Let \( \phi \) and \( R \) be two random variables such that \( \phi(\omega) \in [0, 2\pi] \) and \( R(\omega) \in [0, R_0] \). Let \( f_\phi \) and \( f_R \) be the probability density functions of \( \phi \) and \( R \), respectively.
+Let \( \phi \) and \( R \) be two random variables such that \( \phi(\omega) \in [0, 2\pi[ \) and \( R(\omega) \in [0, R_0] \). Let \( f_\phi \) and \( f_R \) be the probability density functions of \( \phi \) and \( R \), respectively.
 
 \begin{equation}
-f_\phi(\varphi) = \frac{1}{2 \pi}
+  f_\phi(\varphi) =
+    \frac{1}{2 \pi}
 \end{equation}
 
 \begin{equation}
-f_R(r) = \frac{2r}{{R_0}^2}
+  f_R(r) =
+    \frac{2r}{{R_0}^2}
 \end{equation}
 
 \medskip
@@ -36,11 +40,15 @@ f_R(r) = \frac{2r}{{R_0}^2}
 Let \( F_\phi \) and  \( F_R \) be the  cumulative distribution functions of \( \phi \) and \( R \), respectively.
 
 \begin{equation}
-F_\phi(\varphi) = \mathbb{P}(\phi \leq \varphi) =  \int_0^\varphi f_\phi(t) dt = \frac{\varphi }{2 \pi}
+  F_\phi(\varphi) =
+    \mathbb{P}(\phi \leq \varphi) =
+      \int_0^\varphi f_\phi(t) dt = \frac{\varphi }{2 \pi}
 \end{equation}
 
 \begin{equation}
-F_R(r) = \mathbb{P}(R \leq r) =  \int_0^r f_R(t) dt = \left( \frac{r}{R_0} \right)^2
+  F_R(r) =
+    \mathbb{P}(R \leq r) =
+      \int_0^r f_R(t) dt = \left( \frac{r}{R_0} \right)^2
 \end{equation}
 
 \medskip
@@ -48,11 +56,13 @@ F_R(r) = \mathbb{P}(R \leq r) =  \int_0^r f_R(t) dt = \left( \frac{r}{R_0} \righ
 Let \( X_\phi \) and \( X_R \) be two new random variables defined using \( \phi \) and \( R \) such that \( X_\phi \) and \( X_R \) follow a uniform law \( U(0, 1) \).
 
 \begin{equation}
-X_\phi = \frac{\phi}{2 \pi}
+  X_\phi =
+    \frac{\phi}{2 \pi}
 \end{equation}
 
 \begin{equation}
-  X_R = \left( \frac{R}{R_0} \right)^2
+  X_R =
+    \left( \frac{R}{R_0} \right)^2
 \end{equation}
 
 \medskip
@@ -60,73 +70,77 @@ X_\phi = \frac{\phi}{2 \pi}
 Since \( X_\phi \sim U(0, 1) \) and \( X_R \sim U(0, 1) \), the random position \( (\varphi, r)\) of a point on the disk can be choosen with the sampling \( ( x_\phi, x_R ) \) of two uniformly distributed random variables \( X_\phi \) and \( X_R \):
 
 \begin{equation}\label{eq:circle-random-position-theta}
-\varphi = 2 \pi x_\phi
+  \varphi =
+    2 \pi x_\phi
 \end{equation}
 
 \begin{equation}\label{eq:circle-random-position-r}
-r = R_0 \sqrt{x_R}
+  r =
+    R_0 \sqrt{x_R}
 \end{equation}
 
 \subsubsection{Drawing of points in cell walls}\label{sec:cell-random-position}
 
 \bigfig{fig:cell-random-position}{insert/positions}{walls}{Division of the surface occupied by the walls}
 
-To randomly select points in the cell borders, 4 virtual rectangles \( A, B, C, D \) are created in each cell. If the probability of presence in the cell is given by \( P_C \), then the probability of presence in the rectangles is given by \( P_A = P_B = P_c = P_C / 4 \).
+To randomly select points in the cell borders, 4 virtual rectangles \( A, B, C, D \) are created in each cell. If the probability of presence in the cell is given by \( P = \gls{area}_{\text{cell}} / \gls{area}_{\gls{roi}} \), then the probability of presence in the rectangles is given by \( P_A = P_B = P_C = P_D = P / 4 \).
 The position in the selected rectangle is then chosen by applying a uniform continuous law.
 
 \subsection{Overlapping}\label{sec:overlapping}
 
 \subsubsection{Circular segment area}
 
-\bigfig{fig:overlapping:circular-segment}{insert/overlapping}{circular_segment}{Circular segment area}
-
 For the area shaded in \figref{fig:overlapping:circular-segment} the formula is obtained by calculating the angle between d and r.
 
-\begin{equation}\label{eq:overlapping:circular-segment}
-\cirseg(r, d) = r^2 \arccos\left( \frac{d}{r} \right) - d \sqrt{r^2 - d^2}
-\end{equation}
+\begin{minipage}{0.5\linewidth}
+  \bigfig{fig:overlapping:circular-segment}{insert/overlapping}{circular_segment}{Circular segment area}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+  \begin{equation}\label{eq:overlapping:circular-segment}
+    \cirseg(r, d) =
+      r^2 \arccos\left( \frac{d}{r} \right) - d \sqrt{r^2 - d^2}
+  \end{equation}
+\end{minipage}%
 
 \subsubsection{Intersection area of two circles}\label{sec:circle-circle-intersection}
 
 The area of intersection of two circles of radius \( r \) and \( R \) whose centers are spaced by a distance \( d \) as shown in \figref{fig:circle-circle-intersection} can be calculated using equation \eqref{eq:overlapping:circular-segment}. The expression is given by the function \( \circir (r, R, d) \) in equation \eqref{eq:circle-circle-intersection}.
 
-\bigfig{fig:circle-circle-intersection}{insert/overlapping}{circle_circle}{Intersection of two circles}
-
 \begin{align}
   \gls{area}_0 (r, R, d) & =
-  \textstyle
-  \cirseg \left(r, \frac{d^2 + r^2 - R^2}{2 d} \right) + \cirseg \left( R, \frac{d^2 + R^2 - r^2}{2 d} \right)
+    \textstyle
+    \cirseg \left(r, \frac{d^2 + r^2 - R^2}{2 d} \right) + \cirseg \left( R, \frac{d^2 + R^2 - r^2}{2 d} \right)
   \\[1mm]
   \gls{area}_0 (r, R, d) & =
-  \textstyle
-  r^2 \arccos \left( \frac{d^2 + r^2 - R^2}{2 d r} \right)
-  + R^2 \arccos \left( \frac{d^2 + R^2 - r^2}{2 d R} \right)
-  - \frac{\sqrt{(-d+r+R)(d+r-R)(d-r+R)(d+r+R)}}{2}
+    \textstyle
+    r^2 \arccos \left( \frac{d^2 + r^2 - R^2}{2 d r} \right)
+    + R^2 \arccos \left( \frac{d^2 + R^2 - r^2}{2 d R} \right)
+    - \frac{\sqrt{(-d+r+R)(d+r-R)(d-r+R)(d+r+R)}}{2}
 \end{align}
 
-\begin{equation}\label{eq:circle-circle-intersection}
-  \circir (r, R, d) =
-  \begin{cases}
-    0 & \text{for } r + R < d \\[2mm]
-    \pi r^2 & \text{for } d + r < R \\[2mm]
-    \pi R^2 & \text{for } d + R < r \\[2mm]
-    \gls{area}_0 (r, R, d) & \text{else}
-  \end{cases}
-\end{equation}
+\begin{minipage}{0.5\linewidth}
+  \bigfig{fig:circle-circle-intersection}{insert/overlapping}{circle_circle}{Intersection of two circles}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+  \begin{equation}\label{eq:circle-circle-intersection}
+    \circir (r, R, d) =
+    \begin{cases}
+      0 & \text{for } r + R < d \\[2mm]
+      \pi r^2 & \text{for } d + r < R \\[2mm]
+      \pi R^2 & \text{for } d + R < r \\[2mm]
+      \gls{area}_0 (r, R, d) & \text{else}
+    \end{cases}
+  \end{equation}
+\end{minipage}%
 
 \subsubsection{Intersection area of a circle and a square}\label{sec:circle-square-intersection}
 
 \bigfig{fig:overlapping:circle-square-examples}{insert/overlapping}{circle_square}{Some possibilities of overlapping of a square and a circle}
 
-\bigskip
-
 In order to calculate the area \cirsqr \ of intersection between a circle of radius \( r \) and a square of side \( S \) one would have to distinguish many cases of the circle overtaking the right, left and bottom of the square.
 To simplify the distinction of cases the study is limited to one quadrant of the circle in a first time.
 The area of the quadrant outside the square is calculated and the contribution of each quadrant is summed and subtracted from the area of the circle to obtain the total area of intersection.
-The center of the circle is in the square, at the position \( (x, y ) \) relative to the lower left corner of the square.
 \figref{fig:overlapping:circle-square-quadrants} show the different considered possibilities in a circle quadrant.
-
-\bigskip
 
 \bigfig{fig:overlapping:circle-square-quadrants}{insert/overlapping}{quadrants}{Possibilities illustrated in the upper right circle quadrant}
 
@@ -135,9 +149,9 @@ The center of the circle is in the square, at the position \( (x, y ) \) relativ
 The occurrence of the cases presented in \figref{fig:overlapping:circle-square-quadrants} is formally defined as a function of \( d_1 \), \( d_2 \) and \( r \) in equations \eqref{eq:quadrant-case-1}, \eqref{eq:quadrant-case-2} and \eqref{eq:quadrant-case-3}.
 
 \begin{align}
-C1 &\Longleftrightarrow \left( \neg C3 \right) \wedge \left( d_1 < r \right) \label{eq:quadrant-case-1} \\
-C2 &\Longleftrightarrow \left( \neg C3 \right) \wedge \left( d_2 < r \right) \label{eq:quadrant-case-2} \\
-C3 &\Longleftrightarrow \left( d_1^2 + d_2^2 < r^2 \right) \label{eq:quadrant-case-3}
+  C1 &\Longleftrightarrow \left( \neg C3 \right) \wedge \left( d_1 < r \right) \label{eq:quadrant-case-1} \\
+  C2 &\Longleftrightarrow \left( \neg C3 \right) \wedge \left( d_2 < r \right) \label{eq:quadrant-case-2} \\
+  C3 &\Longleftrightarrow \left( d_1^2 + d_2^2 < r^2 \right) \label{eq:quadrant-case-3}
 \end{align}
 
 \medskip
@@ -153,10 +167,10 @@ The areas grayed in \figref{fig:overlapping:circle-square-quadrants} are express
 The area \( \gls{area}_Q (r, d_1, d_2) \) outside a quadrant is then given in equation \eqref{eq:outside-quadrant}.
 
 \begin{equation}\label{eq:outside-quadrant}
-\gls{area}_Q (r, d_1, d_2) =
-\gls{indfun}_{C1} \gls{area}_{1 \lor 2} (r, d_1) +
-\gls{indfun}_{C2} \gls{area}_{1 \lor 2} (r, d_2) +
-\gls{indfun}_{C3} \gls{area}_{3} (r, d_1, d_2)
+  \gls{area}_Q (r, d_1, d_2) =
+    \gls{indfun}_{C1} \gls{area}_{1 \lor 2} (r, d_1) +
+    \gls{indfun}_{C2} \gls{area}_{1 \lor 2} (r, d_2) +
+    \gls{indfun}_{C3} \gls{area}_{3} (r, d_1, d_2)
 \end{equation}
 
 \medskip
@@ -164,11 +178,12 @@ The area \( \gls{area}_Q (r, d_1, d_2) \) outside a quadrant is then given in eq
 Finally, to obtain the area \( \cirsqr (r, S, x, y) \) of intersection between a circle of radius \( r \) centered in \( (x, y) \) and a square of side \( S \), the contribution of each quadrant is taken into account in equation \eqref{eq:circle-square-intersection}.
 
 \begin{equation}\label{eq:circle-square-intersection}
-\cirsqr (r, S, x, y) = \pi r^2
-- \gls{area}_Q (r,     x,     y)
-- \gls{area}_Q (r, S - x,     y)
-- \gls{area}_Q (r,     x, S - y)
-- \gls{area}_Q (r, S - x, S - y)
+  \cirsqr (r, S, x, y) =
+    \pi r^2
+    - \gls{area}_Q (r,     x,     y)
+    - \gls{area}_Q (r, S - x,     y)
+    - \gls{area}_Q (r,     x, S - y)
+    - \gls{area}_Q (r, S - x, S - y)
 \end{equation}
 
 \subsubsection{Average intersection area of two circles}
@@ -177,8 +192,8 @@ The expected value of intersection of two circles of radius \( r \) and \( R \) 
 For a uniform distribution of points, \( \textstyle D = R \sqrt{X} \) with \( X \) following a uniform law \( U(0, 1) \) as explained in \ref{sec:circle-random-position}.
 
 \begin{equation}\label{eq:mean-circle-circle-intersection}
-\gls{expval} \left( \circir(r, R, D) \right) = \int_{x=0}^1
-\circir (r, R, R \sqrt{x}) dx
+  \gls{expval} \left( \circir(r, R, D) \right) =
+    \int_{x=0}^1 \circir (r, R, R \sqrt{x}) dx
 \end{equation}
 
 \bigfig{fig:mean-circle-circle-intersection}{insert/overlapping}{mean_circle_circle}{Comparison of the analytical formulation \eqref{eq:mean-circle-circle-intersection} of \( \gls{expval} \left( \circir \right) \) with a simulation}
@@ -201,11 +216,16 @@ It will therefore be necessary to integrate these areas over the positions of oc
 It is defined limits of integration from \figref{fig:overlapping:application-areas}.
 
 \begin{align}
-\varphi_1 &= \arccos \left( \frac{S}{\max(r, S)} \right) \\
-\varphi_2 &= \arctan \left( \frac{S}{\min(r, S)} \right) \\
-\varphi_3 &= \arcsin \left( \frac{S}{\max(r, S)} \right) \\
-x_1 (\varphi) &= \frac{\min(r, S)}{\cos{\varphi}} \\
-x_2 (\varphi) &= \frac{S}{\sin{\varphi}}
+  \varphi_1 &=
+    \arccos \left( \frac{S}{\max(r, S)} \right) \\
+  \varphi_2 &=
+    \arctan \left( \frac{S}{\min(r, S)} \right) \\
+  \varphi_3 &=
+    \arcsin \left( \frac{S}{\max(r, S)} \right) \\
+  x_1 (\varphi) &=
+    \frac{\min(r, S)}{\cos{\varphi}} \\
+  x_2 (\varphi) &=
+    \frac{S}{\sin{\varphi}}
 \end{align}
 
 \medskip
@@ -213,30 +233,31 @@ x_2 (\varphi) &= \frac{S}{\sin{\varphi}}
 The contributions for one quadrant of the different cases can then be expressed.
 
 \begin{align}
-\gls{expval} \left( \gls{area}_{1 \lor 2} \right) &=
-\frac{1}{S^2} \left(
-\int_{\varphi = \varphi_1}^{\varphi_2}
-\int_{x=r}^{x_1(\varphi)}
-\gls{area}_{1 \lor 2} (r, x \cos \left( \varphi) \right)
-x dx d\varphi
-+
-\int_{\varphi = \varphi_2}^{\varphi_3}
-\int_{x=r}^{x_2(\varphi)}
-\gls{area}_{1 \lor 2} (r, x \cos \left( \varphi) \right)
-x dx d\varphi
-\right) \\
-\gls{expval} \left( \gls{area}_{3} \right) &=
-\frac{1}{S^2} \left(
-\int_{\varphi = \varphi_1}^{\varphi_3}
-\int_{x=0}^{r}
-\gls{area}_{3} \left( r, x \sin(\varphi), x \cos(\varphi) \right)
-x dx d\varphi
-+
-2 \int_{y = 0}^{S}
-\int_{x=0}^{\tan(\varphi_1)y}
-\gls{area}_{3} \left( r, x, y \right)
-dx dy
-\right)
+  \gls{expval} \left( \gls{area}_{1 \lor 2} \right) &=
+    \frac{1}{S^2} \left(
+    \int_{\varphi = \varphi_1}^{\varphi_2}
+    \int_{x=r}^{x_1(\varphi)}
+    \gls{area}_{1 \lor 2} (r, x \cos \left( \varphi) \right)
+    x dx d\varphi
+    +
+    \int_{\varphi = \varphi_2}^{\varphi_3}
+    \int_{x=r}^{x_2(\varphi)}
+    \gls{area}_{1 \lor 2} (r, x \cos \left( \varphi) \right)
+    x dx d\varphi
+    \right)
+  \\
+  \gls{expval} \left( \gls{area}_{3} \right) &=
+    \frac{1}{S^2} \left(
+    \int_{\varphi = \varphi_1}^{\varphi_3}
+    \int_{x=0}^{r}
+    \gls{area}_{3} \left( r, x \sin(\varphi), x \cos(\varphi) \right)
+    x dx d\varphi
+    +
+    2 \int_{y = 0}^{S}
+    \int_{x=0}^{\tan(\varphi_1)y}
+    \gls{area}_{3} \left( r, x, y \right)
+    dx dy
+    \right)
 \end{align}
 
 \medskip
@@ -244,12 +265,14 @@ dx dy
 Finally, for the mean intersection area, the contribution of each quadrant is taken into account.
 
 \begin{equation}\label{eq:mean-circle-square-intersection}
-\gls{expval} \left( \cirsqr (r, S, X, Y) \right) =
-\begin{cases}
-0 &\text{if } r = 0 \\
-\pi r^2 - 4 \left(2 \gls{expval} \left( \gls{area}_{1 \lor 2} \right) +\gls{expval} \left( \gls{area}_{3} \right)\right) &\text{if } r \in \ ] 0, \sqrt{2} S [ \\
-S^2 &\text{if } r \geq \sqrt{2} S
-\end{cases}
+  \gls{expval} \left( \cirsqr (r, S, X, Y) \right) =
+    \begin{cases}
+      0 &\text{if } r = 0
+      \\
+      \pi r^2 - 4 \left(2 \gls{expval} \left( \gls{area}_{1 \lor 2} \right) +\gls{expval} \left( \gls{area}_{3} \right)\right) &\text{if } r \in \ ] 0, \sqrt{2} S [
+      \\
+      S^2 &\text{if } r \geq \sqrt{2} S
+    \end{cases}
 \end{equation}
 
 \bigfig{fig:mean-circle-square-intersection}{insert/overlapping}{mean_circle_square}{Comparison of the analytical formulation \eqref{eq:mean-circle-square-intersection} of \( \gls{expval} \left( \cirsqr \right) \) with a simulation}
