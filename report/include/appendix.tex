@@ -277,6 +277,24 @@ Finally, for the mean intersection area, the contribution of each quadrant is ta
 
 \bigfig{fig:mean-circle-square-intersection}{insert/overlapping}{mean_circle_square}{Comparison of the analytical formulation \eqref{eq:mean-circle-square-intersection} of \( \gls{expval} \left( \cirsqr \right) \) with a simulation}
 
+\subsubsection{Conjecture}
+
+The behavior of the expected value of overlapping area becomes simple when it is integrated over a radius of neighborhood \( r \in [r_0, +\infty[\).
+It seems that for at least some functions \( f \) we have the relation given in equations \eqref{eq-conjecture-circle} and \eqref{eq-conjecture-square}.
+\( \mathcal{D}_{\symcirclecircle f} \) and \( \mathcal{D}_{\symcirclesquare f} \) are multiplicative constants of the size of the region of interest.
+They introduce an equivalent effective size of the latter.
+
+\begin{align}
+  \int_{r=r_0}^{+\infty} f(r) \frac{d \gls{expval} \left( \circir (r, R, D) \right)}{dr} dr
+    \ \underset{\frac{r_0}{R_{\gls{roi}}} \rightarrow 0}{\sim} \
+    \int_{r=r_0}^{\mathcal{D}_{\symcirclecircle f} R} f(r) 2 \pi r dr
+  \label{eq-conjecture-circle} \\[2mm]
+  \int_{r=r_0}^{+\infty} f(r) \frac{d \gls{expval} \left( \cirsqr (r, S, X, Y) \right)}{dr} dr
+    \ \underset{\frac{r_0}{R_{\gls{roi}}} \rightarrow 0}{\sim} \
+    \int_{r=r_0}^{\mathcal{D}_{\symcirclesquare f} S} f(r) 2 \pi r dr
+  \label{eq-conjecture-square}
+\end{align}
+
 \section{Data}\label{sec:data}
 
 The construction and analysis of the data produced for the study was automated.
