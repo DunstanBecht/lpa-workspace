@@ -561,15 +561,15 @@ Equations \eqref{eq:rdd-Ga-nec-gbb} and \eqref{eq:rdd-Ga-woa} give the expressio
 
 \newpage
 
-From equations \eqref{eq:rdd-Ga-woa} and \eqref{eq:total-energy-woa} the total energy per unit volume for the edge consideration \gls{woa} can be expressed in equation \eqref{eq:rdd-energy-woa}.
-As shown in \figref{fig:rdd-energy-woa} to \figref{fig:rdd-energy-nec-square} the latter is divergent.
+From equations \eqref{eq:rdd-Ga-woa} and \eqref{eq:total-energy-woa} the total energy per unit length for the edge consideration \gls{woa} can be expressed in equation \eqref{eq:rdd-energy-woa}.
+As shown in \figref{fig:rdd-energy-woa} to \figref{fig:rdd-energy-nec-square} the energy per unit volume is divergent.
 
 \begin{align}
   \gls{totnrg}^{\gls{woa}} &=
-    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
+    \frac{\gls{shrmod} | \gls{vecb} |^2 \gls{dst} \gls{area}_{\gls{roi}}}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \left( \ln \left( \frac{R_{\gls{roi}}}{r_0 \sqrt{e}} \right) + \left( \frac{r_0}{R_{\gls{roi}}} \right)^2 \ln \left( \frac{R_{\gls{roi}} \sqrt{e}}{r_0} \right) \right)
   \\
   \gls{totnrg}^{\gls{woa}} &\sim
-    \frac{\gls{shrmod} | \gls{vecb} |^2}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{\gls{cutrad}}{r_0} \right) \ \ \text{with} \ \ \gls{cutrad} = \frac{R_{\gls{roi}}}{\sqrt{e}}
+    \frac{\gls{shrmod} | \gls{vecb} |^2 \gls{dst} \gls{area}_{\gls{roi}}}{4 \pi \left(1 - \gls{indfun}_{\mathrm{edge}} \gls{pssrat} \right)} \ln \left( \frac{\gls{cutrad}}{r_0} \right) \ \ \text{with} \ \ \gls{cutrad} = \frac{R_{\gls{roi}}}{\sqrt{e}}
     \label{eq:rdd-energy-woa}
 \end{align}
 
