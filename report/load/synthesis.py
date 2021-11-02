@@ -70,7 +70,7 @@ appmtdord = (
         'fun': mean_values,
         'sym': (
             tfmtex1.replace("VALUE", fr"\gls{{expval}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\gls{{expval}}\left({sym2}\right)"),
+            tfmtex3.replace("VALUE", fr"\gls{{expval}}\left({sym2}\right)")+" (nm)",
             tfmtex3.replace("VALUE", fr"\gls{{expval}}\left({sym0}\right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
@@ -82,7 +82,7 @@ appmtdord = (
         'fun': deviations,
         'sym': (
             tfmtex2.replace("VALUE", fr"\gls{{stddev}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\gls{{stddev}}\left({sym2}\right)"),
+            tfmtex3.replace("VALUE", fr"\gls{{stddev}}\left({sym2}\right)")+" (nm)",
             tfmtex3.replace("VALUE", fr"\gls{{stddev}}\left({sym0}\right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
