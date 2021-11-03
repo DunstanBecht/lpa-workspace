@@ -4,18 +4,25 @@
 import os
 import numpy as np
 from lpa.input import overlap, analyze, notation
-import scipy.special
 
-pth = "../saved/"
+if True:
+    EAcc = overlap.mean_circle_circle_interpolation
+    EAcs = overlap.mean_circle_square_interpolation
+    method = 'interpolation'
+else:
+    EAcc = overlap.mean_circle_circle_analytic
+    EAcs = overlap.mean_circle_square_analytic
+    method = 'analytic'
 
 def Aroi_Broi_dr(r, geo, siz):
     if geo == 'square':
         Aroi = siz**2
-        Broi = overlap.mean_circle_square_analytic(r, siz)
+        Broi = EAcs(r, siz)
     elif geo == 'circle':
         Aroi = np.pi*siz**2
-        Broi = overlap.mean_circle_circle_analytic(r, siz)
+        Broi = EAcc(r, siz)
     dr = np.gradient(r)
+    Broi[0] = np.nan
     return Aroi, Broi, dr
 
 def KKKK_gggg_GaGs(MMMM, r, d, dr, Aroi):
@@ -53,7 +60,7 @@ def RRDD(r, geo, siz, edgcon, kwargs):
     Aroi, Broi, dr = Aroi_Broi_dr(r, geo, siz)
     d = kwargs['d']
     s = kwargs['s']
-    EA = overlap.mean_circle_square_analytic(r, s)
+    EA = EAcs(r, s)
     f = round(d*s**2)
     if kwargs['v'] == 'E':
         tau_ab = f/2
@@ -65,7 +72,6 @@ def RRDD(r, geo, siz, edgcon, kwargs):
         elif edgcon == 'WOA':
             Ga = -d*Aroi/s**2*np.gradient(EA*np.pi*r**2/Broi)/dr
     elif kwargs['v'] == 'R':
-        from scipy.special import binom
         tau_ab = s**2/(Aroi-s**2)*(d/2*Aroi - f/2 + 1/2)
         tau_aa = s**2/(Aroi-s**2)*(d/2*Aroi - f/2 - 1/2)
         eta_aa = (f-1)/2
@@ -118,12 +124,12 @@ def energies(r0, R, modfun, modprm, geo, edgcon):
     modstr = modfun.__name__+notation.parameters(modprm, c='stm')
     if 'v' in modprm:
         modstr += '-'+modprm['v']
-    prestm = str(len(R))+'_'+str(int(np.max(R)))+'_'
-    filnam = pth+prestm+geo+'_energy_'+modstr+'_'+edgcon+'.txt'
-    if os.path.exists(filnam):
-        return np.loadtxt(filnam)
+    pth = (f"../saved/{method}_energies_{edgcon}_{modstr}_{geo}_"
+           f"R_{R[0]:1.0f}_{R[-1]:1.0f}_{len(R)}.txt")
+    if os.path.exists(pth):
+        return np.loadtxt(pth)
     res = np.zeros((len(R), 3))
     for i in range(len(R)):
         res[i] = energy(r0, R[i], modfun, modprm, geo, edgcon)
-    np.savetxt(filnam, res)
+    np.savetxt(pth, res)
     return res

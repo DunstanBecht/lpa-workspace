@@ -4,9 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import expression
-import scipy.integrate
-import math
-from lpa.input import overlap, notation
+from lpa.input import notation
 
 dst = 5e-4 # nm^-2
 r0 = 1 # nm
@@ -74,5 +72,5 @@ for dis in disord:
             plt.grid()
             plt.xlabel(geoxax[geo])
             plt.title(f"{modfun.__name__+notation.parameters(modprm, c='ttl')} {geo} {edgcon} ($ r_0 = {r0} $ nm)")
-            plt.savefig(f"../plots/{geo}_{dis}_energy_{edgcon}.pdf")
+            plt.savefig(f"../plots/energies_{edgcon}_{dis}_{geo}.pdf")
             plt.clf()
