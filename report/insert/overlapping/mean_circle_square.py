@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from lpa.input import overlap
 
 S = 10
-r_ana = np.linspace(0.01, 2*S, 100)
-r_sim = np.linspace(0.01, 2*S, 20)
+r_ana = np.linspace(0, 2*S, 100)
+r_sim = np.linspace(0, 2*S, 20)
 
 plt.figure(figsize=(10,5))
 plt.plot(
