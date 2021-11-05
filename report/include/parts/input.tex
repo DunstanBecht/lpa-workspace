@@ -760,6 +760,19 @@ Unlike \gls{rrdde}, it depends mainly on \( R_{\gls{roi}} \) and little on \( s 
 \medfig{fig:rrddr-cutrad3D-woa}{insert/expressions/plots}{cutrad3D_WOA_RRDD-R_circle}{\( \gls{cutrad}^{\gls{woa}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
 \medfig{fig:rrddr-cutrad3D-nec}{insert/expressions/plots}{cutrad3D_NEC_RRDD-R_circle}{\( \gls{cutrad}^{\gls{nec}} \) as a function of \( s \) and \( R_{\gls{roi}} \)}%
 
+\subsubsection{\glsentrytext{rcdd}}
+
+By considering the density as being homogeneous inside the walls, it is possible to express the fluctuation term \( \delta \) used in equation \eqref{eq:guw2}.
+Let \( q \) be the fraction of the surface occupied by the walls.
+
+\medskip
+
+\begin{equation}
+  \delta =
+    \frac{\langle \gls{dst}^2 \rangle - \langle \gls{dst} \rangle^2}{\langle \gls{dst} \rangle^2} =
+    \frac{1}{q}-1
+\end{equation}
+
 \newpage
 
 \subsection{Program}
