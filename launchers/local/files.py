@@ -17,6 +17,8 @@ sizes = { # number of distributions per sample for each density
     5e15: 100,
 }
 
+rep = 1 # rank of replication
+
 for i in range(len(settings.densities)):
     print(f"\n{settings.densities_csl[i]}:")
     dirdat = os.path.join(datpth, f'inputs_{settings.densities_stm[i]}')
@@ -27,7 +29,7 @@ for i in range(len(settings.densities)):
     for args in settings.arguments(settings.densities[i]):
         s = sets.Sample(sizes[settings.densities_m[i]], *args, S=0)
         print(f"{s.d:1.3e}m-2 {s.name('gsmcS')}")
-        data.export(s, expdir=dirdat, pbc=1)
+        data.export(s, expdir=dirdat, pbc=rep)
         stem = s.name(c='stm')
-        with open(os.path.join(dirnot, f'{stem}.tex'), 'w') as f:
+        with open(os.path.join(dirnot, f'{stem}_PBC{rep}.tex'), 'w') as f:
             f.write(s.name(f='nmgsd', c='ttl'))

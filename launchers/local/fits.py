@@ -23,9 +23,10 @@ for i in range(len(settings.densities)):
             if not os.path.isdir(os.path.join(expdir, stm)):
                 print(stm)
                 notdir = f'notations_{settings.densities_stm[i]}'
-                ttlfil = os.path.join(notdir, f'{stm}.tex')
-                if os.path.isfile(ttlfil):
-                    with open(ttlfil) as f:
+                ttlfil = f"{stm.replace('_output', '')}.tex"
+                ttlpth = os.path.join(datpth, notdir, ttlfil)
+                if os.path.isfile(ttlpth):
+                    with open(ttlpth) as f:
                         figttl = f.read()
                 else:
                     figttl = stm
