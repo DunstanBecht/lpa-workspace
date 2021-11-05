@@ -11,7 +11,7 @@ from lpa.input import models, notation
 densities_m = [ # studied dislocation densities [m^-2]
     5e13,
     5e14,
-    #5e15,
+    5e15,
 ]
 
 densities = [d*1e-18 for d in densities_m] # [nm^-2]
@@ -43,8 +43,8 @@ def arguments(
     q = (1+np.sqrt(1-p))/p # multiplier of wall thickness for cell side
     k = (0.5, 1, 2) # multiplier of the inter dislocation distance for dipoles
     celsid = s/4 # cell sides [nm]
-    walthc = celsid/q # thickness of the cell walls [nm]
-    diplen = [m*intdis for m in k] # dipole lengths [nm]
+    walthc = round(celsid/q) # thickness of the cell walls [nm]
+    diplen = [round(m*intdis) for m in k] # dipole lengths [nm]
     # instantiation arguments
     prmtup = []
     # RDD
