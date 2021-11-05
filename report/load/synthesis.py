@@ -105,7 +105,7 @@ with open('synthesis.tex', 'w') as f:
             colfmt += r">{\raggedleft\arraybackslash}X|" * len(fitmodord)*2
             f.write(r"\begin{tabularx}{\linewidth}{"+colfmt+r"} "+"\n")
             f.write(r"\hline"+"\n")
-            f.write((r"\multirow{2}{*}{\centering{Distribution model}} "
+            f.write((r"\multirow{2}{*}{\centering{Distribution}} "
                 + r"& \multicolumn{1}{c|}{\centering{"+appmtd['sym'][2]+r"}} "
                 + r"& \multicolumn{"+str(len(fitmodord))+r"}{c|}{ "
                 + r""+appmtd['sym'][0]+r""
@@ -142,7 +142,7 @@ with open('synthesis.tex', 'w') as f:
                         bstall = bstlst1 + bstlst2
                         vallst1 = [format(v, appmtd['fmt'][0]) if v<10 else r"\rightarrow \infty" for v in col1]
                         vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
-                        vallst0 = [notation.number(col0, c='ttl', w=3).replace("$", "")]
+                        vallst0 = [notation.number(col0, c='ttl', w=7).replace("$", "")]
                         valall = [r"\( "+v+r" \)" for v in vallst0+vallst1+vallst2]
                         for e in range(len(fitmodord)):
                             for c in range(2):
