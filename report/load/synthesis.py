@@ -142,7 +142,7 @@ with open('synthesis.tex', 'w') as f:
                         bstall = bstlst1 + bstlst2
                         vallst1 = [format(v, appmtd['fmt'][0]) if v<10 else r"\rightarrow \infty" for v in col1]
                         vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
-                        vallst0 = [notation.number(col0, c='ttl', w=7).replace("$", "")]
+                        vallst0 = [format(col0, '1.3f')]
                         valall = [r"\( "+v+r" \)" for v in vallst0+vallst1+vallst2]
                         for e in range(len(fitmodord)):
                             for c in range(2):
