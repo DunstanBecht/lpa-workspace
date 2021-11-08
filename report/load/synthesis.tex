@@ -1,8 +1,8 @@
-\subsubsection{Relative deviation of the mean value}
+\subsubsection{Mean effective cut-off radius and relative mean density deviation}
 \begin{center}
 \begin{tabularx}{\linewidth}{|l|l|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|} 
 \hline
-\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \gls{expval}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \left|\gls{expval}\left(\gls{dst}^{\mathrm{FIT}}\right)-\gls{dst}\right| \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \gls{expval}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
+\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \hat{\gls{expval}}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \left|\hat{\gls{expval}}\left(\gls{dst}^{\mathrm{FIT}}\right)-\gls{dst}\right| \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \hat{\gls{expval}}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
 \cline{2-10}
  & \multicolumn{2}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} & \multicolumn{1}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} \\
 \hline \hline 
@@ -45,14 +45,14 @@
 \end{tabularx}
 
 \end{center}
-\captionof{table}{Relative deviation of the mean value of harmonic 1 in a square \gls{roi} of 3200 nm side length}
+\captionof{table}{Mean effective cut-off radius and relative mean density deviation for harmonic \( j = 1 \) of \gls{guw1}, \gls{guw2}, \gls{w1} and \gls{w2} models fitted on the X-ray simulation output performed on distributions generated in a square \gls{roi} of 3200 nm side length with \gls{pbc}1.}
 
 \medskip
 
 \begin{center}
 \begin{tabularx}{\linewidth}{|l|l|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|} 
 \hline
-\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \gls{expval}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \left|\gls{expval}\left(\gls{dst}^{\mathrm{FIT}}\right)-\gls{dst}\right| \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \gls{expval}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
+\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \hat{\gls{expval}}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \left|\hat{\gls{expval}}\left(\gls{dst}^{\mathrm{FIT}}\right)-\gls{dst}\right| \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \hat{\gls{expval}}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
 \cline{2-10}
  & \multicolumn{2}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} & \multicolumn{1}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} \\
 \hline \hline 
@@ -95,15 +95,15 @@
 \end{tabularx}
 
 \end{center}
-\captionof{table}{Relative deviation of the mean value of harmonic 2 in a square \gls{roi} of 3200 nm side length}
+\captionof{table}{Mean effective cut-off radius and relative mean density deviation for harmonic \( j = 2 \) of \gls{guw1}, \gls{guw2}, \gls{w1} and \gls{w2} models fitted on the X-ray simulation output performed on distributions generated in a square \gls{roi} of 3200 nm side length with \gls{pbc}1.}
 
 \medskip
 
-\subsubsection{Standard deviation}
+\subsubsection{Effective cut-off radius sandard deviation and relative density standard deviation}
 \begin{center}
 \begin{tabularx}{\linewidth}{|l|l|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|} 
 \hline
-\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \gls{stddev}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \gls{stddev}\left(\gls{dst}^{\mathrm{FIT}}\right) \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \gls{stddev}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
+\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \hat{\gls{stddev}}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \hat{\gls{stddev}}\left(\gls{dst}^{\mathrm{FIT}}\right) \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \hat{\gls{stddev}}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
 \cline{2-10}
  & \multicolumn{2}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} & \multicolumn{1}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} \\
 \hline \hline 
@@ -146,14 +146,14 @@
 \end{tabularx}
 
 \end{center}
-\captionof{table}{Standard deviation of harmonic 1 in a square \gls{roi} of 3200 nm side length}
+\captionof{table}{Effective cut-off radius sandard deviation and relative density standard deviation for harmonic \( j = 1 \) of \gls{guw1}, \gls{guw2}, \gls{w1} and \gls{w2} models fitted on the X-ray simulation output performed on distributions generated in a square \gls{roi} of 3200 nm side length with \gls{pbc}1.}
 
 \medskip
 
 \begin{center}
 \begin{tabularx}{\linewidth}{|l|l|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|>{\raggedleft\arraybackslash}X|} 
 \hline
-\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \gls{stddev}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \gls{stddev}\left(\gls{dst}^{\mathrm{FIT}}\right) \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \gls{stddev}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
+\multirow{2}{*}{\centering{Distribution}} & \multicolumn{1}{c|}{\centering{\( \textstyle \hat{\gls{stddev}}\left(\delta\right) \)}} & \multicolumn{4}{c|}{ \( \textstyle \left. \hat{\gls{stddev}}\left(\gls{dst}^{\mathrm{FIT}}\right) \right/ \gls{dst} \)} & \multicolumn{4}{c|}{\( \textstyle \hat{\gls{stddev}}\left(\gls{cutrad}^{\mathrm{FIT}}\right) \) (nm)} \\
 \cline{2-10}
  & \multicolumn{2}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} & \multicolumn{1}{c|}{\gls{guw1}} & \multicolumn{1}{c|}{\gls{guw2}} & \multicolumn{1}{c|}{\gls{w1}} & \multicolumn{1}{c|}{\gls{w2}} \\
 \hline \hline 
@@ -196,7 +196,7 @@
 \end{tabularx}
 
 \end{center}
-\captionof{table}{Standard deviation of harmonic 2 in a square \gls{roi} of 3200 nm side length}
+\captionof{table}{Effective cut-off radius sandard deviation and relative density standard deviation for harmonic \( j = 2 \) of \gls{guw1}, \gls{guw2}, \gls{w1} and \gls{w2} models fitted on the X-ray simulation output performed on distributions generated in a square \gls{roi} of 3200 nm side length with \gls{pbc}1.}
 
 \medskip
 

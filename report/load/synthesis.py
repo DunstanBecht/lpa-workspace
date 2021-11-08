@@ -65,25 +65,25 @@ sym2 = r"\gls{cutrad}^{\mathrm{FIT}}"
 sym0 = r"\delta"
 appmtdord = (
     {
-        'nam': "Relative deviation of the mean value",
-        'stm': 'rel-dev',
+        'nam': "Mean effective cut-off radius and relative mean density deviation",
+        'stm': 'avg',
         'fun': mean_values,
         'sym': (
-            tfmtex1.replace("VALUE", fr"\gls{{expval}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\gls{{expval}}\left({sym2}\right)")+" (nm)",
-            tfmtex3.replace("VALUE", fr"\gls{{expval}}\left({sym0}\right)"),
+            tfmtex1.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym1}\right)"),
+            tfmtex3.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym2}\right)")+" (nm)",
+            tfmtex3.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym0}\right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
         'bst': (minimal, nope),
     },
     {
-        'nam': "Standard deviation",
-        'stm': 'std-dev',
+        'nam': "Effective cut-off radius sandard deviation and relative density standard deviation",
+        'stm': 'std',
         'fun': deviations,
         'sym': (
-            tfmtex2.replace("VALUE", fr"\gls{{stddev}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\gls{{stddev}}\left({sym2}\right)")+" (nm)",
-            tfmtex3.replace("VALUE", fr"\gls{{stddev}}\left({sym0}\right)"),
+            tfmtex2.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym1}\right)"),
+            tfmtex3.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym2}\right)")+" (nm)",
+            tfmtex3.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym0}\right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
         'bst': (minimal, nope),
@@ -157,9 +157,11 @@ with open('synthesis.tex', 'w') as f:
                 f.write(r"\hline"+"\n")
             f.write(r"\end{tabularx}"+"\n\n")
             f.write(r"\end{center}"+"\n")
-            f.write(r"\captionof{table}{"
-                + appmtd['nam']+" of harmonic "+str(h)
-                + r" in a square \gls{roi} of 3200 nm side length}"+"\n\n")
+            cap = (fr"\captionof{{table}}{{{appmtd['nam']} for harmonic \( j = {h} \) "
+                   fr"of \gls{{guw1}}, \gls{{guw2}}, \gls{{w1}} and \gls{{w2}} models "
+                   fr"fitted on the X-ray simulation output performed on distributions generated "
+                   fr"in a square \gls{{roi}} of 3200 nm side length with \gls{{pbc}}1.}}")
+            f.write(cap+"\n\n")
             f.write(r"\medskip"+"\n\n")
 del higlig, f, appmtd
 
@@ -167,7 +169,7 @@ del higlig, f, appmtd
 sep = ';'
 for appmtd in appmtdord:
     for h in range(1, 1+n_j):
-        with open(f"synthesis_{appmtd['stm']}_h{h}.csv", 'w') as f:
+        with open(f"synthesis_{appmtd['stm']}_j{h}.csv", 'w') as f:
             f.write(f"{sep}fluctuation{len(fitmodord)*(sep+'density')}{len(fitmodord)*(sep+'Re (nm)')}\n")
             f.write(f"Distribution model{sep}{sep}{sep.join(fitmodord*2).upper()}\n")
             for j in range(len(dismodord)):
