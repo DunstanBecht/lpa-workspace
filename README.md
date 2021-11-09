@@ -45,6 +45,18 @@ Below is an overview of the parameters used for the generation of the studied mo
 5.000e-04m-2 square 3200nm RCDD-D (d=5e-4nm-2 s= 800nm t= 84nm l= 22nm) S=0
 5.000e-04m-2 square 3200nm RCDD-D (d=5e-4nm-2 s= 800nm t= 84nm l= 45nm) S=0
 5.000e-04m-2 square 3200nm RCDD-D (d=5e-4nm-2 s= 800nm t= 84nm l= 89nm) S=0
+
+5e15m-2:
+5.000e-03m-2 square 3200nm RDD (d=5e-3nm-2) S=0
+5.000e-03m-2 square 3200nm RRDD-E (d=5e-3nm-2 s= 200nm) S=0
+5.000e-03m-2 square 3200nm RRDD-E (d=5e-3nm-2 s= 400nm) S=0
+5.000e-03m-2 square 3200nm RRDD-R (d=5e-3nm-2 s= 200nm) S=0
+5.000e-03m-2 square 3200nm RRDD-R (d=5e-3nm-2 s= 400nm) S=0
+5.000e-03m-2 square 3200nm RCDD-E (d=5e-3nm-2 s= 800nm t= 84nm) S=0
+5.000e-03m-2 square 3200nm RCDD-R (d=5e-3nm-2 s= 800nm t= 84nm) S=0
+5.000e-03m-2 square 3200nm RCDD-D (d=5e-3nm-2 s= 800nm t= 84nm l=  7nm) S=0
+5.000e-03m-2 square 3200nm RCDD-D (d=5e-3nm-2 s= 800nm t= 84nm l= 14nm) S=0
+5.000e-03m-2 square 3200nm RCDD-D (d=5e-3nm-2 s= 800nm t= 84nm l= 28nm) S=0
 ```
 
 # User guide
