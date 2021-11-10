@@ -2,34 +2,11 @@
 # coding: utf-8
 
 """
-Generate LaTex files.
+Load fits data.
 """
 
 from load import *
 from lpa.input import notation
-
-# fits data / [fit model] / [distribution model] / [densitiy]
-datlstfit = [
-                [
-                    [
-                        []
-                    for i in range(len(readst))]
-                for j in range(len(dismodord))]
-              for e in range(len(fitmodord))
-            ]
-
-# fill datlstfit
-for e in range(len(fitmodord)):
-    for j in range(len(dismodord)):
-        for i in range(len(readst)):
-            for k in range(len(stmlstfit[j][i])):
-                stmdis = stmlstfit[j][i][k]
-                fitdat = f'fits_data_{fitmodord[e].upper()}.dat'
-                datpth = os.path.join(impdirfit[i], stmdis, fitdat)
-                with open(datpth, 'r') as f:
-                    f.readline() # skip column names
-                    datlstfit[e][j][i].append(np.loadtxt(f).T)
-del e, j, i, k, stmdis, fitdat, datpth, f
 
 # methods to find best values
 def closer(lst, val):
@@ -38,13 +15,6 @@ def minimal(lst, *args):
     return list(lst==np.min(lst))
 def nope(lst, *args):
     return [False]*len(lst)
-
-# index in fits data
-i_j = 0
-i_L = 1
-i_d = 3
-i_r = 4
-i_f = 5
 
 # synthesis approaches
 def mean_values(rho, data):
@@ -57,21 +27,23 @@ def deviations(rho, data):
     if len(data)>i_f:
         val.append(data[i_f].std())
     return tuple(val)
-tfmtex1 = r"\( \textstyle \left. \left|VALUE-\gls{dst}\right| \right/ \gls{dst} \)"
-tfmtex2 = r"\( \textstyle \left. VALUE \right/ \gls{dst} \)"
-tfmtex3 = r"\( \textstyle VALUE \)"
-sym1 = r"\gls{dst}^{\mathrm{FIT}}"
-sym2 = r"\gls{cutrad}^{\mathrm{FIT}}"
+tfmtex1 = r"$ \left. \left|VALUE-DST\right| \right/ DST $"
+tfmtex2 = r"$ \left. VALUE \right/ DST $"
+tfmtex3 = r"$ VALUE $"
+sym1 = r"DST^{\mathrm{FIT}}"
+sym2 = r"CUTRAD^{\mathrm{FIT}}"
 sym0 = r"\delta"
+fmtrep = lambda x: x.replace("EXPVAL", r"\gls{expval}").replace("DST", r"\gls{dst}").replace("CUTRAD", r"\gls{cutrad}").replace("STDDEV", r"\gls{stddev}")
+fmtfig = lambda x: x.replace("EXPVAL", r"E").replace("DST", r"\rho").replace("CUTRAD", r"R_e").replace("STDDEV", r"\sigma")
 appmtdord = (
     {
         'nam': "Mean effective cut-off radius and relative mean density deviation",
         'stm': 'avg',
         'fun': mean_values,
         'sym': (
-            tfmtex1.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym2}\right)")+" (nm)",
-            tfmtex3.replace("VALUE", fr"\hat{{\gls{{expval}}}}\left({sym0}\right)"),
+            tfmtex1.replace("VALUE", fr"\hat{{EXPVAL}} \left( {sym1} \right)"),
+            tfmtex3.replace("VALUE", fr"\hat{{EXPVAL}} \left( {sym2} \right)")+" (nm)",
+            tfmtex3.replace("VALUE", fr"\hat{{EXPVAL}} \left( {sym0} \right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
         'bst': (minimal, nope),
@@ -81,9 +53,9 @@ appmtdord = (
         'stm': 'std',
         'fun': deviations,
         'sym': (
-            tfmtex2.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym1}\right)"),
-            tfmtex3.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym2}\right)")+" (nm)",
-            tfmtex3.replace("VALUE", fr"\hat{{\gls{{stddev}}}}\left({sym0}\right)"),
+            tfmtex2.replace("VALUE", fr"\hat{{STDDEV}} \left( {sym1} \right)"),
+            tfmtex3.replace("VALUE", fr"\hat{{STDDEV}} \left( {sym2} \right)")+" (nm)",
+            tfmtex3.replace("VALUE", fr"\hat{{STDDEV}} \left( {sym0} \right)"),
         ),
         'fmt': ('1.3f', '1.0f'),
         'bst': (minimal, nope),
@@ -92,110 +64,3 @@ appmtdord = (
 
 # number of harmonics displayed
 n_j = 2
-
-higlig = r"\cellcolor{Mines} \textcolor{white}{VALUE}"
-
-# export synthesis.tex
-with open('synthesis.tex', 'w') as f:
-    for appmtd in appmtdord:
-        f.write(r"\subsubsection{"+appmtd['nam']+r"}"+"\n")
-        for h in range(1, 1+n_j):
-            f.write(r"\begin{center}"+"\n")
-            colfmt = r"|l|l|"
-            colfmt += r">{\raggedleft\arraybackslash}X|" * len(fitmodord)*2
-            f.write(r"\begin{tabularx}{\linewidth}{"+colfmt+r"} "+"\n")
-            f.write(r"\hline"+"\n")
-            f.write((r"\multirow{2}{*}{\centering{Distribution}} "
-                + r"& \multicolumn{1}{c|}{\centering{"+appmtd['sym'][2]+r"}} "
-                + r"& \multicolumn{"+str(len(fitmodord))+r"}{c|}{ "
-                + r""+appmtd['sym'][0]+r""
-                + r"} "
-                + r"& \multicolumn{"+str(len(fitmodord))+r"}{c|}{"
-                + r""+ appmtd['sym'][1]+r""
-                + r"} \\"+"\n"))
-            f.write(r"\cline{2-"+str(2+2*len(fitmodord))+r"}"+"\n")
-            f.write(r" &")
-            f.write(r" \multicolumn{2}{c|}{\gls{"+fitmodord[0]+r"}}")
-            for fitmod in fitmodord[1:]:
-                f.write(r" & \multicolumn{1}{c|}{\gls{"+fitmod+r"}}")
-            for fitmod in fitmodord:
-                f.write(r" & \multicolumn{1}{c|}{\gls{"+fitmod+r"}}")
-            f.write(r" \\"+"\n")
-            f.write(r"\hline \hline "+"\n")
-            for j in range(len(dismodord)):
-                for i in range(len(readst)):
-                    for k in range(len(stmlstfit[j][i])):
-                        f.write((r"\hyperref["+lstnicnam[j][i][k]+r"]"
-                            + r"{\texttt{\verb|"+lstnicnam[j][i][k]+r"|}}"))
-                        col1, col2 = [], []
-                        for e in range(len(fitmodord)):
-                            datfit = datlstfit[e][j][i][k]
-                            mashmc = datfit[i_j]==h
-                            datfit = datfit.T[mashmc].T
-                            val = appmtd['fun'](readst[i], datfit)
-                            col1.append(val[0])
-                            col2.append(val[1])
-                            if len(val)==3:
-                                col0 = val[2]
-                        bstlst1 = appmtd['bst'][0](col1)
-                        bstlst2 = appmtd['bst'][1](col2)
-                        bstall = bstlst1 + bstlst2
-                        vallst1 = [format(v, appmtd['fmt'][0]) if v<10 else r"\rightarrow \infty" for v in col1]
-                        vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
-                        vallst0 = [format(col0, '1.3f')]
-                        valall = [r"\( "+v+r" \)" for v in vallst0+vallst1+vallst2]
-                        for e in range(len(fitmodord)):
-                            for c in range(2):
-                                if bstall[2*e+c-1]:
-                                    valall[2*e+c] = higlig.replace(
-                                        'VALUE',
-                                        valall[2*e+c],
-                                    )
-                        f.write(" & ")
-                        f.write(" & ".join(valall))
-                        f.write(r" \\"+"\n")
-                f.write(r"\hline"+"\n")
-            f.write(r"\end{tabularx}"+"\n\n")
-            f.write(r"\end{center}"+"\n")
-            cap = (fr"\captionof{{table}}{{{appmtd['nam']} for harmonic \( j = {h} \) "
-                   fr"of \gls{{guw1}}, \gls{{guw2}}, \gls{{w1}} and \gls{{w2}} models "
-                   fr"fitted on the X-ray simulation output performed on distributions generated "
-                   fr"in a square \gls{{roi}} of 3200 nm side length with \gls{{pbc}}1.}}")
-            f.write(cap+"\n\n")
-            f.write(r"\medskip"+"\n\n")
-del higlig, f, appmtd
-
-# export synthesis.csv
-sep = ';'
-for appmtd in appmtdord:
-    for h in range(1, 1+n_j):
-        with open(f"synthesis_{appmtd['stm']}_j{h}.csv", 'w') as f:
-            f.write(f"{sep}fluctuation{len(fitmodord)*(sep+'density')}{len(fitmodord)*(sep+'Re (nm)')}\n")
-            f.write(f"Distribution model{sep}{sep}{sep.join(fitmodord*2).upper()}\n")
-            for j in range(len(dismodord)):
-                for i in range(len(readst)):
-                    for k in range(len(stmlstfit[j][i])):
-                        f.write(f"{lstnicnam[j][i][k]}")
-                        col1, col2 = [], []
-                        for e in range(len(fitmodord)):
-                            datfit = datlstfit[e][j][i][k]
-                            mashmc = datfit[i_j]==h
-                            datfit = datfit.T[mashmc].T
-                            val = appmtd['fun'](readst[i], datfit)
-                            col1.append(val[0])
-                            col2.append(val[1])
-                            if len(val)==3:
-                                col0 = val[2]
-                        bstlst1 = appmtd['bst'][0](col1)
-                        bstlst2 = appmtd['bst'][1](col2)
-                        bstall = bstlst1 + bstlst2
-                        vallst1 = [format(v, appmtd['fmt'][0]) for v in col1]
-                        vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
-                        vallst0 = [format(col0, '1.2e')]
-                        valall = vallst0+vallst1+vallst2
-                        f.write(sep)
-                        f.write(sep.join(valall))
-                        f.write("\n")
-del sep, f, appmtd
-
-input("OK")

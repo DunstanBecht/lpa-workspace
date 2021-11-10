@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Load data.
+Load data into lists.
 """
 
 import os
@@ -89,3 +89,33 @@ for j in range(len(dismodord)):
                 nicnam += '-'+chr(ord('A')+k)
             lstnicnam[j][i].append(nicnam)
 del j, i, k, nicnam
+
+# fits data / [fit model] / [distribution model] / [densitiy]
+datlstfit = [
+                [
+                    [
+                        []
+                    for i in range(len(readst))]
+                for j in range(len(dismodord))]
+              for e in range(len(fitmodord))
+            ]
+
+# fill datlstfit
+for e in range(len(fitmodord)):
+    for j in range(len(dismodord)):
+        for i in range(len(readst)):
+            for k in range(len(stmlstfit[j][i])):
+                stmdis = stmlstfit[j][i][k]
+                fitdat = f'fits_data_{fitmodord[e].upper()}.dat'
+                datpth = os.path.join(impdirfit[i], stmdis, fitdat)
+                with open(datpth, 'r') as f:
+                    f.readline() # skip column names
+                    datlstfit[e][j][i].append(np.loadtxt(f).T)
+del e, j, i, k, stmdis, fitdat, datpth, f
+
+# index in fits data
+i_j = 0
+i_L = 1
+i_d = 3
+i_r = 4
+i_f = 5

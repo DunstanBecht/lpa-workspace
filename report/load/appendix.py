@@ -2,17 +2,17 @@
 # coding: utf-8
 
 """
-Generate LaTex files.
+Generate a LaTex file.
 """
 
 from load import *
 
 # export data.tex
-with open('appendix.tex', 'w') as f:
+with open('tex/appendix.tex', 'w') as f:
     for j in range(len(dismodord)):
         f.write(r"\subsection{"+dismodord[j][1:]+r"}"+"\n")
         for k in range(len(stmlstfit[j][0])):
-            for i in range(len(readst)):
+            for i in range(len(readst[:2])):
                 nicnam = lstnicnam[j][i][k]
                 f.write(r"\res{"+str(dstexp[i])+"}")
                 f.write(r"{"+stmlstmap[j][i][k]+"}")
