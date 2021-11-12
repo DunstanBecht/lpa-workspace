@@ -10,7 +10,7 @@ from synthesis import *
 higlig = r"\cellcolor{Mines} \textcolor{white}{VALUE}"
 
 # export synthesis.tex
-with open('tex/synthesis.tex', 'w') as f:
+with open('tex/tables.tex', 'w') as f:
     for appmtd in appmtdord:
         f.write(r"\subsubsection{"+appmtd['nam']+r"}"+"\n")
         for h in range(1, 1+n_j):
