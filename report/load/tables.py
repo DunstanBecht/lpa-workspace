@@ -53,8 +53,8 @@ for appmtd in appmtdord:
                         bstlst1 = appmtd['bst'][0](col1)
                         bstlst2 = appmtd['bst'][1](col2)
                         bstall = bstlst1 + bstlst2
-                        vallst1 = [format(v, appmtd['fmt'][0]) if v<10 else r"\rightarrow \infty" for v in col1]
-                        vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
+                        vallst1 = [format(v, appmtd['fmtrep'][0]) if v<10 else r"\rightarrow \infty" for v in col1]
+                        vallst2 = [format(v, appmtd['fmtrep'][1]) for v in col2]
                         vallst0 = [format(col0, '1.3f')]
                         valall = [r"\( "+v+r" \)" for v in vallst0+vallst1+vallst2]
                         for e in range(len(fitmodord)):
@@ -102,8 +102,8 @@ for appmtd in appmtdord:
                         bstlst1 = appmtd['bst'][0](col1)
                         bstlst2 = appmtd['bst'][1](col2)
                         bstall = bstlst1 + bstlst2
-                        vallst1 = [format(v, appmtd['fmt'][0]) for v in col1]
-                        vallst2 = [format(v, appmtd['fmt'][1]) for v in col2]
+                        vallst1 = [format(v, appmtd['fmtcsv'][0]) for v in col1]
+                        vallst2 = [format(v, appmtd['fmtcsv'][1]) for v in col2]
                         vallst0 = [format(col0, '1.2e')]
                         valall = vallst0+vallst1+vallst2
                         f.write(sep)

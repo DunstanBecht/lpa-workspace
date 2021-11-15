@@ -10,9 +10,7 @@ from lpa.input import notation
 
 # methods to find best values
 def minimal(lst, *args):
-    minval = np.min(lst)
-    reldif = (lst-minval)/minval
-    return list(np.abs(reldif)<=0.001)
+    return list(np.abs(lst-np.min(lst))<=0.0001)
 def nope(lst, *args):
     return [False]*len(lst)
 
@@ -45,7 +43,8 @@ appmtdord = (
             tfmtex3.replace("VALUE", fr"\hat{{EXPVAL}} \left( {sym2} \right)")+" (nm)",
             tfmtex3.replace("VALUE", fr"\hat{{EXPVAL}} \left( {sym0} \right)"),
         ),
-        'fmt': ('1.3f', '1.0f'),
+        'fmtrep': ('1.3f', '1.0f'),
+        'fmtcsv': ('1.6f', '1.3f'),
         'bst': (minimal, nope),
     },
     {
@@ -57,7 +56,8 @@ appmtdord = (
             tfmtex3.replace("VALUE", fr"\hat{{STDDEV}} \left( {sym2} \right)")+" (nm)",
             tfmtex3.replace("VALUE", fr"\hat{{STDDEV}} \left( {sym0} \right)"),
         ),
-        'fmt': ('1.3f', '1.0f'),
+        'fmtrep': ('1.3f', '1.0f'),
+        'fmtcsv': ('1.6f', '1.3f'),
         'bst': (minimal, nope),
     },
 )
