@@ -9,10 +9,10 @@ from load import *
 from lpa.input import notation
 
 # methods to find best values
-def closer(lst, val):
-    return list(lst==lst[np.argmin(np.abs(lst-val))])
 def minimal(lst, *args):
-    return list(lst==np.min(lst))
+    minval = np.min(lst)
+    reldif = (lst-minval)/minval
+    return list(np.abs(reldif)<=0.001)
 def nope(lst, *args):
     return [False]*len(lst)
 
