@@ -21,12 +21,12 @@ readst = [5*10**exp for exp in dstexp]
 
 # distribution models order
 dismodord = (
-    '_RDD',
     '_RRDD-E',
     '_RRDD-R',
+    '_RDD',
+    '_RCDD-D',
     '_RCDD-E',
     '_RCDD-R',
-    '_RCDD-D',
 )
 
 # fit models order

@@ -10,9 +10,8 @@ from synthesis import *
 higlig = r"\cellcolor{Mines} \textcolor{white}{VALUE}"
 
 # export synthesis.tex
-with open('tex/tables.tex', 'w') as f:
-    for appmtd in appmtdord:
-        f.write(r"\subsubsection{"+appmtd['nam']+r"}"+"\n")
+for appmtd in appmtdord:
+    with open(f"tex/{appmtd['stm']}-tables.tex", 'w') as f:
         for h in range(1, 1+n_j):
             f.write(r"\begin{center}"+"\n")
             colfmt = r"|l|l|"
@@ -69,14 +68,14 @@ with open('tex/tables.tex', 'w') as f:
                         f.write(" & ".join(valall))
                         f.write(r" \\"+"\n")
                 f.write(r"\hline"+"\n")
-            f.write(r"\end{tabularx}"+"\n\n")
-            f.write(r"\end{center}"+"\n")
+            f.write(r"\end{tabularx}"+"\n")
+            f.write(r"\end{center}"+"\n\n")
             cap = (fr"\captionof{{table}}{{{appmtd['nam']} for harmonic \( j = {h} \) "
                    fr"of \gls{{guw1}}, \gls{{guw2}}, \gls{{w1}} and \gls{{w2}} models "
                    fr"fitted on the X-ray simulation output performed on distributions generated "
                    fr"in a square \gls{{roi}} of 3200 nm side length with \gls{{pbc}}1.}}")
             f.write(cap+"\n\n")
-            f.write(r"\medskip"+"\n\n")
+            f.write(r"\newpage"+"\n\n")
 del higlig, f, appmtd
 
 # export synthesis.csv
