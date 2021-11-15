@@ -56,7 +56,7 @@ for appmtd in appmtdord:
                 lbl = f"{appmtd['stm']}-{nicnam}"
                 stm = f"{appmtd['stm']}-{nicnam}"
                 cap = f"{nicnam}"
-                f.write(f"\medfig{{{lbl}}}{{load/plots}}{{{stm}}}{{{cap}}}%\n"+nl*"\n")
+                f.write(f"\medfig{{fig:{lbl}}}{{load/plots}}{{{stm}}}{{{cap}}}%\n"+nl*"\n")
                 nl = (nl+1)%2
 
 input("OK")
