@@ -21,44 +21,61 @@ densities_stm = [notation.quantity(d, "m-2", 'stm') for d in densities_m]
 
 def arguments(
     d: float,
-    s: int = 3200,
-    b: str = None,
 ) -> list:
     """
     Return a list of tuples containing the instantiation arguments.
 
     Input:
         d (float): dislocation density [nm^-2]
-        s (int): side of the region of interest [nm] (default: 3200)
-        b (NoneType|str): boundary conditions (default: None)
 
     Output:
         t (tuple): tuples containing the instantiation arguments
     """
+    # general parameters
+    roisid = 3200 # side of the ROI [nm]
+    bdrcnd = None # boundary conditions
     intdis = 1/np.sqrt(d) # mean inter dislocation distance [nm]
-    # parameters for RRDD-*
-    subsid = (200, 400) # subareas side [nm]
-    # parameters for RCDD-*
+    # RRDD parameters
+    subsid = ( # subareas side [nm]
+        200,
+        400,
+        800,
+        1600,
+        3200,
+    )
+    modvar1 = (
+        'E',
+        'R',
+    )
+    # RCDD parameters
     p = 0.2 # ratio of the area occupied by the cell walls
     q = (1+np.sqrt(1-p))/p # multiplier of wall thickness for cell side
-    k = (0.5, 1, 2) # multiplier of the inter dislocation distance for dipoles
-    celsid = s/4 # cell sides [nm]
+    k = ( # multiplier of the inter dislocation distance for dipoles
+        0.5,
+        1,
+        2,
+    )
+    modvar2 = (
+        'E',
+        'R',
+    )
+    celsid = roisid/4 # cell sides [nm]
     walthc = round(celsid/q) # thickness of the cell walls [nm]
     diplen = [round(m*intdis) for m in k] # dipole lengths [nm]
     # instantiation arguments
     prmtup = []
     # RDD
-    prmtup.append(('square', s, models.RDD, {'d': d}, 'edge', b))
+    prmtup.append(('square', roisid, models.RDD, {'d': d}, 'edge', bdrcnd))
     # RRDD
-    for modvar in ('E', 'R'):
+    for modvar in modvar1:
         for sid in subsid:
             r = {'d': d, 'v': modvar, 's': sid}
-            prmtup.append(('square', s, models.RRDD, r, 'edge', b))
+            prmtup.append(('square', roisid, models.RRDD, r, 'edge', bdrcnd))
     # RCDD
-    for modvar in ('E', 'R'):
+    for modvar in modvar2:
         r = {'d': d, 'v': modvar, 's': celsid, 't': walthc}
-        prmtup.append(('square', s, models.RCDD, r, 'edge', b))
+        prmtup.append(('square', roisid, models.RCDD, r, 'edge', bdrcnd))
     for i in range(len(k)):
         r = {'d': d, 'v': 'D', 's': celsid, 't': walthc, 'l': diplen[i]}
-        prmtup.append(('square', s, models.RCDD, r, 'edge', b))
+        prmtup.append(('square', roisid, models.RCDD, r, 'edge', bdrcnd))
     return prmtup
