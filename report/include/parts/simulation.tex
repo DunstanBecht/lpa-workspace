@@ -40,6 +40,21 @@ According to the kinematical theory of X-ray scattering \cite{W1990}:
 \gls{frrcfb}(\gls{frrvar}) = \frac{\int_{\gls{roi}} \sin \left( 2 \pi \gls{hmc} \gls{vecg} \cdot \left[ \gls{vecu}(\vec{r} + \gls{frrvar} \overrightarrow{u_x}) - \gls{vecu}(\vec{r}) \right] \right) d\vec{r}}{\gls{area}_{\gls{roi}}}
 \end{equation}
 
+\medskip
+
+The resultant displacement field created by a dislocation located in \( ( x, y ) \) with respect to the observation position is given in equation \eqref{eq:displacement-field}.
+
+\begin{align}\label{eq:displacement-field}
+\gls{vecu} =
+  \left( \begin{array}{l}
+    \gls{indfun}_{\mathrm{edge}} \frac{| \gls{vecb} |}{2 \pi} \left( \arctan \left( \frac{y}{x} \right) + \frac{x y}{2 (1 - \gls{pssrat}) \left( x^2 + y^2 \right)} \right)
+    \\[5mm]
+    - \gls{indfun}_{\mathrm{edge}} \frac{| \gls{vecb} |}{8 \pi (1 - \gls{pssrat})} \left( (1 - 2 \gls{pssrat}) \ln \left( x^2 + y^2 \right) + \frac{x^2 - y^2}{x^2 + y^2} \right)
+    \\[5mm]
+    \gls{indfun}_{\mathrm{screw}} \frac{| \gls{vecb} |}{2 \pi} \arctan \left( \frac{y}{x} \right)
+  \end{array} \right)
+\end{align}
+
 \subsubsection{Parallelization}
 
 To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
