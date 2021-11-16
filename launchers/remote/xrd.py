@@ -7,9 +7,10 @@ Send files to the cluster and compile.
 
 from link import *
 
+idf = input('\nIdentifier: ')
 dirloc = f'../local' # directory containing files to be sent
 jobnam = f'xrd' # name of the job
-remdir = f'workspace-{jobnam}' # receiving remote directory
+remdir = f'lpa-{jobnam}-{idf}' # receiving remote directory
 
 with pysftp.Connection(hst, username=usr, password=pwd) as sftp:
     if not sftp.exists(remdir):

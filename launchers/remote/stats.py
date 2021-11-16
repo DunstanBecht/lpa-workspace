@@ -7,9 +7,10 @@ Perform remote spatial analyses of the distributions.
 
 from link import *
 
+idf = input('\nIdentifier: ')
 dirloc = f'../local' # directory containing files to be sent
 jobnam = f'stats' # name of the job
-remdir = f'workspace-{jobnam}' # receiving remote directory
+remdir = f'lpa-{jobnam}-{idf}' # receiving remote directory
 
 sizes = { # number of distributions per sample for each density
     5e13: 100,
