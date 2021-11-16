@@ -12,12 +12,6 @@ dirloc = f'../local' # directory containing files to be sent
 jobnam = f'stats' # name of the job
 remdir = f'lpa-{jobnam}-{idf}' # receiving remote directory
 
-sizes = { # number of distributions per sample for each density
-    5e13: 100,
-    5e14: 100,
-    5e15: 100,
-}
-
 with pysftp.Connection(hst, username=usr, password=pwd) as sftp:
     if not sftp.exists(remdir):
         sftp.mkdir(remdir)
