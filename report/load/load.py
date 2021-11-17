@@ -9,6 +9,8 @@ import os
 import math
 import numpy as np
 
+datpth = '../../data_report' # path to the data storage directory
+
 # order of magnitude of the densities
 dstexp = (
     13,
@@ -53,28 +55,37 @@ impdirana = []
 for i in range(len(readst)):
     # complete impdir* lists
     dstcsl = '5e'+str(dstexp[i])+"m-2"
-    impdirfit.append('../../data/fits_'+dstcsl)
-    impdirmap.append('../../data/maps_'+dstcsl)
-    impdirana.append('../../data/stats_'+dstcsl)
+    impdirfit.append(os.path.join(datpth, 'fits_'+dstcsl))
+    impdirmap.append(os.path.join(datpth, 'maps_'+dstcsl))
+    impdirana.append(os.path.join(datpth, 'stats_'+dstcsl))
     del dstcsl
     # complete stmlst* lists
-    for stm in os.listdir(impdirfit[i]):
-        for dismod in dismodord:
-            if dismod in stm:
-                stmlstfit[dismodord.index(dismod)][i].append(stm)
-    for stm in os.listdir(impdirmap[i]):
-        for dismod in dismodord:
-            if dismod in stm:
-                stmlstmap[dismodord.index(dismod)][i].append(stm)
-    for stm in os.listdir(impdirana[i]):
-        for dismod in dismodord:
-            if dismod in stm and not 'txt' in stm:
-                if 'KKKK' in stm:
-                    stmlstanK[dismodord.index(dismod)][i].append(stm)
-                elif 'gggg' in stm:
-                    stmlstang[dismodord.index(dismod)][i].append(stm)
-                elif 'GaGs' in stm:
-                    stmlstanG[dismodord.index(dismod)][i].append(stm)
+    if os.path.isdir(impdirfit[i]):
+        for stm in os.listdir(impdirfit[i]):
+            for dismod in dismodord:
+                if dismod in stm:
+                    stmlstfit[dismodord.index(dismod)][i].append(stm)
+    else:
+        print(f"No fits for density {dstexp[i]}.")
+    if os.path.isdir(impdirmap[i]):
+        for stm in os.listdir(impdirmap[i]):
+            for dismod in dismodord:
+                if dismod in stm:
+                    stmlstmap[dismodord.index(dismod)][i].append(stm)
+    else:
+        print(f"No maps for density {dstexp[i]}.")
+    if os.path.isdir(impdirana[i]):
+        for stm in os.listdir(impdirana[i]):
+            for dismod in dismodord:
+                if dismod in stm and not 'txt' in stm:
+                    if 'KKKK' in stm:
+                        stmlstanK[dismodord.index(dismod)][i].append(stm)
+                    elif 'gggg' in stm:
+                        stmlstang[dismodord.index(dismod)][i].append(stm)
+                    elif 'GaGs' in stm:
+                        stmlstanG[dismodord.index(dismod)][i].append(stm)
+    else:
+        print(f"No analyses for density {dstexp[i]}.")
     del stm, dismod
 
 # distribution model nicknames / [distribution model] / [densitiy]
@@ -107,11 +118,12 @@ for e in range(len(fitmodord)):
             for k in range(len(stmlstfit[j][i])):
                 stmdis = stmlstfit[j][i][k]
                 fitdat = f'fits_data_{fitmodord[e].upper()}.dat'
-                datpth = os.path.join(impdirfit[i], stmdis, fitdat)
-                with open(datpth, 'r') as f:
-                    f.readline() # skip column names
+                dirpth = os.path.join(impdirfit[i], stmdis, fitdat)
+                with open(dirpth, 'r') as f:
+                    for l in range(5):
+                        f.readline() # skip header
                     datlstfit[e][j][i].append(np.loadtxt(f).T)
-del e, j, i, k, stmdis, fitdat, datpth, f
+del e, j, i, k, l, stmdis, fitdat, dirpth, f
 
 # index in fits data
 i_j = 0

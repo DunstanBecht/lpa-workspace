@@ -82,13 +82,16 @@ del higlig, f, appmtd
 sep = ';'
 for appmtd in appmtdord:
     for h in range(1, 1+n_j):
-        with open(f"tables/{appmtd['stm']}_j{h}.csv", 'w') as f:
+        syndir = f"{datpth}/synthesis"
+        if not os.path.isdir(syndir):
+            os.mkdir(syndir)
+        with open(os.path.join(syndir, f"{appmtd['stm']}_j{h}.csv"), 'w') as f:
             f.write(f"{sep}fluctuation{len(fitmodord)*(sep+'density')}{len(fitmodord)*(sep+'Re (nm)')}\n")
             f.write(f"Distribution model{sep}{sep}{sep.join(fitmodord*2).upper()}\n")
             for j in range(len(dismodord)):
                 for i in range(len(readst)):
                     for k in range(len(stmlstfit[j][i])):
-                        f.write(f"{lstnicnam[j][i][k]}")
+                        f.write(f"{stmlstfit[j][i][k]}")
                         col1, col2 = [], []
                         for e in range(len(fitmodord)):
                             datfit = datlstfit[e][j][i][k]
