@@ -29,7 +29,7 @@ cyc = (f"Cycle of generation, simulation and analysis started on "
 for i in range(len(settings.densities)):
     n = sizes[settings.densities_m[i]]
     if n > 0:
-        dst = f"\n# {settings.densities_csl[i]}: ({n:1d} distributions per samples)"
+        dst = f"\n# {settings.densities_csl[i]}: ({n:1d} distributions per sample)"
         print(dst)
         cyc += "\n"+dst
         dirdat = os.path.join(datpth, f'inputs_{settings.densities_stm[i]}')
@@ -39,7 +39,12 @@ for i in range(len(settings.densities)):
                 os.makedirs(expdir)
         for args in settings.arguments(settings.densities[i]):
             s = sets.Sample(sizes[settings.densities_m[i]], *args, S=0)
-            ccl = f"{s.d:1.3e}m-2 {s.name('gsmcS')}"
+            bdrcnd = ""
+            if s.c != None:
+                bdrcnd += f" {s.c}"
+            if rep > 0:
+                bdrcnd += f" PBC{rep}"
+            ccl = f"{s.d*1e18:1.3e}m-2{bdrcnd} {s.name('gsmcS')}"
             print(ccl)
             cyc += "\n"+ccl
             data.export(s, expdir=dirdat, pbc=rep)
