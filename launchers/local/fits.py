@@ -20,7 +20,7 @@ for i in range(len(settings.densities)):
             os.makedirs(expdir)
         for entry in os.listdir(impdir):
             stm = os.path.splitext(entry)[0]
-            if not os.path.isdir(os.path.join(expdir, stm)):
+            if not os.path.isdir(os.path.join(expdir, f"{stm}_analysis")):
                 print(stm)
                 notdir = f'notations_{settings.densities_stm[i]}'
                 ttlfil = f"{stm.replace('_output', '')}.tex"
