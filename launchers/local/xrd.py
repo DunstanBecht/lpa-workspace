@@ -12,9 +12,9 @@ from lpa.xrd import run, code
 import settings
 
 options = { # run options
-    5e13: {'f': round(600/11.8), 'r': 4000, 'b': 200},
-    5e14: {'f': round(300/3.7), 'r': 2000, 'b': 200},
-    5e15: {'f': round(150/2), 'r': 1000, 'b': 200},
+    5e13: {'f': round(600/11.8), 'r': 3125, 'b': 64},
+    5e14: {'f': round(300/3.7), 'r': 3125, 'b': 64},
+    5e15: {'f': round(150/2), 'r': 3125, 'b': 64},
 }
 
 if not os.path.isdir('xrd'):
