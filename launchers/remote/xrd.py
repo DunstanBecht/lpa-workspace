@@ -21,6 +21,7 @@ with pysftp.Connection(hst, username=usr, password=pwd) as sftp:
                 send(sftp, filnam, dirloc)
     print((f"\nRun the following command through ssh:\n"
            f"ssh compute-0-1-gpu\n"
+           f"module load cuda/10.1\n"
            f"cd {remdir}\n"
            f"nohup python3 {jobnam}.py &"))
 
