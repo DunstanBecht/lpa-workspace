@@ -13,9 +13,9 @@ import settings
 datpth = '../../data' # path to the data storage directory
 
 sizes = { # number of distributions per sample for each density
-    5e13: 100,
+    5e13: 1000,
     5e14: 100,
-    5e15: 100,
+    5e15: 10,
 }
 
 rep = 1 # rank of replication
