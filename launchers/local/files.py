@@ -5,6 +5,7 @@
 Generate input data files.
 """
 
+import numpy as np
 import os
 from datetime import datetime
 from lpa.input import sets, data
@@ -16,6 +17,12 @@ sizes = { # number of distributions per sample for each density
     5e13: 1000,
     5e14: 100,
     5e15: 10,
+}
+
+step = { # Fourier variable step [nm]
+    5e13: 2*np.sqrt(100),
+    5e14: 2*np.sqrt(10),
+    5e15: 2*np.sqrt(1),
 }
 
 rep = 1 # rank of replication
@@ -47,7 +54,7 @@ for i in range(len(settings.densities)):
             ccl = f"{s.d*1e18:1.3e}m-2{bdrcnd} {s.name('gsmcS')}"
             print(ccl)
             cyc += "\n"+ccl
-            data.export(s, expdir=dirdat, pbc=rep)
+            data.export(s, expdir=dirdat, pbc=rep, a3=step[settings.densities_m[i]])
             stem = s.name(c='stm')
             with open(os.path.join(dirnot, f'{stem}_PBC{rep}.tex'), 'w') as f:
                 f.write(s.name(f='nmgsd', c='ttl'))
