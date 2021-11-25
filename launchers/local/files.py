@@ -25,7 +25,7 @@ step = { # Fourier variable step [nm]
     5e15: 2*np.sqrt(1),
 }
 
-rep = 1 # rank of replication
+rep = 2 # rank of replication
 
 idf = datetime.now().strftime('%Y-%m-%d_%H%M')
 cyc = (f"Cycle of generation, simulation and analysis started on "
