@@ -79,39 +79,39 @@ for appmtd in appmtdord:
 del higlig, f, appmtd
 
 # export synthesis.csv
-sep = ';'
+sep = '; '
 for appmtd in appmtdord:
     for h in range(1, 1+n_j):
         syndir = f"{datpth}/synthesis"
         if not os.path.isdir(syndir):
             os.mkdir(syndir)
+        hdr1 = ["", "fluctuation", *['density' for m in fitmodord], *['Re (nm)' for m in fitmodord]]
+        hdr2 = ["distribution model", fitmodord[0].upper(), *2*[m.upper() for m in fitmodord]]
+        dat = []
+        for j in range(len(dismodord)):
+            for i in range(len(readst)):
+                for k in range(len(stmlstfit[j][i])):
+                    line = [stmlstfit[j][i][k]]+[None]*(1+2*len(fitmodord))
+                    for e in range(len(fitmodord)):
+                        datfit = datlstfit[e][j][i][k]
+                        mashmc = datfit[i_j]==h
+                        datfit = datfit.T[mashmc].T
+                        val = appmtd['fun'](readst[i], datfit)
+                        line[2+e] = format(val[0], appmtd['fmtcsv'][0])
+                        line[2+e+len(fitmodord)] = format(val[1], appmtd['fmtcsv'][0])
+                        if len(val)==3:
+                            line[1] = format(val[2], '1.9f')
+                    dat.append(line)
+        tab = [hdr1, hdr2] + dat
+        for c in range(len(tab[0])):
+            strlen = max([len(tab[l][c]) for l in range(len(tab))])
+            for l in range(len(tab)):
+                fmt = f"<{strlen}" if c==0 else f">{strlen}"
+                tab[l][c] = format(tab[l][c], fmt)
         with open(os.path.join(syndir, f"{appmtd['stm']}_j{h}.csv"), 'w') as f:
-            f.write(f"{sep}fluctuation{len(fitmodord)*(sep+'density')}{len(fitmodord)*(sep+'Re (nm)')}\n")
-            f.write(f"Distribution model{sep}{sep}{sep.join(fitmodord*2).upper()}\n")
-            for j in range(len(dismodord)):
-                for i in range(len(readst)):
-                    for k in range(len(stmlstfit[j][i])):
-                        f.write(f"{stmlstfit[j][i][k]}")
-                        col1, col2 = [], []
-                        for e in range(len(fitmodord)):
-                            datfit = datlstfit[e][j][i][k]
-                            mashmc = datfit[i_j]==h
-                            datfit = datfit.T[mashmc].T
-                            val = appmtd['fun'](readst[i], datfit)
-                            col1.append(val[0])
-                            col2.append(val[1])
-                            if len(val)==3:
-                                col0 = val[2]
-                        bstlst1 = appmtd['bst'][0](col1)
-                        bstlst2 = appmtd['bst'][1](col2)
-                        bstall = bstlst1 + bstlst2
-                        vallst1 = [format(v, appmtd['fmtcsv'][0]) for v in col1]
-                        vallst2 = [format(v, appmtd['fmtcsv'][1]) for v in col2]
-                        vallst0 = [format(col0, '1.2e')]
-                        valall = vallst0+vallst1+vallst2
-                        f.write(sep)
-                        f.write(sep.join(valall))
-                        f.write("\n")
+            for line in tab:
+                f.write(sep.join(line)+"\n")
+
 del sep, f, appmtd
 
 input("OK")
