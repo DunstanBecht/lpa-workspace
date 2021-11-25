@@ -13,9 +13,9 @@ from lpa.xrd import run, code
 import settings
 
 options = { # run options
-    5e13: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(100)/2*np.sqrt(100))},
-    5e14: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(10)/2*np.sqrt(10))},
-    5e15: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(1)/2*np.sqrt(1))},
+    5e13: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(100)/(2*np.sqrt(100)))},
+    5e14: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(10)/(2*np.sqrt(10)))},
+    5e15: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(1)/(2*np.sqrt(1)))},
 }
 
 if not os.path.isdir('xrd'):
