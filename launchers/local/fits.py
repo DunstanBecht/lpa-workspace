@@ -5,6 +5,7 @@
 Fit the models on the simulation outputs.
 """
 
+import numpy as np
 import os
 from lpa.output import analyze
 import settings
@@ -35,4 +36,5 @@ for i in range(len(settings.densities)):
                     impdir=impdir,
                     expdir=expdir,
                     figttl=figttl,
+                    frrprt=np.real, # np.real (default) | np.absolute
                 )
