@@ -76,7 +76,6 @@ for appmtd in appmtdord:
                    fr"in a square \gls{{roi}} of 3200 nm side length with \gls{{pbc}}1.}}")
             f.write(cap+"\n\n")
             f.write(r"\newpage"+"\n\n")
-del higlig, f, appmtd
 
 # export synthesis.csv
 sep = '; '
@@ -111,7 +110,5 @@ for appmtd in appmtdord:
         with open(os.path.join(syndir, f"{appmtd['stm']}_j{h}.csv"), 'w') as f:
             for line in tab:
                 f.write(sep.join(line)+"\n")
-
-del sep, f, appmtd
 
 input("OK")

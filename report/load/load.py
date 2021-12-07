@@ -58,7 +58,6 @@ for i in range(len(readst)):
     impdirfit.append(os.path.join(datpth, 'fits_'+dstcsl))
     impdirmap.append(os.path.join(datpth, 'maps_'+dstcsl))
     impdirana.append(os.path.join(datpth, 'stats_'+dstcsl))
-    del dstcsl
     # complete stmlst* lists
     if os.path.isdir(impdirfit[i]):
         for stm in os.listdir(impdirfit[i]):
@@ -86,7 +85,6 @@ for i in range(len(readst)):
                         stmlstanG[dismodord.index(dismod)][i].append(stm)
     else:
         print(f"No analyses for density {dstexp[i]}.")
-    del stm, dismod
 
 # distribution model nicknames / [distribution model] / [densitiy]
 lstnicnam = [[[] for i in range(len(readst))] for j in range(len(dismodord))]
@@ -99,7 +97,6 @@ for j in range(len(dismodord)):
             if len(stmlstfit[j][i]) > 1:
                 nicnam += '-'+chr(ord('A')+k)
             lstnicnam[j][i].append(nicnam)
-del j, i, k, nicnam
 
 # fits data / [fit model] / [distribution model] / [densitiy]
 datlstfit = [
@@ -123,7 +120,6 @@ for e in range(len(fitmodord)):
                     for l in range(5):
                         f.readline() # skip header
                     datlstfit[e][j][i].append(np.loadtxt(f).T)
-del e, j, i, k, l, stmdis, fitdat, dirpth, f
 
 # index in fits data
 i_j = 0
