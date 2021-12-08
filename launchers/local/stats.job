@@ -2,7 +2,7 @@
 #SBATCH --job-name=lpa
 #SBATCH --nodes=10
 #SBATCH --ntasks-per-node=20
-#SBATCH --time=99:00:00
+#SBATCH --time=30-00:00:00
 #SBATCH --partition=intensive.q
 ulimit -l unlimited
 ###unset SLURM_GTIDS

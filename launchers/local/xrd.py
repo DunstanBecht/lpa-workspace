@@ -10,13 +10,10 @@ import pysftp
 import os
 import time
 from lpa.xrd import run, code
-import settings
 
-options = { # run options
-    5e13: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(100)/(2*np.sqrt(100)))},
-    5e14: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(10)/(2*np.sqrt(10)))},
-    5e15: {'r': 3125, 'b': 64, 'f': round(60*np.sqrt(1)/(2*np.sqrt(1)))},
-}
+r = 3125
+b = 64
+f = 100
 
 if not os.path.isdir('xrd'):
     print("\nClone code.")
@@ -24,16 +21,16 @@ if not os.path.isdir('xrd'):
 
 print("\nMake file.")
 run.make()
-for i in range(len(settings.densities)):
-    f = str(options[settings.densities_m[i]]['f'])
-    r = str(options[settings.densities_m[i]]['r'])
-    b = str(options[settings.densities_m[i]]['b'])
-    print(f"\n{settings.densities_csl[i]}:", end=" ")
+
+groups = [e.replace("inputs_", "") for e in os.listdir() if "inputs_" in e]
+
+for key in groups:
+    print(f"\n{key}:", end=" ")
     print(f"Fourier coefficients: {f}", end=", ")
     print(f"block repetitions: {r}", end=", ")
     print(f"block size: {b}")
-    impdir = f'inputs_{settings.densities_stm[i]}'
-    expdir = f'outputs_{settings.densities_stm[i]}'
+    impdir = f'inputs_{key}'
+    expdir = f'outputs_{key}'
     if impdir in os.listdir():
         if not expdir in os.listdir():
             os.mkdir(expdir)
@@ -44,7 +41,9 @@ for i in range(len(settings.densities)):
                 impstm=stm,
                 impdir=impdir,
                 expdir=expdir,
-                **options[settings.densities_m[i]],
+                r=r,
+                b=b,
+                f=f,
             )
             print(f" ({round((time.time()-t)/60)}mn)")
 

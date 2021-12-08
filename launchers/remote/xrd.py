@@ -17,7 +17,7 @@ with pysftp.Connection(hst, username=usr, password=pwd) as sftp:
         sftp.mkdir(remdir)
     with sftp.cd(remdir):
         if input("\nSend files ? (y/n) ")=="y":
-            for filnam in (f'{jobnam}.py', 'settings.py'):
+            for filnam in (f'{jobnam}.py',):
                 send(sftp, filnam, dirloc)
     print((f"\nRun the following command through ssh:\n"
            f"ssh compute-0-1-gpu\n"

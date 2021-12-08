@@ -11,12 +11,12 @@ import settings
 
 datpth = '../../data' # path to the data storage directory
 
-for i in range(len(settings.densities)):
-    print(f"\n{settings.densities_csl[i]}:")
-    dirmap = os.path.join(datpth, f'maps_{settings.densities_stm[i]}')
+for key in settings.groups:
+    print(f"\n{key}:")
+    dirmap = os.path.join(datpth, f'maps_{key}')
     if not os.path.isdir(dirmap):
         os.makedirs(dirmap)
-    for args in settings.arguments(settings.densities[i]):
-        d = sets.Distribution(*args, S=0)
+    for args in settings.groups[key]:
+        d = sets.Distribution(*args['a'], S=args['S'])
         print(d)
-        maps.export(d, expdir=dirmap, expfmt='pdf')
+        maps.export(d, expdir=dirmap, expfmt='pdf', expstm=args['s'])

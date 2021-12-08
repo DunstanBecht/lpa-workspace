@@ -25,19 +25,47 @@ side_cells_min = np.sqrt(2/densities)*1e9 # for each density [nm]
 m = [2**np.arange(5) for k in range(n)]
 side_cells = [m[k]*side_cells_min[k] for k in range(n)] # for each density [nm]
 side_roi = max([max(side_cells[k]) for k in range(n)]) # roi size [nm]
-pbc = 1 # number of replications of the region of interest
 
-arguments = [[] for i in range(n)] # for each density
+p = 0.2 # ratio of the area occupied by the cell walls
+q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
+splsiz = 16*rk[::-1] # number of distributions per sample for each density
+
+groups = {}
+
+groups['RRDD-E'] = []
 for i in range(n):
     for j in range(len(side_cells[i])):
-        args = (
-            'square',
-            side_roi,
-            models.RRDD,
-            {'d': densities[i]*1e-18, 'v': 'E', 's': side_cells[i][j]},
-        )
-        arguments[i].append(args)
+        prm = {'d': densities[i]*1e-18,
+               'v': 'E',
+               's': side_cells[i][j]}
+        args = {}
+        args['n'] = int(splsiz[i])
+        args['a'] = ('square', side_roi, models.RRDD, prm)
+        args['c'] = 1
+        args['S'] = 0
+        args['s'] = ("RRDD-E"
+                    +'_d'+f"{prm['d']*1e18:1.0f}".zfill(16)+"m-2"
+                    +'_s'+f"{prm['s']:1.0f}".zfill(4)+"nm")
+        groups['RRDD-E'].append(args)
+
+groups['RCDD-E'] = []
+for i in range(n):
+    for j in range(len(side_cells[i])):
+        prm = {'d': densities[i]*1e-18,
+               'v': 'E',
+               's': side_cells[i][j],
+               't': side_cells[i][j]*q}
+        args = {}
+        args['n'] = int(splsiz[i])
+        args['a'] = ('square', side_roi, models.RCDD, prm)
+        args['c'] = 1
+        args['S'] = 0
+        args['s'] = ("RCDD-E"
+                    +'_d'+f"{prm['d']*1e18:1.0f}".zfill(16)+"m-2"
+                    +'_s'+f"{prm['s']:1.0f}".zfill(4)+"nm"
+                    +'_t'+f"{prm['t']:1.0f}".zfill(4)+"nm")
+        groups['RCDD-E'].append(args)
 
 if __name__ == "__main__":
     print("d0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")

@@ -6,48 +6,18 @@ tar -zxvf notations.tar.gz
 # Archive and un-archive input data:
 tar -czvf inputs.tar.gz inputs_*
 tar -zxvf inputs.tar.gz
-tar -czvf inputs_5e13m-2.tar.gz inputs_5e13m-2
-tar -czvf inputs_5e14m-2.tar.gz inputs_5e14m-2
-tar -czvf inputs_5e15m-2.tar.gz inputs_5e15m-2
-tar -zxvf inputs_5e13m-2.tar.gz
-tar -zxvf inputs_5e14m-2.tar.gz
-tar -zxvf inputs_5e15m-2.tar.gz
 # Archive and un-archive input maps:
 tar -czvf maps.tar.gz maps_*
 tar -zxvf maps.tar.gz
-tar -czvf maps_5e13m-2.tar.gz maps_5e13m-2
-tar -czvf maps_5e14m-2.tar.gz maps_5e14m-2
-tar -czvf maps_5e15m-2.tar.gz maps_5e15m-2
-tar -zxvf maps_5e13m-2.tar.gz
-tar -zxvf maps_5e14m-2.tar.gz
-tar -zxvf maps_5e15m-2.tar.gz
 # Archive and un-archive input analyses:
 tar -czvf stats.tar.gz stats_*
 tar -zxvf stats.tar.gz
-tar -czvf stats_5e13m-2.tar.gz stats_5e13m-2
-tar -czvf stats_5e14m-2.tar.gz stats_5e14m-2
-tar -czvf stats_5e15m-2.tar.gz stats_5e15m-2
-tar -zxvf stats_5e13m-2.tar.gz
-tar -zxvf stats_5e14m-2.tar.gz
-tar -zxvf stats_5e15m-2.tar.gz
 # Archive and un-archive output data:
 tar -czvf outputs.tar.gz outputs_*
 tar -zxvf outputs.tar.gz
-tar -czvf outputs_5e13m-2.tar.gz outputs_5e13m-2
-tar -czvf outputs_5e14m-2.tar.gz outputs_5e14m-2
-tar -czvf outputs_5e15m-2.tar.gz outputs_5e15m-2
-tar -zxvf outputs_5e13m-2.tar.gz
-tar -zxvf outputs_5e14m-2.tar.gz
-tar -zxvf outputs_5e15m-2.tar.gz
 # Archive and un-archive output fits:
 tar -czvf fits.tar.gz fits_*
 tar -zxvf fits.tar.gz
-tar -czvf fits_5e13m-2.tar.gz fits_5e13m-2
-tar -czvf fits_5e14m-2.tar.gz fits_5e14m-2
-tar -czvf fits_5e15m-2.tar.gz fits_5e15m-2
-tar -zxvf fits_5e13m-2.tar.gz
-tar -zxvf fits_5e14m-2.tar.gz
-tar -zxvf fits_5e15m-2.tar.gz
 
 # to repatriate files from the root node to the front of the cluster
 scp -r /scratch/becht-83073/* becht@centaure:/export/home/becht/transit
