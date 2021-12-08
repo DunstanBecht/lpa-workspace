@@ -103,6 +103,7 @@ Everything that is generated during a cycle is collected in a directory with the
 ```
 data_YYYY-MM-HH-mmss
 ├───cycle-information.txt
+├───benchmark.txt
 ├───inputs_<group-1-name>
 ├───inputs_<group-2-name>
 ├───notations_<group-1-name>
