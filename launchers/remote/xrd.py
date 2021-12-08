@@ -23,6 +23,6 @@ with pysftp.Connection(hst, username=usr, password=pwd) as sftp:
            f"ssh compute-0-1-gpu\n"
            f"module load cuda/10.1\n"
            f"cd {remdir}\n"
-           f"nohup python3 {jobnam}.py &"))
+           f"nohup python3 {jobnam}.py > benchmark.txt &"))
 
 input("\nPress 'enter' to exit...")

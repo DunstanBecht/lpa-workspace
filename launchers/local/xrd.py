@@ -6,14 +6,26 @@ Run the X-ray diffraction simulations.
 """
 
 import numpy as np
-import pysftp
 import os
 import time
 from lpa.xrd import run, code
 
-r = 3125
-b = 64
-f = 100
+def steps(impdir, impstm):
+    """Return the number of Fourier coefficients to generate."""
+    pth = os.path.join(impdir, impstm)
+    if os.path.isdir(pth):
+        pth = os.path.join(pth, os.listdir(pth)[0])
+    with open(pth, 'r') as fil:
+        fil.readline()
+        dst = eval(fil.readline())*1e-18 # [nm^-2]
+        for i in range(7):
+            fil.readline()
+        a3 = eval(fil.readline()) # [nm]
+    Lmax = 5/np.sqrt(dst) # [nm]
+    return int(Lmax/a3)
+
+wgs = 64 # work-group size
+nrp = 200001 # number of work group repetitions
 
 if not os.path.isdir('xrd'):
     print("\nClone code.")
@@ -26,25 +38,23 @@ groups = [e.replace("inputs_", "") for e in os.listdir() if "inputs_" in e]
 
 for key in groups:
     print(f"\n{key}:", end=" ")
-    print(f"Fourier coefficients: {f}", end=", ")
-    print(f"block repetitions: {r}", end=", ")
-    print(f"block size: {b}")
     impdir = f'inputs_{key}'
     expdir = f'outputs_{key}'
     if impdir in os.listdir():
         if not expdir in os.listdir():
             os.mkdir(expdir)
         for stm in os.listdir(impdir):
+            nfv = steps(impdir, stm)
             t = time.time()
-            print(stm, end='')
+            print(f"{stm} (wgs={wgs} nrp={nrp} nfv={nfv}) ", end='')
             cmd, res = run.sample(
                 impstm=stm,
                 impdir=impdir,
                 expdir=expdir,
-                r=r,
-                b=b,
-                f=f,
+                wgs=wgs,
+                nrp=nrp,
+                nfv=steps(impdir, stm),
             )
-            print(f" ({round((time.time()-t)/60)}mn)")
+            print(f" -> ({round((time.time()-t)/60)}mn)")
 
 print("\nFinished")
