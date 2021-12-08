@@ -61,6 +61,8 @@ Below is an overview of the parameters used for the generation of the studied mo
 
 # User guide
 
+## Project tree
+
 The structure of the project is described below.
 ```
 Workspace
@@ -79,8 +81,7 @@ Workspace
 │   │   ├───stats.py            (script for input statistical analysis in parallel)
 │   │   ├───stats.job           (script for submitting stats.py to SLURM)
 │   │   ├───xrd.py              (automation of X-ray diffraction simulations)
-│   │   ├───fits.py             (script for model fitting on output data)
-│   │   └───replications.py     (script to test the convergence of output data)
+│   │   └───fits.py             (script for model fitting on output data)
 │   └───remote              (script for remote control of the supercomputer)
 │       ├───link.py             (tools for communication and file exchange)
 │       ├───stats.py            (remote controller for statistical analysis)
@@ -93,3 +94,41 @@ Workspace
 │   └───report.tex          (latex code to be compiled)
 └───commands.sh         (memo for regularly used commands)
 ```
+
+## Cycles
+
+In order to have the final data, it is necessary to generate the input, launch the calculations, process and synthesize the results. This process is called a cycle. An identifier can be assigned to each cycle in the form `YYYY-MM-HH-mmss` for traceability purposes.
+
+Everything that is generated during a cycle is collected in a directory with the following structure. In a cycle one can classify the data by groups to synthesize the distributions in a partitioned way. These groups can be set up in the file `launchers/local/settings.py`.
+```
+data_YYYY-MM-HH-mmss
+├───cycle-information.txt
+├───inputs_<group-1-name>
+├───inputs_<group-2-name>
+├───notations_<group-1-name>
+├───notations_<group-2-name>
+├───maps_<group-1-name>
+├───maps_<group-2-name>
+├───stats_<group-1-name>
+├───stats_<group-2-name>
+├───stats_<group-1-name>
+├───stats_<group-2-name>
+├───outputs_<group-1-name>
+├───outputs_<group-2-name>
+├───fits_<group-1-name>
+├───fits_<group-2-name>
+├───synthesis_<group-1-name>
+└───synthesis_<group-2-name>
+```
+
+For a complete cycle the following programs and tasks must be executed in order:
+* Check the input parameters in `launchers/local/settings.py`
+* Generate the input data and notations with `launchers/local/files.py`
+* Generate the input maps with `launchers/local/maps.py`
+* Launch the XRD simulations with `launchers/remote/xrd.py` (don't forger to transfer the input files to the GPU host)
+* Perform a spatial analysis with `launchers/remote/stats.py`
+* Retrieve simulation output data
+* Fits the models on the output data with `launchers/local/fits.py`
+* Synthetize the fits data with ...
+
+The script `launchers/remote/xrd.py` and `launchers/remote/stats.py` are only aids to the automation of tasks. It allows you to transfer files to the host or cluster. If you want to run the programs locally you can use the `launchers/local/xrd.py` and `launchers/local/stats.py` scripts directly.
