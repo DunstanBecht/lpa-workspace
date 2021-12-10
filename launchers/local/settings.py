@@ -29,7 +29,7 @@ side_roi = max([max(side_cells[k]) for k in range(n)]) # roi size [nm]
 p = 0.2 # ratio of the area occupied by the cell walls
 q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
-splsiz = 16*rk[::-1] # number of distributions per sample for each density
+splsiz = 8*rk[::-1] # number of distributions per sample for each density
 
 groups = {}
 
