@@ -36,10 +36,10 @@ run.make()
 
 groups = [e.replace("inputs_", "") for e in os.listdir() if "inputs_" in e]
 
-for key in groups:
-    print(f"\n{key}:", end=" ")
-    impdir = f'inputs_{key}'
-    expdir = f'outputs_{key}'
+for group in groups:
+    print(f"\n{group}:", end=" ")
+    impdir = f'inputs_{group}'
+    expdir = f'outputs_{group}'
     if impdir in os.listdir():
         if not expdir in os.listdir():
             os.mkdir(expdir)

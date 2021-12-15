@@ -8,15 +8,22 @@ Generate input maps.
 import os
 from lpa.input import sets, maps
 import settings
+import cycle
 
-datpth = '../../data' # path to the data storage directory
+cycidf = cycle.select() # cycle identifier
+cycdir = cycle.directory(cycidf) # cycle directory
 
-for key in settings.groups:
-    print(f"\n{key}:")
-    dirmap = os.path.join(datpth, f'maps_{key}')
+for group in settings.groups:
+    print(f"\n{group}:")
+    dirmap = os.path.join(cycdir, f'maps_{group}')
     if not os.path.isdir(dirmap):
         os.makedirs(dirmap)
-    for args in settings.groups[key]:
+    for args in settings.groups[group]:
         d = sets.Distribution(*args['a'], S=args['S'])
         print(d)
-        maps.export(d, expdir=dirmap, expfmt='pdf', expstm=args['s'])
+        maps.export(
+            d,
+            expdir=dirmap,
+            expfmt='pdf',
+            expstm=args['s'],
+        )
