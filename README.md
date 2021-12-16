@@ -1,5 +1,5 @@
-<div align="center">
-  <img width="250" src="https://dunstan.becht.network/views/signatures/mines.svg" alt="Mines Saint-Etienne">
+<div align="center"><br>
+  <img width="250" src="https://dunstan.becht.network/permanent/mines.svg" alt="Mines Saint-Etienne">
 </div>
 
 # Line Profile Analysis - Workspace
