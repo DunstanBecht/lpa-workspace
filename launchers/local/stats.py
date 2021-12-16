@@ -14,6 +14,8 @@ import settings
 
 t1 = time.time()
 for group in settings.groups:
+    if parallel.rank == parallel.root:
+        print(f"\n{group}:")
     expdir = os.path.join(cycdir, f'stats_{group}')
     if not os.path.isdir(expdir):
         os.makedirs(expdir)

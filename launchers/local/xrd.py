@@ -37,7 +37,7 @@ run.make()
 groups = [e.replace("inputs_", "") for e in os.listdir() if "inputs_" in e]
 
 for group in groups:
-    print(f"\n{group}:", end=" ")
+    print(f"\n{group}:")
     impdir = f'inputs_{group}'
     expdir = f'outputs_{group}'
     if impdir in os.listdir():
@@ -46,7 +46,7 @@ for group in groups:
         for stm in os.listdir(impdir):
             nfv = steps(impdir, stm)
             t = time.time()
-            print(f"{stm} (wgs={wgs} nrp={nrp} nfv={nfv}) ", end='')
+            print(f"{stm} (wgs={wgs} nrp={nrp} nfv={nfv})", end='')
             cmd, res = run.sample(
                 impstm=stm,
                 impdir=impdir,
