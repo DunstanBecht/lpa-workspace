@@ -66,7 +66,7 @@ def adjust(tab):
         w = max([len(tab[i][j]) for i in range(len(tab))])
         for i in range(len(tab)):
             tab[i][j] = format(tab[i][j], f'>{w}')
-            
+
 for group in groups:
     expdir = os.path.join(cycdir, f"synthesis_{group}")
     if not os.path.isdir(expdir):
@@ -106,7 +106,6 @@ for group in groups:
 
         for mtd in lines:
             adjust(lines[mtd])
-            with open(os.path.join(expdir, f"{mtd}-{j}.csv"), "w") as f:
+            with open(os.path.join(expdir, f"{mtd}_j{j}.csv"), "w") as f:
                 for l in lines[mtd]:
                       f.write("; ".join(l)+"\n")
-    
