@@ -17,7 +17,7 @@ from lpa.input import models
 
 a = 1.25e13 # lowest density [m^-2]
 r = 4 # common ratio (must be a square number)
-n = 5 # number of densities generated
+n = 6 # number of densities generated
 k = np.arange(n)
 rk = r**k
 densities = a*rk # [m^-2]
@@ -29,46 +29,61 @@ side_roi = max([max(side_cells[k]) for k in range(n)]) # roi size [nm]
 p = 0.2 # ratio of the area occupied by the cell walls
 q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
-splsiz = 8*rk[::-1] # number of distributions per sample for each density
+if True: # vary dL as a function of density
+    m = [2**np.arange(4) for k in range(n)]
+    step_min = 2**np.arange(n)[::-1]*1
+    step = [m[k]*step_min[k] for k in range(n)]
+    splsiz = rk[::-1] # number of distributions per sample for each density
+else: # take the same dL for all densities
+    step = [[5] for k in range(n)]
+    splsiz = r*rk[::-1] # number of distributions per sample for each density
 
 groups = {}
 
 groups['RRDD-E'] = []
 for i in range(n):
     for j in range(len(side_cells[i])):
-        prm = {'d': densities[i]*1e-18,
-               'v': 'E',
-               's': side_cells[i][j]}
-        args = {}
-        args['n'] = int(splsiz[i])
-        args['a'] = ('square', side_roi, models.RRDD, prm)
-        args['c'] = 1
-        args['S'] = 0
-        args['s'] = ("RRDD-E"
-                    +'_d'+f"{prm['d']*1e18:1.0f}".zfill(16)+"m-2"
-                    +'_s'+f"{prm['s']:1.0f}".zfill(4)+"nm")
-        groups['RRDD-E'].append(args)
+        for k in range(len(step[i])):
+            prm = {'d': densities[i]*1e-18,
+                   'v': 'E',
+                   's': side_cells[i][j]}
+            args = {}
+            args['n'] = int(splsiz[i])
+            args['a'] = ('square', side_roi, models.RRDD, prm)
+            args['c'] = 1
+            args['S'] = 0
+            args['a3'] = step[i][k]
+            args['s'] = ("RRDD-E"
+                        +'_a3_'+f"{args['a3']:1.2e}_nm"
+                        +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
+                        +'_s_'+f"{prm['s']:1.2e}_nm").replace('+', '')
+            print(args['s'])
+            groups['RRDD-E'].append(args)
 
 groups['RCDD-E'] = []
 for i in range(n):
     for j in range(len(side_cells[i])):
-        prm = {'d': densities[i]*1e-18,
-               'v': 'E',
-               's': side_cells[i][j],
-               't': side_cells[i][j]*q}
-        args = {}
-        args['n'] = int(splsiz[i])
-        args['a'] = ('square', side_roi, models.RCDD, prm)
-        args['c'] = 1
-        args['S'] = 0
-        args['s'] = ("RCDD-E"
-                    +'_d'+f"{prm['d']*1e18:1.0f}".zfill(16)+"m-2"
-                    +'_s'+f"{prm['s']:1.0f}".zfill(4)+"nm"
-                    +'_t'+f"{prm['t']:1.0f}".zfill(4)+"nm")
-        groups['RCDD-E'].append(args)
+        for k in range(len(step[i])):
+            prm = {'d': densities[i]*1e-18,
+                   'v': 'E',
+                   's': side_cells[i][j],
+                   't': side_cells[i][j]*q}
+            args = {}
+            args['n'] = int(splsiz[i])
+            args['a'] = ('square', side_roi, models.RCDD, prm)
+            args['c'] = 1
+            args['S'] = 0
+            args['a3'] = step[i][k]
+            args['s'] = ("RCDD-E"
+                        +'_a3_'+f"{args['a3']:1.2e}_nm"
+                        +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
+                        +'_s_'+f"{prm['s']:1.2e}_nm"
+                        +'_t_'+f"{prm['t']:1.7e}_nm").replace('+', '')
+            print(args['s'])
+            groups['RCDD-E'].append(args)
 
 if __name__ == "__main__":
-    print("d0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
+    print("\nd0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
     a_candidates = []
     for i in range(1, 1000):
         d0 = (2/i**2)*1e18 # [m^-2]

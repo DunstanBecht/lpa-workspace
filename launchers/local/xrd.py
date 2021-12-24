@@ -25,7 +25,7 @@ def steps(impdir, impstm):
     return int(Lmax/a3)
 
 wgs = 64 # work-group size
-nrp = 200001 # number of work group repetitions
+nrp = 200000 # number of work group repetitions
 
 if not os.path.isdir('xrd'):
     print("\nClone code.")

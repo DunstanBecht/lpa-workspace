@@ -34,6 +34,7 @@ for group in settings.groups:
             expdir=dirdat,
             pbc=args['c'],
             expstm=args['s'],
+            a3=args['a3'],
         )
         with open(os.path.join(dirnot, f"{args['s']}.tex"), 'w') as f:
             f.write(s.name(f='nmgsd', c='ttl'))
