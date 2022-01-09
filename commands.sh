@@ -1,23 +1,23 @@
 # This file must not be executed. It contains useful commands examples.
 
 # Archive and un-archive notations:
-tar -czvf notations.tar.gz notations_*
-tar -zxvf notations.tar.gz
+nohup tar -czvf notations.tar.gz notations_* > compress_notations.txt &
+nohup tar -zxvf notations.tar.gz > decompress_notations.txt &
 # Archive and un-archive input data:
-tar -czvf inputs.tar.gz inputs_*
-tar -zxvf inputs.tar.gz
+nohup tar -czvf inputs.tar.gz inputs_* > compress_inputs.txt &
+nohup tar -zxvf inputs.tar.gz > decompress_inputs.txt &
 # Archive and un-archive input maps:
-tar -czvf maps.tar.gz maps_*
-tar -zxvf maps.tar.gz
+nohup tar -czvf maps.tar.gz maps_* > compress_maps.txt &
+nohup tar -zxvf maps.tar.gz > decompress_maps.txt &
 # Archive and un-archive input analyses:
-tar -czvf stats.tar.gz stats_*
-tar -zxvf stats.tar.gz
+nohup tar -czvf stats.tar.gz stats_* > compress_stats.txt &
+nohup tar -zxvf stats.tar.gz > decompress_stats.txt &
 # Archive and un-archive output data:
-tar -czvf outputs.tar.gz outputs_*
-tar -zxvf outputs.tar.gz
+nohup tar -czvf outputs.tar.gz outputs_* > compress_outputs.txt &
+nohup tar -zxvf outputs.tar.gz > decompress_outputs.txt &
 # Archive and un-archive output fits:
-tar -czvf fits.tar.gz fits_*
-tar -zxvf fits.tar.gz
+nohup tar -czvf fits.tar.gz fits_* > compress_fits.txt &
+nohup tar -zxvf fits.tar.gz > decompress_fits.txt &
 
 # to repatriate files from the root node to the front of the cluster
 scp -r /scratch/becht-83073/* becht@centaure:/export/home/becht/transit
