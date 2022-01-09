@@ -25,7 +25,7 @@ for group in settings.groups:
             os.makedirs(expdir)
     for args in settings.groups[group]:
         s = sets.Sample(args['n'], *args['a'], S=args['S'])
-        ccl = (f"{args['n']:4} * {s.name('gsmcS')} "
+        ccl = (f"{args['n']:4} * {s.name('gsmcS')} a3={args['a3']:7.2e} "
                   f"PBC{args['c']} ({s[0].d*1e18:1.3e}m-2)")
         print(ccl)
         cycinf += "\n"+ccl
@@ -41,3 +41,5 @@ for group in settings.groups:
 
 with open(os.path.join(cycdir, 'cycle-information.txt'), 'w') as f:
     f.write(cycinf)
+
+print("\nInput generation finished.")

@@ -46,3 +46,5 @@ for group in groups:
                     figttl=figttl,
                     frrprt=np.real, # np.real (default) | np.absolute
                 )
+
+print("\nFits finished.")

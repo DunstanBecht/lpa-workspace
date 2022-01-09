@@ -57,4 +57,4 @@ for group in groups:
             )
             print(f" -> ({round((time.time()-t)/60)}mn)")
 
-print("\nFinished")
+print("\nSimulations finished.")

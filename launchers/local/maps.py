@@ -27,3 +27,5 @@ for group in settings.groups:
             expfmt='pdf',
             expstm=args['s'],
         )
+
+print("\nMaps generation finished.")
