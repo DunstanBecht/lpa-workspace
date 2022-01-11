@@ -30,6 +30,7 @@ Workspace
 ├───cycle_<YYYY-MM-DD-HHMMSS>  (generated data, see the section Cycles)
 ├───launchers                  (scripts for data generation)
 │   ├───local                    (scripts to run for local data generation)
+│   │   ├───average.py             (script to average simulation output data files)
 │   │   ├───cycle                  (useful functions for data management)
 │   │   ├───files.py               (script to generate input data and TEX denominations)
 │   │   ├───fits.py                (script to fit the models on output data)
@@ -69,8 +70,10 @@ cycle_<YYYY-MM-DD-HHMMSS>
 ├───maps_<g2>
 ├───stats_<g1>             (distribution model spatial analyses)
 ├───stats_<g2>
-├───outputs_<g1>           (simulation output data)
+├───outputs_<g1>           (raw simulation output data)
 ├───outputs_<g2>
+├───average_<g1>           (averaged simulation output data)
+├───average_<g2>
 ├───fits_<g1>              (results of model fitting on output data)
 ├───fits_<g2>
 ├───synthesis_<g1>         (synthesis of fits)
@@ -82,6 +85,7 @@ For a complete cycle the following programs and tasks must be executed in order:
 * Generate the input data and notations with `launchers/local/files.py`
 * Generate the input maps with `launchers/local/maps.py`
 * Launch the XRD simulations with `launchers/remote/xrd.py` (don't forger to transfer the input files to the GPU host)
+* Average the output files with `launchers/local/average.py` (don't forger to retrieve the output files from the GPU host)
 * Perform a spatial analysis with `launchers/remote/stats.py`
 * Retrieve simulation output data
 * Fits the models on the output data with `launchers/local/fits.py`
