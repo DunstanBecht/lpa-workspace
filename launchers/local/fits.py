@@ -19,11 +19,11 @@ if len(sys.argv)>1:
 else:
     cycidf = cycle.select() # cycle identifier
 cycdir = cycle.directory(cycidf) # cycle directory
-groups = cycle.groups(cycidf, 'outputs') # groups
+groups = cycle.groups(cycidf, 'average') # groups
 
 for group in groups:
     print(f"\n{group}:")
-    impdir = os.path.join(cycdir, f'outputs_{group}')
+    impdir = os.path.join(cycdir, f'average_{group}')
     notdir = f'notations_{group}'
     if os.path.isdir(impdir):
         expdir = os.path.join(cycdir, f'fits_{group}')
@@ -32,8 +32,9 @@ for group in groups:
         for stm in os.listdir(impdir):
             if not os.path.isdir(os.path.join(expdir, f"{stm}_analysis")):
                 print(stm)
-                ttlfil = f"{stm.replace('_output', '')}.tex"
+                ttlfil = f"{stm.replace('_output.dat', '')}.tex"
                 ttlpth = os.path.join(cycdir, notdir, ttlfil)
+                print(ttlpth)
                 if os.path.isfile(ttlpth):
                     with open(ttlpth) as f:
                         figttl = f.read()
