@@ -39,5 +39,11 @@ nohup python3 fits.py <cycle-identifier> > nohup_execute_fits.txt &
 nohup tar -czvf fits.tar.gz fits_* > nohup_compress_fits.txt &
 nohup tar -zxvf fits.tar.gz > nohup_decompress_fits.txt &
 
+# Make a synthesis:
+nohup python3 synthesis.py <cycle-identifier> > nohup_execute_synthesis.txt &
+# Archive and un-archive output fits:
+nohup tar -czvf synthesis.tar.gz synthesis_* > nohup_compress_synthesis.txt &
+nohup tar -zxvf synthesis.tar.gz > nohup_decompress_synthesis.txt &
+
 # to repatriate files from the root node to the front of the cluster
 scp -r /scratch/becht-83073/* becht@centaure:/export/home/becht/transit
