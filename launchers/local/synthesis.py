@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Load data into lists.
+Synthesizes the results of fits into a single file per harmonic.
 """
 
 import re
@@ -10,8 +10,12 @@ import os
 import math
 import numpy as np
 import cycle
+import sys
 
-cycidf = cycle.select() # cycle identifier
+if len(sys.argv)>1:
+    cycidf = sys.argv[1]
+else:
+    cycidf = cycle.select() # cycle identifier
 cycdir = cycle.directory(cycidf) # cycle directory
 groups = cycle.groups(cycidf, 'fits') # groups
 

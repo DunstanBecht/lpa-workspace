@@ -31,9 +31,9 @@ q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
 if True: # vary dL as a function of density
     m = [2**np.arange(4) for k in range(n)]
-    step_min = 2**np.arange(n)[::-1]*1
+    step_min = 2**np.arange(n)[::-1]*0.5
     step = [m[k]*step_min[k] for k in range(n)]
-    splsiz = rk[::-1] # number of distributions per sample for each density
+    splsiz = 4*rk[::-1] # number of distributions per sample for each density
 else: # take the same dL for all densities
     step = [[5] for k in range(n)]
     splsiz = r*rk[::-1] # number of distributions per sample for each density
