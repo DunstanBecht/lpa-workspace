@@ -34,7 +34,6 @@ for group in groups:
                 print(stm)
                 ttlfil = f"{stm.replace('_output.dat', '')}.tex"
                 ttlpth = os.path.join(cycdir, notdir, ttlfil)
-                print(ttlpth)
                 if os.path.isfile(ttlpth):
                     with open(ttlpth) as f:
                         figttl = f.read()

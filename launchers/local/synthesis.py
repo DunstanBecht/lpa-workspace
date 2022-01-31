@@ -27,6 +27,8 @@ def load(impstm):
         for i in range(4):
             f.readline()
         dat = np.loadtxt(f).T
+    if len(dat)==0:
+        return None
     res = {
         'j': dat[0],
         'L': dat[1],
@@ -40,7 +42,11 @@ def load(impstm):
 
 def analyze(dat, j):
     """Analyze a model."""
+    if dat is None:
+        return None
     msk = dat['j']==j
+    if not np.any(msk):
+        return None
     d = dat['d'][msk]
     R = dat['R'][msk]
     res = {
@@ -95,17 +101,20 @@ for group in groups:
             pth1 = os.path.join(pth0, smp)
             res = sample(pth1, j)
             for mtd in lines:
-                lines[mtd].append([
-                    smp,
-                    f"{res['GUW1'][f'{mtd}-f']:12.7e}",
-                    f"{res['GUW1'][f'{mtd}-d']:12.7e}",
-                    f"{res['GUW2'][f'{mtd}-d']:12.7e}",
-                    f"{res['W1'][f'{mtd}-d']:12.7e}",
-                    f"{res['W2'][f'{mtd}-d']:12.7e}",
-                    f"{res['GUW1'][f'{mtd}-R']:12.7e}",
-                    f"{res['GUW2'][f'{mtd}-d']:12.7e}",
-                    f"{res['W1'][f'{mtd}-R']:12.7e}",
-                    f"{res['W2'][f'{mtd}-R']:12.7e}",
+                lines[mtd].append([smp]+[
+                    f"{res[i0][i1]:12.7e}"
+                    if res[i0] is not None else 'N/A'
+                    for (i0, i1) in [
+                        ('GUW1', f'{mtd}-f'),
+                        ('GUW1', f'{mtd}-d'),
+                        ('GUW2', f'{mtd}-d'),
+                        ('W1',   f'{mtd}-d'),
+                        ('W2',   f'{mtd}-d'),
+                        ('GUW1', f'{mtd}-R'),
+                        ('GUW2', f'{mtd}-R'),
+                        ('W1',   f'{mtd}-R'),
+                        ('W2',   f'{mtd}-R'),
+                    ]
                 ])
 
         for mtd in lines:
