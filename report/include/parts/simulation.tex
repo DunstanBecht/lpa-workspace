@@ -8,8 +8,12 @@ This section is related to X-ray diffraction and Fourier analysis.
 
 Let \gls{difint} be the \glsdesc{difint} as defined by \textcite{W1979}.
 \gls{difint} is a function of \gls{radcdn} the \glsdesc{radcdn} defined in \eqref{eq:S}.
-\gls{wavlen} is the \glsdesc{wavlen} and \( \gls{brgang}_B \) is the Bragg angle of the average lattice.
+\gls{wavlen} is the \glsdesc{wavlen}, \( \gls{brgang}_B \) is the Bragg angle of the average lattice defined in \eqref{eq:Bragg-angle} and \gls{celprm} is the \glsdesc{celprm}.
 \gls{difint} is normalized according to \eqref{eq:norm-I}.
+
+\begin{equation}\label{eq:Bragg-angle}
+\sin \gls{brgang}_B = \frac{\gls{wavlen} \sqrt{h^2+k^2+l^2}}{2 \gls{celprm}}
+\end{equation}
 
 \begin{equation}\label{eq:S}
 \gls{radcdn} = \frac{2 \left( \sin \gls{brgang} - \sin \gls{brgang}_B \right)}{\gls{wavlen}}
@@ -55,12 +59,37 @@ The resultant displacement field created by a dislocation located in \( ( x, y )
   \end{array} \right)
 \end{align}
 
+\subsubsection{The choice of the step}
+
+The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref{eq:fourier-a3} \cite{W1990}.
+There are experimental constraint upon \gls{brgang} that limit the range of available values for \gls{frrstp}.
+
+\begin{equation}\label{eq:fourier-L-step}
+\gls{frrvar} = i \gls{frrstp} \ \text{with} \ i \in \gls{setN}^*_+
+\end{equation}
+
+\begin{equation}\label{eq:fourier-a3}
+\gls{frrstp} = \frac{\gls{wavlen}}{4 \left( \sin \gls{brgang} - \sin \gls{brgang}_B \right)}
+\end{equation}
+
+\medskip
+
+Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm  (for Al FCC), we get the following table.
+
+\medskip
+
+{\renewcommand{\arraystretch}{1.6}
+
+\input{insert/a3/a3}
+
+\captionof{table}{Range for \( a_3 \) depending on (hkl).}
+
+Here \( a_3 \) will be set to \( 1.6 \) nm.
+
 \subsubsection{Parallelization}
 
 To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
 A large number of random points \( \vec{r} \) are drawn in the crystal and the equations \eqref{eq:fourier-a-warren} and \eqref{eq:fourier-b-warren} are applied. The random draws and the calculations are then parallelized since they are independent.
-
-\newpage
 
 \subsection{Program}
 
