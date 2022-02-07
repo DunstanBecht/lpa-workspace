@@ -317,7 +317,7 @@ As a point of reference for the observation of the results it is recalled that f
   }
 \end{equation}
 
-\bigfig{fig:KKKK-example}{\datdir/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_KKKK_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{funK}}%
+\bigfig{fig:KKKK-example}{insert/analysis}{example_KKKK_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{funK}}%
 
 \newpage
 
@@ -342,7 +342,7 @@ For a continuous uniform distribution of undifferentiated points in an unbounded
   }
 \end{equation}
 
-\bigfig{fig:gggg-example}{\datdir/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_gggg_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{fung}}%
+\bigfig{fig:gggg-example}{insert/analysis}{example_gggg_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the function \gls{fung}}%
 
 \subsubsection{Symmetrical and antisymmetrical functions}\label{sec:analysis-functions-GaGs}
 
@@ -392,7 +392,7 @@ These new functions are called \gls{funGa} and \gls{funGs} and are close to thos
 
 \newpage
 
-\bigfig{fig:GaGs-example}{\datdir/stats_5e13m-2}{200000_rho5e13m-2_RDD_d5e-5nm-2_square_3200nm_S0_GaGs_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the functions \gls{funGa} and \gls{funGs}}%
+\bigfig{fig:GaGs-example}{insert/analysis}{example_GaGs_GBB}{Statistical spatial analysis of a sample of \gls{rdd} with the functions \gls{funGa} and \gls{funGs}}%
 
 The new function \gls{funGa} leads to a reformulation of the total energy per unit length stored in the \gls{roi} in equation \eqref{eq:total-energy-continuous}.
 The calculation can be conducted differently depending on the edge consideration * chosen.
@@ -797,6 +797,8 @@ The structure of the input data is shown in the sample file below.
 A file of this kind can be written for each randomly generated distribution.
 The files resulting from the same set of generation parameter (\gls{roi} shape, distribution model, variant, density...) are called \textit{sample} and can be grouped in a directory.
 Then, in the following programs, the analysis will be performed on the files of this sample and the results will be averaged to obtain representative data associated with the starting parameters.
+
+\smallskip
 
 \pyscript{insert/input}{input\_data.py}
 
