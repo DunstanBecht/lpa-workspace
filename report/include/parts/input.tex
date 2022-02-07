@@ -794,9 +794,10 @@ The program can be installed or updated with the following command:
 \subsubsection{Input data}
 
 The structure of the input data is shown in the sample file below.
-In the header are indications for the simulation program and below the positions and Burgers vector of the generated dislocations.
 A file of this kind can be written for each randomly generated distribution.
 The files resulting from the same set of generation parameter (\gls{roi} shape, distribution model, variant, density...) are called \textit{sample} and can be grouped in a directory.
 Then, in the following programs, the analysis will be performed on the files of this sample and the results will be averaged to obtain representative data associated with the starting parameters.
 
-\txtlst{insert/input}{input\_data\_structure.txt}
+\pyscript{insert/input}{input\_data.py}
+
+\txtlst{insert/input}{input\_data.txt}
