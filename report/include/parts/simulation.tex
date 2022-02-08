@@ -63,6 +63,12 @@ The resultant displacement field created by a dislocation located in \( ( x, y )
 
 The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref{eq:fourier-a3} \cite{W1990}.
 There are experimental constraints on \gls{brgang} that limit the range of available values for \gls{frrstp}.
+The minimum value of \gls{frrstp} is determined by the maximum value of \( | \gls{brgang} - \gls{brgang}_B | = \Delta \gls{brgang} / 2 \).
+And the maximum value of \gls{frrstp} is determined by the minimum value of \( \Delta \gls{brgang} / 2 \).
+The minimum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (i.e. the contiguous Bragg angles).
+Several peaks should not overlap in the angular area under study.
+We will fix here the upper limit of \( \Delta \gls{brgang} / 2 \) at half the angular distance of the closest Bragg angle.
+The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary and without much importance.
 
 \begin{equation}\label{eq:fourier-L-step}
 \gls{frrvar} = i \gls{frrstp} \ \text{with} \ i \in \gls{setN}^*_+
@@ -84,7 +90,7 @@ Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm 
 
 \captionof{table}{Range for \gls{frrstp} depending on (hkl).}
 
-\medskip
+\bigskip
 
 Here we will use hkl (200) and \gls{frrstp} will be set to \( 1.5 \) nm.
 
@@ -110,6 +116,10 @@ For example if we divide the density by two, we multiply by two the number of fi
 
 To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
 A large number of random points \( \vec{r} \) are drawn in the crystal and the equations \eqref{eq:fourier-a-warren} and \eqref{eq:fourier-b-warren} are applied. The random draws and the calculations are then parallelized since they are independent.
+
+\subsubsection{Choice of the number of random points}
+
+...
 
 \subsection{Program}
 
