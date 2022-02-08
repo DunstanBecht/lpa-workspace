@@ -18,13 +18,14 @@ for group in settings.groups:
     if parallel.rank == parallel.root:
         print(f"\n{group}:")
     for args in settings.groups[group]:
-        s = sets.Sample(args['n'], *args['a'], S=args['S']+parallel.rank)
+        kwargs['S'] += parallel.rank
+        s = sets.Sample(args['n'], *args['args'], **args['kwargs']+)
         t2 = time.time()
         parallel.export(
             s,
             edgcon='NEC',
             savtxt=True,
-            expstm=args['s'],
+            expstm=args['stm'],
         )
         if parallel.rank == parallel.root:
             print(f"{parallel.size}*{s} ({round((time.time()-t2)/60)}mn)")

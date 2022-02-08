@@ -12,6 +12,7 @@ from lpa.xrd import run, code
 
 def steps(impdir, impstm):
     """Return the number of Fourier coefficients to generate."""
+    # return 5 # to observe the asymptotic behavior
     pth = os.path.join(impdir, impstm)
     if os.path.isdir(pth):
         pth = os.path.join(pth, os.listdir(pth)[0])

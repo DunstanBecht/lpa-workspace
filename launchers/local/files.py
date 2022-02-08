@@ -24,19 +24,19 @@ for group in settings.groups:
         if not os.path.isdir(expdir):
             os.makedirs(expdir)
     for args in settings.groups[group]:
-        s = sets.Sample(args['n'], *args['a'], S=args['S'])
+        s = sets.Sample(args['n'], *args['args'], **args['kwargs'])
         ccl = (f"{args['n']:4} * {s.name('gsmcS')} a3={args['a3']:7.2e} "
-                  f"PBC{args['c']} ({s[0].d*1e18:1.3e}m-2)")
+                  f"PBC{args['pbc']} ({s[0].d*1e18:1.3e}m-2)")
         print(ccl)
         cycinf += "\n"+ccl
         data.export(
             s,
             expdir=dirdat,
-            pbc=args['c'],
-            expstm=args['s'],
+            pbc=args['pbc'],
+            expstm=args['stm'],
             a3=args['a3'],
         )
-        with open(os.path.join(dirnot, f"{args['s']}.tex"), 'w') as f:
+        with open(os.path.join(dirnot, f"{args['stm']}.tex"), 'w') as f:
             f.write(s.name(f='nmgsd', c='ttl'))
 
 with open(os.path.join(cycdir, 'cycle-information.txt'), 'w') as f:

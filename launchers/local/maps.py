@@ -19,13 +19,13 @@ for group in settings.groups:
     if not os.path.isdir(dirmap):
         os.makedirs(dirmap)
     for args in settings.groups[group]:
-        d = sets.Distribution(*args['a'], S=args['S'])
+        d = sets.Distribution(*args['args'], **args['kwargs'])
         print(d)
         maps.export(
             d,
             expdir=dirmap,
             expfmt='pdf',
-            expstm=args['s'],
+            expstm=args['stm'],
         )
 
 print("\nMaps generation finished.")

@@ -15,72 +15,101 @@ notation should be chosen.
 import numpy as np
 from lpa.input import models
 
-a = 1.25e13 # lowest density [m^-2]
-r = 4 # common ratio (must be a square number)
-n = 6 # number of densities generated
-k = np.arange(n)
-rk = r**k
-densities = a*rk # [m^-2]
-side_cells_min = np.sqrt(2/densities)*1e9 # for each density [nm]
-m = [2**np.arange(5) for k in range(n)]
-side_cells = [m[k]*side_cells_min[k] for k in range(n)] # for each density [nm]
-side_roi = max([max(side_cells[k]) for k in range(n)]) # roi size [nm]
+# general parameters ------------------------------------------------------ #
 
+a = 1.25e13 # lowest density [m^-2]
+r = 4 # common ratio (must be a square number) to obtain higher densities
+n = 6 # number of studied densities
+rk = r**np.arange(n) # multiplicative coefficients of a
+densities = a*rk # list of the studied densities [m^-2]
+side_cells_min = np.sqrt(2/densities)*1e9 # lower s parameters [nm]
+m = [2**np.arange(5) for k in range(n)] # multiplicative coefficients of s
+side_cells = [m[k]*side_cells_min[k] for k in range(n)] # s parameters [nm]
+side_roi = max([max(side_cells[k]) for k in range(n)]) # ROI sizes [nm]
 p = 0.2 # ratio of the area occupied by the cell walls
 q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
-if True: # vary dL as a function of density
-    m = [2**np.arange(4) for k in range(n)]
-    step_min = 2**np.arange(n)[::-1]*0.5
+# a3 parameter(s) for each density ---------------------------------------- #
+
+if False: # vary dL as a function of density
+    m = [2**np.arange(4) for k in range(n)] # multiplicative coefficients of a3
+    step_min = 2**np.arange(n)[::-1]*0.5 # minimum a3 values
     step = [m[k]*step_min[k] for k in range(n)]
-    splsiz = 4*rk[::-1] # number of distributions per sample for each density
 else: # take the same dL for all densities
-    step = [[5] for k in range(n)]
-    splsiz = r*rk[::-1] # number of distributions per sample for each density
+    step = [[1.5] for k in range(n)]
+
+# number of distributions per sample for each density --------------------- #
+
+if False: # vary the number of files generated as a function of density
+    splsiz = r*rk[::-1]
+else: # take the same number of file for every density
+    splsiz = 1*np.ones(n)
+
+# groups generation ------------------------------------------------------- #
 
 groups = {}
 
-groups['RRDD-E'] = []
-for i in range(n):
-    for j in range(len(side_cells[i])):
-        for k in range(len(step[i])):
-            prm = {'d': densities[i]*1e-18,
-                   'v': 'E',
-                   's': side_cells[i][j]}
-            args = {}
-            args['n'] = int(splsiz[i])
-            args['a'] = ('square', side_roi, models.RRDD, prm)
-            args['c'] = 1
-            args['S'] = 0
-            args['a3'] = step[i][k]
-            args['s'] = ("RRDD-E"
-                        +'_a3_'+f"{args['a3']:1.2e}_nm"
-                        +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
-                        +'_s_'+f"{prm['s']:1.2e}_nm").replace('+', '')
-            print(args['s'])
-            groups['RRDD-E'].append(args)
+for variant in [
+    'E',
+    'R',
+]:
+    groups[f"RRDD-{variant}"] = []
+    for i in range(n):
+        for j in range(len(side_cells[i])):
+            for k in range(len(step[i])):
+                prm = {'d': densities[i]*1e-18,
+                       'v': variant,
+                       's': side_cells[i][j]}
+                args = {}
+                args['n'] = int(splsiz[i])
+                args['args'] = ('square', side_roi, models.RRDD, prm)
+                args['pbc'] = 1
+                args['kwargs'] = {'S': 0}
+                args['a3'] = step[i][k]
+                args['stm'] = (f"RRDD-{variant}"
+                               +'_a3_'+f"{args['a3']:1.2e}_nm"
+                               +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
+                               +'_s_'+f"{prm['s']:1.2e}_nm").replace('+', '')
+                print(args['stm'])
+                groups[f"RRDD-{variant}"].append(args)
 
-groups['RCDD-E'] = []
+    groups[f"RCDD-{variant}"] = []
+    for i in range(n):
+        for j in range(len(side_cells[i])):
+            for k in range(len(step[i])):
+                prm = {'d': densities[i]*1e-18,
+                       'v': variant,
+                       's': side_cells[i][j],
+                       't': side_cells[i][j]*q}
+                args = {}
+                args['n'] = int(splsiz[i])
+                args['args'] = ('square', side_roi, models.RCDD, prm)
+                args['pbc'] = 1
+                args['kwargs'] = {'S': 0}
+                args['a3'] = step[i][k]
+                args['stm'] = (f"RCDD-{variant}"
+                               +'_a3_'+f"{args['a3']:1.2e}_nm"
+                               +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
+                               +'_s_'+f"{prm['s']:1.2e}_nm"
+                               +'_t_'+f"{prm['t']:1.7e}_nm").replace('+', '')
+                print(args['stm'])
+                groups[f"RCDD-{variant}"].append(args)
+
+groups[f"RDD"] = []
 for i in range(n):
-    for j in range(len(side_cells[i])):
-        for k in range(len(step[i])):
-            prm = {'d': densities[i]*1e-18,
-                   'v': 'E',
-                   's': side_cells[i][j],
-                   't': side_cells[i][j]*q}
-            args = {}
-            args['n'] = int(splsiz[i])
-            args['a'] = ('square', side_roi, models.RCDD, prm)
-            args['c'] = 1
-            args['S'] = 0
-            args['a3'] = step[i][k]
-            args['s'] = ("RCDD-E"
-                        +'_a3_'+f"{args['a3']:1.2e}_nm"
-                        +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
-                        +'_s_'+f"{prm['s']:1.2e}_nm"
-                        +'_t_'+f"{prm['t']:1.7e}_nm").replace('+', '')
-            print(args['s'])
-            groups['RCDD-E'].append(args)
+    for k in range(len(step[i])):
+        prm = {'d': densities[i]*1e-18}
+        args = {}
+        args['n'] = int(splsiz[i])
+        args['args'] = ('circle', 3600, models.RDD, prm)
+        args['pbc'] = 0
+        args['kwargs'] = {'S': 0, 'c': 'ISD'}
+        args['a3'] = step[i][k]
+        args['stm'] = (f"RDD"
+                       +'_a3_'+f"{args['a3']:1.2e}_nm"
+                       +'_d_'+f"{prm['d']*1e18:1.2e}_m-2").replace('+', '')
+        print(args['stm'])
+        groups[f"RDD"].append(args)
 
 if __name__ == "__main__":
     print("\nd0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
