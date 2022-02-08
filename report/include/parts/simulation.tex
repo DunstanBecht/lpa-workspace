@@ -59,10 +59,10 @@ The resultant displacement field created by a dislocation located in \( ( x, y )
   \end{array} \right)
 \end{align}
 
-\subsubsection{The choice of the step}
+\subsubsection{Choice of the step}
 
 The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref{eq:fourier-a3} \cite{W1990}.
-There are experimental constraint upon \gls{brgang} that limit the range of available values for \gls{frrstp}.
+There are experimental constraints on \gls{brgang} that limit the range of available values for \gls{frrstp}.
 
 \begin{equation}\label{eq:fourier-L-step}
 \gls{frrvar} = i \gls{frrstp} \ \text{with} \ i \in \gls{setN}^*_+
@@ -82,9 +82,29 @@ Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm 
 
 \input{insert/a3/a3}
 
-\captionof{table}{Range for \( a_3 \) depending on (hkl).}
+\captionof{table}{Range for \gls{frrstp} depending on (hkl).}
 
-Here \( a_3 \) will be set to \( 1.6 \) nm.
+\medskip
+
+Here we will use hkl (200) and \gls{frrstp} will be set to \( 1.5 \) nm.
+
+\subsubsection{Choice of the number of input files}
+
+It can be observed that for a given \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), \gls{roi} size and number of random points, the error of determination of the coefficients of the Fourier transform is the same from one file to another regardless of the density.
+The question then arises as to what strategy to adopt to maintain consistency in the accuracy desired for each density.
+We can distinguish two alternatives:
+\begin{itemize}
+\item Generate the same number of files (random draw) for each density.
+\item Adapt the number of files to the density.
+\end{itemize}
+The first approach can be justified in the sense that the error after averaging the files will be comparable from one density to another.
+However, it is conceivable that for low densities the coefficients found (although established with the same precision as for a high density) are less representative of the distribution.
+The calculation of the displacement field is done by summing the contribution of each dislocation.
+With a large number of dislocations one can imagine that the displacement field is more likely to have converged to a representative value.
+With a low number of dislocations the result would rather reflect what is obtained with a specific random draw.
+This remark leads to the second approach.
+This one consists in the fact that the number of total dislocations taken into account in the averaging is independent of the density.
+For example if we divide the density by two, we multiply by two the number of files used for the averaging.
 
 \subsubsection{Parallelization}
 
