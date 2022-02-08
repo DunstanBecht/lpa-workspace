@@ -33,6 +33,7 @@ Workspace
 │   │   ├───average.py             (script to average simulation output data files)
 │   │   ├───cycle                  (useful functions for data management)
 │   │   ├───files.py               (script to generate input data and TEX denominations)
+│   │   ├───filters.py             (script to evaluate the filter ranges)
 │   │   ├───fits.py                (script to fit the models on output data)
 │   │   ├───maps.py                (script to generate distribution model maps)
 │   │   ├───settings.py            (parameters for the generation of the distributions)
