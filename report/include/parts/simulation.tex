@@ -119,7 +119,10 @@ A large number of random points \( \vec{r} \) are drawn in the crystal and the e
 
 \subsubsection{Choice of the number of random points}
 
-...
+To evaluate the number of points required, we will look at the asymptotic behavior of the Fourier transform.
+Before that it is better to dissociate the impact on the error of the number of points and the value of \gls{frrstp}.
+Since the exploitable interval of \gls{frrvar} (with \gls{frrtrf} positive and without noise) is strongly determined by \( 1 / \sqrt{\gls{dst}} \) (see section \ref{sec:filters}) we will fix the value of \( \gls{frrvar} \sqrt{\gls{dst}} \) in order to obtain an equivalent number of values of the Fourier Transform \gls{frrtrf}.
+This makes the perception and appreciation of the asymptotic behavior equal for each density.
 
 \subsection{Program}
 
