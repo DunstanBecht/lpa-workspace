@@ -8,6 +8,6 @@ for i in range(len(content)):
     if len(content[i])>69:
         content[i] = content[i][:68]+"... \n"
 
-with open("output_data.dat", 'w') as f:
+with open("croped/output_data.dat", 'w') as f:
     f.write(''.join(content[:17]))
     f.write('...')
