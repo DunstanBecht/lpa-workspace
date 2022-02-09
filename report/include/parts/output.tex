@@ -209,8 +209,38 @@ y_{i+1} < y_i
 \end{equation}
 
 \begin{equation}\label{eq:filter-2}
-\left| \frac{\hat{\gls{stddev}}_{\text{Linear regression of } \{ y_i \}_{j<i}}}{\max \left( \{ y_i \}_{j<i} \right) - \min \left( \{ y_i \}_{j<i} \right)} \right| < 0.01
+\left| \frac{\hat{\gls{stddev}}_{\text{Linear regression of } \{ y_i \}_{\gls{hmc}<i}}}{\max \left( \{ y_i \}_{\gls{hmc}<i} \right) - \min \left( \{ y_i \}_{\gls{hmc}<i} \right)} \right| < 0.01
 \end{equation}
+
+\bigskip
+
+The cut-off values of filters \gls{f1} and \gls{f2} are strongly correlated to the density.
+The maximum value of \gls{frrvar} seems to be a multiple of \( 1 / \sqrt{\gls{dst}} \).
+The tables \ref{tab:filter-rrdde-f1} to \ref{tab:filter-rcdde-f2} give an estimate of this factor for different distributions, harmonics and values of \( s \sqrt{\gls{dst}} \).
+
+\bigskip
+
+\input{load/tex/RRDD-E_virtual_F1.tex}%
+\captionof{table}{\( \gls{frrvar}_{\mathrm{max}}^{\gls{f1}} \sqrt{\gls{dst}} \) as a function of \( s \sqrt{\gls{dst}} \) and the harmonic \gls{hmc} for \gls{rrdde}}
+\label{tab:filter-rrdde-f1}
+
+\bigskip
+
+\input{load/tex/RRDD-E_virtual_F2.tex}%
+\captionof{table}{\( \gls{frrvar}_{\mathrm{max}}^{\gls{f2}} \sqrt{\gls{dst}} \) as a function of \( s \sqrt{\gls{dst}} \) and the harmonic \gls{hmc} for \gls{rrdde}}
+\label{tab:filter-rrdde-f2}
+
+\bigskip
+
+\input{load/tex/RCDD-E_virtual_F1.tex}%
+\captionof{table}{\( \gls{frrvar}_{\mathrm{max}}^{\gls{f1}} \sqrt{\gls{dst}} \) as a function of \( s \sqrt{\gls{dst}} \) and the harmonic \gls{hmc} for \gls{rcdde}}
+\label{tab:filter-rcdde-f1}
+
+\bigskip
+
+\input{load/tex/RCDD-E_virtual_F2.tex}%
+\captionof{table}{\( \gls{frrvar}_{\mathrm{max}}^{\gls{f2}} \sqrt{\gls{dst}} \) as a function of \( s \sqrt{\gls{dst}} \) and the harmonic \gls{hmc} for \gls{rcdde}}
+\label{tab:filter-rcdde-f2}
 
 \subsubsection{Residuals}
 
