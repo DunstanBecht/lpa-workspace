@@ -49,29 +49,29 @@ for group in groups:
         w = max([len(tup[0]) for tup in table])
         for M in M_list:
             for j in j_list:
-                M_F1_sum = []
-                M_F2_sum = []
-                filnam = f"M{M:1.1e}_j{j}.txt".replace('+', '')
+                Lsqrtd_F1_sum = []
+                Lsqrtd_F2_sum = []
+                filnam = f"M{M:1.3e}_j{j}.txt".replace('+', '')
                 with open(os.path.join(expdir, filnam), 'w') as f:
                     f.write((f"{format('distribution', f'>{w}')},"
-                             f"{'L_F1 [nm]':>10},{'L_F2 [nm]':>10},"
-                             f"{'M_F1 [1]':>10},{'M_F2 [1]':>10}\n"))
+                             f"{'Lmax_F1 [nm]':>16},{'Lmax_F2 [nm]':>16},"
+                             f"{'Lmax_F1*sqrt(d)':>16},{'Lmax_F2*sqrt(d)':>16}\n"))
                     for tup in table:
                         if tup[1]== M and tup[-1]==j:
                             f.write((f"{tup[0]},"
-                                     f"{tup[2]:10.2f},{tup[3]:10.2f},"
-                                     f"{tup[4]:10.2f},{tup[5]:10.2f}\n"))
-                            M_F1_sum.append(tup[4])
-                            M_F2_sum.append(tup[5])
-                    M_F1_avg = sum(M_F1_sum)/len(M_F1_sum)
-                    M_F2_avg = sum(M_F2_sum)/len(M_F2_sum)
-                    M_F1_std = np.std(M_F1_sum)
-                    M_F2_std = np.std(M_F2_sum)
+                                     f"{tup[2]:16.2f},{tup[3]:16.2f},"
+                                     f"{tup[4]:16.2f},{tup[5]:16.2f}\n"))
+                            Lsqrtd_F1_sum.append(tup[4])
+                            Lsqrtd_F2_sum.append(tup[5])
+                    Lsqrtd_F1_avg = sum(Lsqrtd_F1_sum)/len(Lsqrtd_F1_sum)
+                    Lsqrtd_F2_avg = sum(Lsqrtd_F2_sum)/len(Lsqrtd_F2_sum)
+                    Lsqrtd_F1_std = np.std(Lsqrtd_F1_sum)
+                    Lsqrtd_F2_std = np.std(Lsqrtd_F2_sum)
                     f.write((f"{format('average', f'>{w}')},"
-                                 f"{'None':>10},{'None':>10},"
-                                 f"{M_F1_avg:10.2f},{M_F2_avg:10.2f}\n"))
+                                 f"{'None':>16},{'None':>16},"
+                                 f"{Lsqrtd_F1_avg:16.2f},{Lsqrtd_F2_avg:16.2f}\n"))
                     f.write((f"{format('standard deviation', f'>{w}')},"
-                                 f"{'None':>10},{'None':>10},"
-                                 f"{M_F1_std:10.2f},{M_F2_std:10.2f}\n"))
+                                 f"{'None':>16},{'None':>16},"
+                                 f"{Lsqrtd_F1_std:16.2f},{Lsqrtd_F2_std:16.2f}\n"))
 
 print("Filter ranges evaluation finished.")
