@@ -185,7 +185,7 @@ For each model, the fits are performed for each harmonic \gls{hmc} and for sever
 The Nelder–Mead method is used to find the minimum of the objective function.
 \figref{fig:fit:example:rdd} show a fit for a given \gls{hmc} and a given maximum value of \gls{frrvar}.
 
-\bigfig{fig:fit:example:rdd}{insert/fits/100_rho5e13m-2_square_3200nm_RDD_d5e-5nm-2_edge_S0_PBC1_output_analysis/fits_plot_GUW2}{j1_118nm}{Fit of \gls{guw2} over the harmonic 1 of the computed Fourier Transform of \gls{rdd}}
+\bigfig{fig:fit:example:rdd}{insert/fits/output\_data\_analysis/fits\_plot\_GUW1}{j1\_068nm}{Fit of \gls{guw1} over the harmonic 1 of the computed Fourier Transform of \gls{rdd}}
 
 \subsubsection{Filters}
 
@@ -313,4 +313,8 @@ The program can be installed or updated with the following command:
 
 For each harmonic and each maximum value of \gls{frrvar}, the optimal density and outer cut-off radius in terms of fit are saved in a file like the one below. These files are produced for each fit model applied to each distribution model.
 
-\txtlst{insert/fits}{fits\_data\_structure.dat}
+\medskip
+
+\pyscript{insert/fits}{fits\_data.py}
+
+\txtlst{insert/fits}{fits\_data\_GUW2.dat}
