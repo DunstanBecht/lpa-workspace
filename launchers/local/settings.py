@@ -31,11 +31,16 @@ q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
 # a3 parameter(s) for each density ---------------------------------------- #
 
-if False: # vary dL as a function of density
-    m = [2**np.arange(4) for k in range(n)] # multiplicative coefficients of a3
-    step_min = 2**np.arange(n)[::-1]*0.5 # minimum a3 values
+if False: # only for asymptotic behavior
+    # don't forget to reduce the number of steps in xrd.py
+    m = [2**np.arange(1) for k in range(n)] # multiplicative coefficients of a3
+    step_min = 2**np.arange(n)[::-1]*0.5 # minimum a3 values [nm]
     step = [m[k]*step_min[k] for k in range(n)]
-else: # take the same dL for all densities
+elif False: # vary a3 as a function of density
+    m = [2**np.arange(3) for k in range(n)] # multiplicative coefficients of a3
+    step_min = 2**np.arange(n)[::-1]*1 # minimum a3 values [nm]
+    step = [m[k]*step_min[k] for k in range(n)]
+else: # take the same a3 for all densities
     step = [[1.5] for k in range(n)]
 
 # number of distributions per sample for each density --------------------- #
@@ -43,15 +48,15 @@ else: # take the same dL for all densities
 if False: # vary the number of files generated as a function of density
     splsiz = r*rk[::-1]
 else: # take the same number of file for every density
-    splsiz = 1*np.ones(n)
+    splsiz = 4*np.ones(n)
 
 # groups generation ------------------------------------------------------- #
 
 groups = {}
 
 for variant in [
-    'E',
-    'R',
+    #'E',
+    #'R',
 ]:
     groups[f"RRDD-{variant}"] = []
     for i in range(n):
@@ -73,6 +78,10 @@ for variant in [
                 print(args['stm'])
                 groups[f"RRDD-{variant}"].append(args)
 
+for variant in [
+    #'E',
+    #'R',
+]:
     groups[f"RCDD-{variant}"] = []
     for i in range(n):
         for j in range(len(side_cells[i])):
@@ -95,21 +104,22 @@ for variant in [
                 print(args['stm'])
                 groups[f"RCDD-{variant}"].append(args)
 
-groups[f"RDD"] = []
-for i in range(n):
-    for k in range(len(step[i])):
-        prm = {'d': densities[i]*1e-18}
-        args = {}
-        args['n'] = int(splsiz[i])
-        args['args'] = ('circle', 3600, models.RDD, prm)
-        args['pbc'] = 0
-        args['kwargs'] = {'S': 0, 'c': 'ISD'}
-        args['a3'] = step[i][k]
-        args['stm'] = (f"RDD"
-                       +'_a3_'+f"{args['a3']:1.2e}_nm"
-                       +'_d_'+f"{prm['d']*1e18:1.2e}_m-2").replace('+', '')
-        print(args['stm'])
-        groups[f"RDD"].append(args)
+if True:
+    groups[f"RDD"] = []
+    for i in range(n):
+        for k in range(len(step[i])):
+            prm = {'d': densities[i]*1e-18}
+            args = {}
+            args['n'] = int(splsiz[i])
+            args['args'] = ('circle', 3600, models.RDD, prm)
+            args['pbc'] = 0
+            args['kwargs'] = {'S': 0, 'c': 'ISD'}
+            args['a3'] = step[i][k]
+            args['stm'] = (f"RDD"
+                           +'_a3_'+f"{args['a3']:1.2e}_nm"
+                           +'_d_'+f"{prm['d']*1e18:1.2e}_m-2").replace('+', '')
+            print(args['stm'])
+            groups[f"RDD"].append(args)
 
 if __name__ == "__main__":
     print("\nd0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
