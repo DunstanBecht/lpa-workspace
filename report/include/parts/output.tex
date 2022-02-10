@@ -1,5 +1,7 @@
 \section{Output}
 
+\subsection{The Fourier transform and its representations}
+
 The simulation program gives the coefficients \gls{frrcfa} and \gls{frrcfb} of the Fourier transform of \gls{difint}.
 It is then possible to calculate the latter for each harmonic \gls{hmc} and value of \gls{frrvar} by averaging the coefficients over all the simulation outputs from the same set of starting parameters.
 
@@ -11,11 +13,9 @@ It is then possible to calculate the latter for each harmonic \gls{hmc} and valu
 \medskip
 
 \gls{frrtrf} is complex.
-It is either its module or its real part that will be used.
+In the literature it is its real part or its module that is used.
+Here we will focuse on its real part since the imaginary part takes into account the polarization of the distribution which increases the error in the density prediction.
 The functions can be represented according to two methods as shown in \figref{fig:rdd-output}.
-In \gls{r1} the functions are represented in logarithmic scale as a function of \gls{frrvar}.
-In \gls{r2} the functions are represented through the transformation \( \ln\left( \cdot \right) / \gls{frrvar}^2 \) as a function of \gls{frrvar} in logarithmic scale.
-With \gls{r2} a linear behavior can be observed for the asymptotic values of \gls{frrvar}.
 
 \bigfig{fig:rdd-output}{insert/output}{output_data_plot}{Results of an X-ray diffraction simulation conducted on a sample of \gls{rdd}}
 
@@ -30,7 +30,18 @@ For the rest it is defined the orthonormal basis \( \left( \ux, \uy, \uz \right)
 \ux \ gives the direction of the vector associated with the Fourier variable \gls{frrvar}.
 And \( \uy = \uz \times \ux \).
 
-\subsection{Fit models}
+\subsubsection{Representation 1}\label{sec:representation-1}
+
+The left side of \figref{fig:rdd-output} shows \gls{r1}.
+In \gls{r1} the functions are represented in logarithmic scale as a function of \gls{frrvar}.
+
+\subsubsection{Representation 2}\label{sec:representation-2}
+
+The right side of \figref{fig:rdd-output} shows \gls{r2}.
+In \gls{r2} the functions are represented through the transformation \( \ln\left( \cdot \right) / \gls{frrvar}^2 \) as a function of \gls{frrvar} in logarithmic scale.
+With \gls{r2} a linear behavior can be observed for the asymptotic values of \gls{frrvar}.
+
+\subsection{Fitting models}
 
 To determine the density \gls{dst} and the outer cut-off radius \gls{cutrad}, the theoretical models at our disposal are fitted to the simulation results.
 These models are presented here.
@@ -179,7 +190,7 @@ Equation \eqref{eq:w2} gives be the Fourier transform of diffraction vector harm
     k \left( \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) - 2 \ln(2) +\frac{1}{3} + \ln\left(|\sin(\psi) \gls{vecg} \cdot \gls{vecb}| \right) \right)
 \end{equation}
 
-\subsection{Fits}
+\subsection{Fitting method}
 
 For each model, the fits are performed for each harmonic \gls{hmc} and for several maximum values of \gls{frrvar}.
 The Nelder–Mead method is used to find the minimum of the objective function.

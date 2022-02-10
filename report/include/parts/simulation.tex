@@ -1,8 +1,8 @@
 \section{Simulation}
 
-This section is related to X-ray diffraction and Fourier analysis.
+\subsection{Principle}
 
-\subsection{Method}
+This section introduces the main aspects of the X-ray diffraction theory and how it is numerically simulated here.
 
 \subsubsection{The diffracted intensity profile and its Fourier transform}
 
@@ -59,13 +59,24 @@ The resultant displacement field created by a dislocation located in \( ( x, y )
   \end{array} \right)
 \end{align}
 
-\subsubsection{Choice of the step}
+\subsubsection{Parallelization}
+
+To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
+A large number of random points \( \vec{r} \) are drawn in the crystal and the equations \eqref{eq:fourier-a-warren} and \eqref{eq:fourier-b-warren} are applied. The random draws and the calculations are then parallelized since they are independent.
+
+\subsection{Parameters choice}
+
+Many parameters related to the Monte-Carlo approach and simulation choices have to be defined.
+There is not always an explicit method for selecting them.
+This section aims to present the criteria used and evaluated to determine their values.
+
+\subsubsection{Step}
 
 The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref{eq:fourier-a3} \cite{W1990}.
 There are experimental constraints on \gls{brgang} that limit the range of available values for \gls{frrstp}.
 The minimum value of \gls{frrstp} is determined by the maximum value of \( | \gls{brgang} - \gls{brgang}_B | = \Delta \gls{brgang} / 2 \).
 And the maximum value of \gls{frrstp} is determined by the minimum value of \( \Delta \gls{brgang} / 2 \).
-The minimum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (i.e. the contiguous Bragg angles).
+The minimum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (centered on the contiguous Bragg angles).
 Several peaks should not overlap in the angular area under study.
 We will fix here the upper limit of \( \Delta \gls{brgang} / 2 \) at half the angular distance of the closest Bragg angle.
 The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary and without much importance.
@@ -88,13 +99,13 @@ Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm 
 
 \input{insert/a3/a3}
 
-\captionof{table}{Range for \gls{frrstp} depending on (hkl).}
+\captionof{table}{Range of possible values for \gls{frrstp} as a function of (hkl).}
 
 \bigskip
 
 Here we will use hkl (200) and \gls{frrstp} will be set to \( 1.5 \) nm.
 
-\subsubsection{Choice of the number of input files}
+\subsubsection{Number of input files}
 
 It can be observed that for a given \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), \gls{roi} size and number of random points, the error of determination of the coefficients of the Fourier transform is the same from one file to another regardless of the density.
 The question then arises as to what strategy to adopt to maintain consistency in the accuracy desired for each density.
@@ -104,23 +115,21 @@ We can distinguish two alternatives:
 \item Adapt the number of files to the density.
 \end{itemize}
 The first approach can be justified in the sense that the error after averaging the files will be comparable from one density to another.
-However, it is conceivable that for low densities the coefficients found (although established with the same precision as for a high density) are less representative of the distribution.
+However, it is conceivable that for low densities the coefficients found (although established with the same precision as for a high density) are less representative of the distribution model.
 The calculation of the displacement field is done by summing the contribution of each dislocation.
 With a large number of dislocations one can imagine that the displacement field is more likely to have converged to a representative value.
-With a low number of dislocations the result would rather reflect what is obtained with a specific random draw.
+With a low number of dislocations the result would rather reflect the particularities of a specific random draw of dislocation positions.
 This remark leads to the second approach.
 This one consists in the fact that the number of total dislocations taken into account in the averaging is independent of the density.
 For example if we divide the density by two, we multiply by two the number of files used for the averaging.
 
-\subsubsection{Parallelization}
+\subsubsection{Number of random points}
 
-To calculate \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \), the Monte Carlo method is used.
-A large number of random points \( \vec{r} \) are drawn in the crystal and the equations \eqref{eq:fourier-a-warren} and \eqref{eq:fourier-b-warren} are applied. The random draws and the calculations are then parallelized since they are independent.
-
-\subsubsection{Choice of the number of random points}
-
+Since the error of determination of the Fourier transform is the same from one density to another when \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), \gls{roi} size and the number of random points are fixed, it seems appropriate to keep the number of random points constant for all densities, at least as long as the simulations are conducted with a constant ROI size.
 To evaluate the number of points required, we will look at the asymptotic behavior of the Fourier transform.
-Before that it is better to dissociate the impact on the error of the number of points and the value of \gls{frrstp}.
+(The Fourier transform should have a linear behavior in \gls{r2} representation. See \ref{sec:representation-2}.)
+
+The impact of the number of points and the value of \gls{frrstp} should be dissociated.
 Since the exploitable interval of \gls{frrvar} (with \gls{frrtrf} positive and without noise) is strongly determined by \( 1 / \sqrt{\gls{dst}} \) (see section \ref{sec:filters}) we will fix the value of \( \gls{frrvar} \sqrt{\gls{dst}} \) in order to obtain an equivalent number of values of the Fourier Transform \gls{frrtrf}.
 This makes the perception and appreciation of the asymptotic behavior equal for each density.
 
