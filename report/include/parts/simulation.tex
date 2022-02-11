@@ -67,8 +67,7 @@ A large number of random points \( \vec{r} \) are drawn in the crystal and the e
 \subsection{Parameters choice}
 
 Many parameters related to the Monte-Carlo approach and simulation choices have to be defined.
-There is not always an explicit method for selecting them.
-This section aims to present the criteria used and evaluated to determine their values.
+This section aims to present the methods used to determine their value.
 
 \subsubsection{Step}
 
@@ -76,10 +75,10 @@ The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref
 There are experimental constraints on \gls{brgang} that limit the range of available values for \gls{frrstp}.
 The minimum value of \gls{frrstp} is determined by the maximum value of \( | \gls{brgang} - \gls{brgang}_B | = \Delta \gls{brgang} / 2 \).
 And the maximum value of \gls{frrstp} is determined by the minimum value of \( \Delta \gls{brgang} / 2 \).
-The minimum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (centered on the contiguous Bragg angles).
+The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary and without much importance.
+But the maximum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (centered on the contiguous Bragg angles).
 Several peaks should not overlap in the angular area under study.
 We will fix here the upper limit of \( \Delta \gls{brgang} / 2 \) at half the angular distance of the closest Bragg angle.
-The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary and without much importance.
 
 \begin{equation}\label{eq:fourier-L-step}
 \gls{frrvar} = i \gls{frrstp} \ \text{with} \ i \in \gls{setN}^*_+
@@ -105,32 +104,63 @@ Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm 
 
 Here we will use hkl (200) and \gls{frrstp} will be set to \( 1.5 \) nm.
 
-\subsubsection{Number of input files}
+\subsubsection{Number of input files and random points}
 
-It can be observed that for a given \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), \gls{roi} size and number of random points, the error of determination of the coefficients of the Fourier transform is the same from one file to another regardless of the density.
-The question then arises as to what strategy to adopt to maintain consistency in the accuracy desired for each density.
-We can distinguish two alternatives:
-\begin{itemize}
-\item Generate the same number of files (random draw) for each density.
-\item Adapt the number of files to the density.
-\end{itemize}
-The first approach can be justified in the sense that the error after averaging the files will be comparable from one density to another.
-However, it is conceivable that for low densities the coefficients found (although established with the same precision as for a high density) are less representative of the distribution model.
-The calculation of the displacement field is done by summing the contribution of each dislocation.
-With a large number of dislocations one can imagine that the displacement field is more likely to have converged to a representative value.
-With a low number of dislocations the result would rather reflect the particularities of a specific random draw of dislocation positions.
-This remark leads to the second approach.
-This one consists in the fact that the number of total dislocations taken into account in the averaging is independent of the density.
-For example if we divide the density by two, we multiply by two the number of files used for the averaging.
+Let \( \vec{R} \) be a random variable corresponding to a random position in the \gls{roi}.
+Let \( X \) be a random variable corresponding to the mesure of a Fourier coefficient (say \( \cos \)) at a given \gls{hmc}, \gls{vecg} and number of step \( i \).
+Let \( Y \) be the average of \( N_P \) values of \( X \).
+The value found in an output file of the simulator is a random draw of \( Y \).
+Let \( Z \) be the average of \( N_F \) values of \( Y \).
+The value found in an average of \( N_F \) output files is a random draw of \( Z \).
+Let \( \gls{stddev}_X \), \( \gls{stddev}_Y \), \( \gls{stddev}_Z \), be the standard deviations of \( X \), \( Y \), \( Z \).
 
-\subsubsection{Number of random points}
+\begin{equation}
+X
+= \cos \left( 2 \pi \gls{hmc} \gls{vecg} \cdot \left[ \gls{vecu}( \vec{R} + i \gls{frrstp} \overrightarrow{u_x}) - \gls{vecu}(\vec{R}) \right] \right)
+\end{equation}
 
-Since the error of determination of the Fourier transform is the same from one density to another when \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), \gls{roi} size and the number of random points are fixed, it seems appropriate to keep the number of random points constant for all densities, at least as long as the simulations are conducted with a constant ROI size.
-To evaluate the number of points required, we will look at the asymptotic behavior of the Fourier transform.
-(The Fourier transform should have a linear behavior in \gls{r2} representation. See \ref{sec:representation-2}.)
+\bigskip
 
-The impact of the number of points and the value of \gls{frrstp} should be dissociated.
-Since the exploitable interval of \gls{frrvar} (with \gls{frrtrf} positive and without noise) is strongly determined by \( 1 / \sqrt{\gls{dst}} \) (see section \ref{sec:filters}) we will fix the value of \( \gls{frrvar} \sqrt{\gls{dst}} \) in order to obtain an equivalent number of values of the Fourier Transform \gls{frrtrf}.
+\begin{equation}
+Y
+= \frac{1}{N_P} \sum_{i=1}^{N_P} X_i
+\end{equation}
+
+\bigskip
+
+\begin{equation}
+Z
+= \frac{1}{N_F} \sum_{i=1}^{N_F} Y_i
+\end{equation}
+
+\bigskip
+
+\begin{equation}
+\gls{stddev}_Y
+= \frac{\gls{stddev}_X}{\sqrt{N_P}}
+\end{equation}
+
+\bigskip
+
+\begin{equation}\label{eq:fourier-error}
+\gls{stddev}_Z
+= \frac{\gls{stddev}_Y}{\sqrt{N_F}}
+= \frac{\gls{stddev}_X}{\sqrt{N_F N_P}}
+\end{equation}
+
+\bigskip
+
+\( \gls{stddev}_Z \) is the standard error of a coefficient of the Fourier transform (at the end of the process, after all the averaging carried out).
+In practice it can be observed that for a given \( N_P \), \( N_F \), \( \gls{frrstp} \sqrt{\gls{dst}} \), \( s \sqrt{\gls{dst}} \), and \gls{roi} size, \( \gls{stddev}_Z \) gives approximately the same value regardless of the density.
+It is therefore relevant to keep \( N_P \) and \( N_F \) constant for all densities.
+As shown in equation \eqref{eq:fourier-error} what really matters for the precision of the Fourier transform is the value of the product \( N_P N_F \).
+
+\bigskip
+
+To evaluate the optimal value of \( N_P N_F \), we will look at the asymptotic behavior of the Fourier transform.
+(The Fourier transform should have a linear behavior in representation \acrshort{r2}. See \ref{sec:representation-2}.)
+The impact of \( N_P N_F \) and the value of \gls{frrstp} should be dissociated for a good appreciation of the precision.
+Since the interval with linear behavior is strongly determined by \( 1 / \sqrt{\gls{dst}} \) (see section \ref{sec:filters}) we will fix the value of \( \gls{frrvar} \sqrt{\gls{dst}} \) in order to obtain an equivalent number of values of the Fourier transform in this interval.
 This makes the perception and appreciation of the asymptotic behavior equal for each density.
 
 \subsubsection{Periodic boundary condition}
