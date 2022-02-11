@@ -133,6 +133,15 @@ The impact of the number of points and the value of \gls{frrstp} should be disso
 Since the exploitable interval of \gls{frrvar} (with \gls{frrtrf} positive and without noise) is strongly determined by \( 1 / \sqrt{\gls{dst}} \) (see section \ref{sec:filters}) we will fix the value of \( \gls{frrvar} \sqrt{\gls{dst}} \) in order to obtain an equivalent number of values of the Fourier Transform \gls{frrtrf}.
 This makes the perception and appreciation of the asymptotic behavior equal for each density.
 
+\subsubsection{Periodic boundary condition}
+
+To determine the number of replications of the \gls{roi} we simulate the same distribution but with different number of replications.
+The optimal number is the smallest one that will still allow to obtain a Fourier transform close enough to the converged value.
+\figref{fig:pbc-converge-1} and \figref{fig:pbc-converge-2} show that the optimal number of replications for a \gls{roi} of 6400 nm is 1.
+
+\medfig{fig:pbc-converge-1}{\datdir/superposition_RRDD-E_test_PBC}{RRDD-E_d_1.25e13_m-2}{Convergence of \gls{frrtrf} as a function of \gls{pbc}}%
+\medfig{fig:pbc-converge-2}{\datdir/superposition_RRDD-E_test_PBC}{RRDD-E_d_1.28e16_m-2}{Convergence of \gls{frrtrf} as a function of \gls{pbc}}%
+
 \subsection{Program}
 
 The second program allows the simulation of X-ray diffraction and Fourier analysis.
@@ -153,6 +162,10 @@ The program can be installed or updated with the following command:
 For each simulation a file containing the coefficients \( \gls{frrcfa}(\gls{frrvar}) \) and \( \gls{frrcfb}(\gls{frrvar}) \) for each harmonic \gls{hmc} and Fourier variable \gls{frrvar} is produced.
 The structure of these files is illustrated by the example file below.
 
+\bigskip
+
 \pyscript{insert/output}{output\_data.py}
+
+\medskip
 
 \txtlst{insert/output/croped}{output\_data.dat}

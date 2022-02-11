@@ -21,7 +21,7 @@ def M_j(stm):
 
 def data(group, f_match, j_match):
     tab = []
-    impdir = f"../../cycle_final/filters_{group}"
+    impdir = f"../../data/filters_{group}"
     for fil in os.listdir(impdir):
         M, j = M_j(fil)
         if j == j_match:

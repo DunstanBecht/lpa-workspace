@@ -31,7 +31,7 @@ q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
 # a3 parameter(s) for each density ---------------------------------------- #
 
-if False: # only for asymptotic behavior
+if False: # only to determine asymptotic behavior
     # don't forget to reduce the number of steps in xrd.py
     m = [2**np.arange(1) for k in range(n)] # multiplicative coefficients of a3
     step_min = 2**np.arange(n)[::-1]*0.5 # minimum a3 values [nm]
@@ -40,15 +40,15 @@ elif False: # vary a3 as a function of density
     m = [2**np.arange(3) for k in range(n)] # multiplicative coefficients of a3
     step_min = 2**np.arange(n)[::-1]*1 # minimum a3 values [nm]
     step = [m[k]*step_min[k] for k in range(n)]
-else: # take the same a3 for all densities
+else: # take the same a3 for all densities (real conditions)
     step = [[1.5] for k in range(n)]
 
 # number of distributions per sample for each density --------------------- #
 
 if False: # vary the number of files generated as a function of density
-    splsiz = r*rk[::-1]
+    splsiz = rk[::-1]
 else: # take the same number of file for every density
-    splsiz = 4*np.ones(n)
+    splsiz = 16*np.ones(n)
 
 # groups generation ------------------------------------------------------- #
 
@@ -104,8 +104,8 @@ for variant in [
                 print(args['stm'])
                 groups[f"RCDD-{variant}"].append(args)
 
-if True:
-    groups[f"RDD"] = []
+if False: # to determine the optimal number of random points (Np)
+    groups[f"RDD_test_Np"] = []
     for i in range(n):
         for k in range(len(step[i])):
             prm = {'d': densities[i]*1e-18}
@@ -119,7 +119,28 @@ if True:
                            +'_a3_'+f"{args['a3']:1.2e}_nm"
                            +'_d_'+f"{prm['d']*1e18:1.2e}_m-2").replace('+', '')
             print(args['stm'])
-            groups[f"RDD"].append(args)
+            groups[f"RDD_test_Np"].append(args)
+
+if False: # to determine the optimal number of replications (PBC)
+    groups[f"RRDD-E_test_PBC"] = []
+    for i in [0, n-1]:
+        prm = {'d': densities[i]*1e-18,
+               'v': 'E',
+               's': side_cells[i][-1]}
+        for pbc in [0, 1, 2, 3]:
+            args = {}
+            args['n'] = 1
+            args['args'] = ('square', side_roi, models.RRDD, prm)
+            args['pbc'] = pbc
+            args['kwargs'] = {'S': 0}
+            args['a3'] = 1.5
+            args['stm'] = (f"RRDD-E"
+                           +'_a3_'+f"{args['a3']:1.2e}_nm"
+                           +'_d_'+f"{prm['d']*1e18:1.2e}_m-2"
+                           +'_s_'+f"{prm['s']:1.2e}_nm"
+                           +f"_PBC{pbc}").replace('+', '')
+            print(args['stm'])
+            groups[f"RRDD-E_test_PBC"].append(args)
 
 if __name__ == "__main__":
     print("\nd0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
