@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 def plot(bunch, stm, ttl):
     plt.cla()
+    plt.figure(figsize=(6.4, 3.8))
     xy = []
     for key in bunch:
         x, y = collect.load(['L', 'cos1'], bunch[key], impdir=impdir)
