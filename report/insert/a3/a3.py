@@ -60,7 +60,7 @@ for i in range(N):
 # half ranges
 
 max_half_ranges = np.array(max_half_ranges)
-min_half_ranges = 0.75/180*np.pi
+min_half_ranges = 0.5/180*np.pi
 
 # theta_2
 

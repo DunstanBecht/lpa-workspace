@@ -151,8 +151,8 @@ The step for \gls{frrvar} is called \gls{frrstp} and is given in equation \eqref
 There are experimental constraints on \gls{brgang} that limit the range of available values for \gls{frrstp}.
 The minimum value of \gls{frrstp} is determined by the maximum value of \( | \gls{brgang} - \gls{brgang}_B | = \Delta \gls{brgang} / 2 \).
 And the maximum value of \gls{frrstp} is determined by the minimum value of \( \Delta \gls{brgang} / 2 \).
-The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary and without much importance.
-But the maximum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (centered on the contiguous Bragg angles).
+The minimum value of \( \Delta \gls{brgang} / 2 \) is arbitrary.
+The maximum value of \( \Delta \gls{brgang} / 2 \) is related to the proximity of neighboring peaks (centered on the contiguous Bragg angles).
 Several peaks should not overlap in the angular area under study.
 We will fix here the upper limit of \( \Delta \gls{brgang} / 2 \) at half the angular distance of the closest Bragg angle.
 
@@ -178,24 +178,25 @@ Assuming \( \gls{wavlen} = 0.154 \) nm (Cu) and \( \gls{celprm} =  0.4046 \) nm 
 
 \bigskip
 
-Here we will use hkl (200) and the minimum realistic value of \gls{frrstp} will be \( 1.5 \) nm.
+Here we will use hkl (200).
+The minimum realistic value of \gls{frrstp} will be \( 1.5 \) nm and its maximum value is about \( 5 \) nm.
 We can think of several ways to determine \gls{frrstp} as a function of the density:
 \begin{enumerate}
-\item Set \gls{frrstp} to \( 1.5 \) nm regardless of the density.
+\item Set \gls{frrstp} to its minimum realistic value (\( 1.5 \) nm) regardless of the density.
 \begin{itemize}
 \item It will give accurate results for small densities and less accurate for large ones as a consequence of the difference in the number of points available for the fit (see \ref{sec:filters}).
 \item This will be very expensive in computation time for small densities.
 \end{itemize}
 \item Set \( \gls{frrstp} \sqrt{\gls{dst}} \) to a constant value.
 \begin{itemize}
-\item We will obtain exactly the same precision for each density at a given \( s \sqrt{\gls{dst}} \).
+\item This does not correspond to the real experimental conditions: with \( \gls{frrstp} \sqrt{\gls{dst}} = 0.17 \) we get \( \gls{frrstp} = 1.5 \) nm for \( \gls{dst} = 1.28 \times 10^{16} \) m\( ^{-2} \) and \( \gls{frrstp} = 48.1 \) nm for \( \gls{dst} = 1.25 \times 10^{13} \) m\( ^{-2} \).
+\item This approach makes it possible to establish an important result: we obtain exactly the same relative error in the density prediction at a given \( s \sqrt{\gls{dst}} \) (regardless of the density).
 \item It is relatively inexpensive in computation time.
-\item With \( \gls{frrstp} \sqrt{\gls{dst}} = 0.17 \) we get \( \gls{frrstp} = 1.5 \) nm for \( \gls{dst} = 1.28 \times 10^{16} \) m\( ^{-2} \) and \( \gls{frrstp} = 48.1 \) nm for \( \gls{dst} = 1.25 \times 10^{13} \) m\( ^{-2} \) that is is a bit irrealistic.
 \end{itemize}
-\item Set \( \gls{frrstp} = \max \left(\gls{frrvar}_{\mathrm{max}}/n, 1.5 \right) \) nm.
+\item Set \( \gls{frrstp} = \min \left( \max \left(\gls{frrvar}_{\mathrm{max}}/n, {a_3}_{\mathrm{min}} \right), {a_3}_{\mathrm{max}} \right) \) with \( {a_3}_{\mathrm{min}} = 1.5 \) nm and \( {a_3}_{\mathrm{max}} = 5.0 \) nm.
 \begin{itemize}
-\item The behavior of the error as a function of the density will strongly depend on the arbitrary choice of \( n \). When looking at the results it must be kept in mind that what we see is very influenced by a discontinuity in the way of choosing \gls{frrstp} when we go from \( \gls{frrvar}_{\mathrm{max}}/n > 1.5 \) to \( \gls{frrvar}_{\mathrm{max}}/n < 1.5 \).
-\item It is rather inexpensive in computation time (as long as \( n \) is reasonable).
+\item The behavior of the error as a function of the density will strongly depend on the choice of the parameters \( n \), \( {a_3}_{\mathrm{min}} \) and \( {a_3}_{\mathrm{max}} \). When looking at the results it must be kept in mind that what we see is very influenced by a discontinuity in the way of choosing \gls{frrstp} when \( \gls{frrvar}_{\mathrm{max}}/n \) goes bellow \( 1.5 \) nm or above \( 5.0 \) nm.
+\item It is rather expensive in computation time.
 \end{itemize}
 \end{enumerate}
 
