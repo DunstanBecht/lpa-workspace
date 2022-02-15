@@ -22,7 +22,7 @@ def steps(impdir, impstm):
         for i in range(7):
             fil.readline()
         a3 = eval(fil.readline()) # [nm]
-    Lmax = 5/np.sqrt(dst) # [nm]
+    Lmax = 4.5/np.sqrt(dst) # [nm]
     return int(Lmax/a3)
 
 wgs = 64 # work-group size

@@ -31,16 +31,16 @@ q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
 # a3 parameter(s) for each density ---------------------------------------- #
 
-if False: # only to determine asymptotic behavior
-    # don't forget to reduce the number of steps in xrd.py
-    m = [2**np.arange(1) for k in range(n)] # multiplicative coefficients of a3
-    step_min = 2**np.arange(n)[::-1]*0.5 # minimum a3 values [nm]
-    step = [m[k]*step_min[k] for k in range(n)]
-elif False: # vary a3 as a function of density
-    m = [2**np.arange(3) for k in range(n)] # multiplicative coefficients of a3
-    step_min = 2**np.arange(n)[::-1]*1 # minimum a3 values [nm]
-    step = [m[k]*step_min[k] for k in range(n)]
-else: # take the same a3 for all densities (real conditions)
+if False: # (unrealistic conditions) determine the asymptotic behavior
+    # /!\ don't forget to reduce the number of steps to ~ 5 in xrd.py
+    step = [[0.05*1e9/np.sqrt(densities[k])] for k in range(n)]
+elif False: # (unrealistic conditions) fix the value of a3*sqrt(rho)
+    B_list = [0.17, ] # [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+    step = [[B*1e9/np.sqrt(densities[k]) for B in B_list] for k in range(n)]
+elif True: # (realistic conditions) hybrid method
+    # this gives ~ 10 points in the linear zone (when possible)
+    step = [[min(max(1e9/np.sqrt(densities[k])/10, 1.5), 5)] for k in range(n)]
+else: # (realistic conditions) take the same a3 for all densities
     step = [[1.5] for k in range(n)]
 
 # number of distributions per sample for each density --------------------- #
