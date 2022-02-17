@@ -164,9 +164,9 @@ The Nelder–Mead method is used to find the minimum of the objective function.
 
 It has been developed two ways of choosing the maximum value of the maximum values of \gls{frrvar}.
 The first one, named \gls{f1}, aims at keeping only the relevant results and locates the point where \gls{frrtrf} becomes noise (i.e. when it is no longer decreasing).
-The second filter, named \gls{f2}, marks the end of the linearity zone of \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right) / \gls{frrvar}^2 \) as a function of \( \ln(\gls{frrvar}) \).
+The second filter, named \gls{f2}, marks the end of the linearity zone in \gls{r2}.
 Given the application assumptions of the models, the filter \gls{f1} is applied with \gls{w} and \gls{guw} and \gls{f2} is applied with \gls{kr}.
-Indeed \gls{kr} is an asymptotic model and \gls{w} and \gls{guw} are supposed to describe the complete line profile for \gls{rrdd}.
+Indeed \gls{kr} is an asymptotic model and \gls{w} and \gls{guw} are supposed to describe the complete line profile.
 The purpose of these filters is therefore to apply the models to the intervals for which they are intended.
 
 \medfig{fig:filter-1}{insert/filters}{f1}{Example of filtering with \gls{f1}}%
@@ -174,8 +174,8 @@ The purpose of these filters is therefore to apply the models to the intervals f
 
 \bigskip
 
-\gls{f1} stops at index \( i \) when equation \eqref{eq:filter-1} is not verified.
-In the same way \gls{f2} stops at index \( i \) when equation \eqref{eq:filter-2} is not verified.
+\gls{f1} stops at index \( i \) when equation \eqref{eq:filter-1} is no longer verified.
+\gls{f2} stops at index \( i \) when equation \eqref{eq:filter-2} is no longer verified.
 
 \begin{equation}\label{eq:filter-1}
 y_{i+1} < y_i
@@ -217,56 +217,49 @@ The tables \ref{tab:filter-rrdde-f1} to \ref{tab:filter-rcdde-f2} give an estima
 
 \subsubsection{Residuals}
 
-The model \gls{kr} are fitted within the representation \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right)/L^2 \) as a function of \gls{frrvar} and the model \gls{w} is fitted within the representation \( \gls{frrtrf}(\gls{frrvar}) \) as a function of \( \ln(\gls{frrvar}) \).
-Thus the residuals are defined in \eqref{eq:fit-residual-1} for \gls{w} and \gls{guw} and in \eqref{eq:fit-residual-2} for \gls{kr}.
+The models \gls{w}  and \gls{guw} are fitted within representation \gls{r1}.
+The model \gls{kr} is fitted within representation \gls{r2}.
+Thus the residuals are defined differently in \eqref{eq:fit-residual} for \gls{kr}, \gls{w} and \gls{guw}.
 
-\begin{align}
-\hat{\epsilon}_i &=
-\gls{frrtrf}(\gls{frrvar}_i) - \gls{frrtrf}^{M}(\gls{frrvar}_i) \label{eq:fit-residual-1} \\
-\hat{\epsilon}_i &=
+\begin{equation}
+\hat{\epsilon}_i =
+\begin{cases}
+\gls{frrtrf}(\gls{frrvar}_i) - MOD_{\gls{hmc}}(\gls{frrvar}_i) & \forall \ MOD \in \{ W, GUW \} \\[5mm]
 \frac{\ln\left(\gls{frrtrf}(\gls{frrvar}_i)\right)}{\gls{frrvar}^2} -
-\frac{\ln\left(\gls{frrtrf}^{MOD}(\gls{frrvar}_i)\right)}{\gls{frrvar}^2} \label{eq:fit-residual-2}
-\end{align}
+\frac{\ln\left(MOD_{\gls{hmc}}(\gls{frrvar}_i)\right)}{\gls{frrvar}^2} & \forall \ MOD \in \{ KR \}
+\end{cases}
+ \label{eq:fit-residual}
+\end{equation}
 
 \subsubsection{Weighting}
-The application of the logarithmic scale to the abscissa axis in the representation of \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right) / \gls{frrvar}^2 \) as a function of \( \ln(\gls{frrvar}) \) induces a rapprochement of the measurement points with \gls{frrvar} increasing.
+The application of the logarithmic scale to the abscissa axis in representation \gls{r2} induces a rapprochement of the measurement points with \gls{frrvar} increasing.
 Here is proposed a weighting of each point according to the distance between it and its neighbors.
 With this weighting, the fits fit better to the linear parts in the latter representation.
 
-\begin{align}
-w^{\gls{guw}}_i = w^{\gls{w}}_i &= 1 \\
-w^{\gls{kr}}_i &=
-n
+\begin{equation}
+w_i =
+\begin{cases}
+1
+& \forall \ MOD \in \{ W, GUW \}
+\\[5mm]
 \frac{
 \ln \left(\gls{frrvar}_{i + 1} \right) - \ln \left(\gls{frrvar}_i\right)
 }{
 \ln \left(\gls{frrvar}_{n + 1} \right) - \ln \left(\gls{frrvar}_1\right)
 } =
 \frac{n}{\ln \left( n + 1 \right)} \ln \left( \frac{i+1}{i} \right)
-\end{align}
-
-\subsubsection{Standard fit error}
-The objective function to be minimized for a given model \( M \), a harmonic \gls{hmc} and a maximum value \( \gls{frrvar}_n \) of \gls{frrvar} is the standard error of the fit defined in equation \eqref{eq:fit-standard-error}.
-
-\begin{equation}\label{eq:fit-standard-error}
-\hat{\gls{stddev}} \left( \gls{frrtrf}^M \right) = \sqrt{\sum_{i=1}^n \frac{w^M_i\hat{\epsilon}_i^2}{n-2}}
+& \forall \ MOD \in \{ KR \}
+\end{cases}
 \end{equation}
 
-\subsection{Synthesis}\label{sec:synthesis}
+\subsubsection{Standard fit error}
+The objective function to be minimized for a given model \( MOD \), a harmonic \gls{hmc} and a maximum value \( \gls{frrvar}_n \) of \gls{frrvar} is the standard error of the fit defined in equation \eqref{eq:fit-standard-error}.
 
-Below is an overview of the parameters used for the generation of the samples of distributions.
+\begin{equation}\label{eq:fit-standard-error}
+\hat{\gls{stddev}} = \sqrt{\sum_{i=1}^n \frac{w_i \hat{\epsilon}_i^2}{n-2}}
+\end{equation}
 
-...
-
-\bigskip
-
-These distribution models are illustrated in section \ref{sec:data}.
-Here is proposed a synthesis of the results of the fits performed on the simulation outputs of the latter.
-The objective was to gather in a single data the fits performed for several maximum values of \gls{frrvar} for a given distribution, model and harmonic.
-To simplify the reading of the tables, the density values closest to the real densities have been colored.
-Not all decimal places are displayed.
-
-
+\newpage
 
 \subsection{Program}
 
