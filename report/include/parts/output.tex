@@ -79,14 +79,14 @@ Finally \gls{confac} is the contrast factor defined for edge and screw dislocati
     \end{cases}
 \end{equation}
 
-\subsubsection{\glsentrytext{guw1}}
+\subsubsection{\glsentrytext{guw}}
 
-Equation \eqref{eq:guw1} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{guw1} \cite{GUW1988} \cite{SGL2001}.
+Equation \eqref{eq:guw} gives the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{guw} \cite{GUW1988} \cite{SGL2001}.
 Compared to the original proposal, \( \langle \gls{dst}^2 \rangle - \langle \gls{dst} \rangle^2 \) has been simplified to \( \delta \langle \gls{dst} \rangle^2 \) with \( \delta \) a coefficient quantifying the density fluctuation and \( \ln(\gls{frrvar}/R_1) \ln(\gls{frrvar}/R_2) \) has been simplified to \( (\ln(\gls{frrvar}/R_0))^2 \).
 
 \begin{equation}
   \define{
-    \gls{guw1}_{\gls{hmc}}
+    \gls{guw}_{\gls{hmc}}
   }{
     \gls{setR}^*
   }{
@@ -94,23 +94,18 @@ Compared to the original proposal, \( \langle \gls{dst}^2 \rangle - \langle \gls
   }{
     \gls{frrvar}
   }{
-    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+    \exp\left( \gls{frrvar}^2 k \left[ \ln \left( \frac{\gls{frrvar}}{\gls{cutrad}} \right) + \frac{\delta}{2} k \left[ \gls{frrvar} \ln\left( \frac{\gls{frrvar}}{R_0} \right) \right]^2 \right] \right)
   }
-  \label{eq:guw1}
+  \label{eq:guw}
 \end{equation}
 
-\begin{equation}
-  D_{\gls{hmc}}(\gls{frrvar}) =
-    k \left( \ln \left( \frac{\gls{frrvar}}{\gls{cutrad}} \right) + \frac{\delta}{2} k \gls{frrvar}^2 \left( \ln\left( \frac{\gls{frrvar}}{R_0} \right) \right)^2 \right)
-\end{equation}
+\subsubsection{\glsentrytext{kr}}
 
-\subsubsection{\glsentrytext{guw2}}
-
-Equation \eqref{eq:guw2} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{guw2} \cite{GUW1988}.
+Equation \eqref{eq:kr} gives the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{kr} \cite{GUW1988}.
 
 \begin{equation}
   \define{
-    \gls{guw2}_{\gls{hmc}}
+    \gls{kr}_{\gls{hmc}}
   }{
     \gls{setR}^*
   }{
@@ -118,23 +113,18 @@ Equation \eqref{eq:guw2} gives be the Fourier transform of diffraction vector ha
   }{
     \gls{frrvar}
   }{
-    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+    \exp\left( \gls{frrvar}^2 k \left[ \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) \right] \right)
   }
-  \label{eq:guw2}
+  \label{eq:kr}
 \end{equation}
 
-\begin{equation}
-  D_{\gls{hmc}}(\gls{frrvar}) =
-    k \left( \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) \right)
-\end{equation}
+\subsubsection{\glsentrytext{w}}
 
-\subsubsection{\glsentrytext{w1}}
-
-Equation \eqref{eq:w1} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{w1} \cite{W1970}.
+Equation \eqref{eq:w} gives the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{w} \cite{W1970}.
 
 \begin{equation}
   \define{
-    \gls{w1}_{\gls{hmc}}
+    \gls{w}_{\gls{hmc}}
   }{
     \gls{setR}^*
   }{
@@ -142,14 +132,9 @@ Equation \eqref{eq:w1} gives be the Fourier transform of diffraction vector harm
   }{
     \gls{frrvar}
   }{
-    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
+    \exp\left( \gls{frrvar}^2 k f \left( \frac{1}{2e^\frac{1}{4}} \frac{\gls{frrvar}}{\gls{cutrad}} \right) \right)
   }
-  \label{eq:w1}
-\end{equation}
-
-\begin{equation}
-  D_{\gls{hmc}}(\gls{frrvar}) =
-    - k f \left( \frac{1}{2e^\frac{1}{4}} \frac{\gls{frrvar}}{\gls{cutrad}} \right)
+  \label{eq:w}
 \end{equation}
 
 \medskip
@@ -157,37 +142,13 @@ Equation \eqref{eq:w1} gives be the Fourier transform of diffraction vector harm
 \begin{equation}
   f(\eta) =
     \begin{cases}
-      - \ln(\eta) + \frac{7}{4} - \ln(2) + \frac{512}{90 \pi} \eta^{-1} \\[5mm]
-      + \frac{2}{\pi} \left( 1 - \frac{1}{4}\eta^{-2} \right) \int_0^\eta \frac{\arcsin(V)}{V} dV \\[5mm]
-      - \frac{1}{\pi} \left( \frac{769}{180} \eta^{-1} + \frac{41}{90} \eta + \frac{2}{90}\eta^3 \right) \sqrt{ 1 - \eta^2 }
+      \ln(\eta) - \frac{7}{4} + \ln(2) - \frac{512}{90 \pi} \eta^{-1} \\[5mm]
+      - \frac{2}{\pi} \left( 1 - \frac{1}{4}\eta^{-2} \right) \int_0^\eta \frac{\arcsin(V)}{V} dV \\[5mm]
+      + \frac{1}{\pi} \left( \frac{769}{180} \eta^{-1} + \frac{41}{90} \eta + \frac{2}{90}\eta^3 \right) \sqrt{ 1 - \eta^2 }
       & \forall \eta \leq 1 \\[1cm]
-      \frac{512}{90 \pi} \eta^{-1} - \left( \frac{11}{24} + \frac{1}{4} \ln(2) \eta \right) \eta^{-2}
+      - \frac{512}{90 \pi} \eta^{-1} + \left( \frac{11}{24} + \frac{1}{4} \ln(2) \eta \right) \eta^{-2}
       & \forall \eta > 1
     \end{cases}
-\end{equation}
-
-\subsubsection{\glsentrytext{w2}}
-
-Equation \eqref{eq:w2} gives be the Fourier transform of diffraction vector harmonic \gls{hmc} as predicted in the \gls{w2} proposed by \textcite{KD2001}.
-
-\begin{equation}
-  \define{
-    \gls{w2}_{\gls{hmc}}
-  }{
-    \gls{setR}^*
-  }{
-    \gls{setR}
-  }{
-    \gls{frrvar}
-  }{
-    \exp\left( \gls{frrvar}^2 D_{\gls{hmc}}(\gls{frrvar}) \right)
-  }
-  \label{eq:w2}
-\end{equation}
-
-\begin{equation}
-  D_{\gls{hmc}}(\gls{frrvar}) =
-    k \left( \ln \left( \gls{frrvar} \right) - \ln\left( \left( \gls{hmc} \gls{vecg} \cdot \gls{vecb} \right) \gls{cutrad} \right) - 2 \ln(2) +\frac{1}{3} + \ln\left(|\sin(\psi) \gls{vecg} \cdot \gls{vecb}| \right) \right)
 \end{equation}
 
 \subsection{Fitting method}
@@ -196,15 +157,15 @@ For each model, the fits are performed for each harmonic \gls{hmc} and for sever
 The Nelder–Mead method is used to find the minimum of the objective function.
 \figref{fig:fit:example:rdd} show a fit for a given \gls{hmc} and a given maximum value of \gls{frrvar}.
 
-\bigfig{fig:fit:example:rdd}{insert/fits/output\_data\_analysis/fits\_plot\_GUW1}{j1\_068nm}{Fit of \gls{guw1} over the harmonic 1 of the computed Fourier Transform of \gls{rdd}}
+\bigfig{fig:fit:example:rdd}{insert/fits/output\_data\_analysis/fits\_plot\_GUW1}{j1\_068nm}{Fit of \gls{guw} over the harmonic 1 of the computed Fourier Transform of \gls{rdd}}
 
 \subsubsection{Filters}\label{sec:filters}
 
 It has been developed two ways of choosing the maximum value of the maximum values of \gls{frrvar}.
 The first one, named \gls{f1}, aims at keeping only the relevant results and locates the point where \gls{frrtrf} becomes noise (i.e. when it is no longer decreasing).
 The second filter, named \gls{f2}, marks the end of the linearity zone of \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right) / \gls{frrvar}^2 \) as a function of \( \ln(\gls{frrvar}) \).
-Given the application assumptions of the models, the filter \gls{f1} is applied with \gls{w1} and \gls{f2} is applied with \gls{guw2} and \gls{w2}.
-Indeed \gls{guw2} and \gls{w2} are asymptotic models and \gls{w1} is supposed to describe the complete line profile for \gls{rrdd}.
+Given the application assumptions of the models, the filter \gls{f1} is applied with \gls{w} and \gls{guw} and \gls{f2} is applied with \gls{kr}.
+Indeed \gls{kr} is an asymptotic model and \gls{w} and \gls{guw} are supposed to describe the complete line profile for \gls{rrdd}.
 The purpose of these filters is therefore to apply the models to the intervals for which they are intended.
 
 \medfig{fig:filter-1}{insert/filters}{f1}{Example of filtering with \gls{f1}}%
@@ -255,7 +216,8 @@ The tables \ref{tab:filter-rrdde-f1} to \ref{tab:filter-rcdde-f2} give an estima
 
 \subsubsection{Residuals}
 
-The models \gls{guw2} and \gls{w2} are fitted within the representation \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right)/L^2 \) as a function of \gls{frrvar} and the model \gls{w1} is fitted within the representation \( \gls{frrtrf}(\gls{frrvar}) \) as a function of \( \ln(\gls{frrvar}) \). Thus the residuals are defined in \eqref{eq:fit-residual-1} for \gls{w1} and in \eqref{eq:fit-residual-2} for \gls{guw2} and \gls{w2}.
+The model \gls{kr} are fitted within the representation \( \ln \left( \gls{frrtrf}(\gls{frrvar}) \right)/L^2 \) as a function of \gls{frrvar} and the model \gls{w} is fitted within the representation \( \gls{frrtrf}(\gls{frrvar}) \) as a function of \( \ln(\gls{frrvar}) \).
+Thus the residuals are defined in \eqref{eq:fit-residual-1} for \gls{w} and \gls{guw} and in \eqref{eq:fit-residual-2} for \gls{kr}.
 
 \begin{align}
 \hat{\epsilon}_i &=
@@ -271,8 +233,8 @@ Here is proposed a weighting of each point according to the distance between it 
 With this weighting, the fits fit better to the linear parts in the latter representation.
 
 \begin{align}
-w^{\gls{w1}}_i &= 1 \\
-w^{\gls{guw2}}_i = w^{\gls{w2}}_i &=
+w^{\gls{guw}}_i = w^{\gls{w}}_i &= 1 \\
+w^{\gls{kr}}_i &=
 n
 \frac{
 \ln \left(\gls{frrvar}_{i + 1} \right) - \ln \left(\gls{frrvar}_i\right)
