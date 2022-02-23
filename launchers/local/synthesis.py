@@ -64,7 +64,7 @@ def analyze(dat, j):
 def sample(impstm, j):
     """Analyze a sample."""
     res = {}
-    for mod in ('GUW1', 'GUW2', 'W1', 'W2'):
+    for mod in ('GUW', 'KR', 'W'):
         pth = os.path.join(impstm, f"fits_data_{mod}.dat")
         dat = load(pth)
         res[mod] = analyze(dat, j)
@@ -86,15 +86,13 @@ for group in groups:
         for mtd in lines:
             lines[mtd].append([
                 f'distribution',
-                f'GUW1-{mtd}-f',
-                f'GUW1-{mtd}-d',
-                f'GUW2-{mtd}-d',
-                f'W1-{mtd}-d',
-                f'W2-{mtd}-d',
-                f'GUW1-{mtd}-R',
-                f'GUW2-{mtd}-R',
-                f'W1-{mtd}-R',
-                f'W2-{mtd}-R',
+                f'GUW-{mtd}-f',
+                f'GUW-{mtd}-d',
+                f'KR-{mtd}-d',
+                f'W-{mtd}-d',
+                f'GUW-{mtd}-R',
+                f'KR-{mtd}-R',
+                f'W-{mtd}-R',
                 ])
         pth0 = os.path.join(cycdir, f"fits_{group}")
         for smp in os.listdir(pth0):
@@ -105,15 +103,13 @@ for group in groups:
                     f"{res[i0][i1]:12.7e}"
                     if res[i0] is not None else 'N/A'
                     for (i0, i1) in [
-                        ('GUW1', f'{mtd}-f'),
-                        ('GUW1', f'{mtd}-d'),
-                        ('GUW2', f'{mtd}-d'),
-                        ('W1',   f'{mtd}-d'),
-                        ('W2',   f'{mtd}-d'),
-                        ('GUW1', f'{mtd}-R'),
-                        ('GUW2', f'{mtd}-R'),
-                        ('W1',   f'{mtd}-R'),
-                        ('W2',   f'{mtd}-R'),
+                        ('GUW', f'{mtd}-f'),
+                        ('GUW', f'{mtd}-d'),
+                        ('KR',  f'{mtd}-d'),
+                        ('W',   f'{mtd}-d'),
+                        ('GUW', f'{mtd}-R'),
+                        ('KR',  f'{mtd}-R'),
+                        ('W',   f'{mtd}-R'),
                     ]
                 ])
 
