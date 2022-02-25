@@ -31,24 +31,56 @@ q = p/(1+np.sqrt(1-p)) # multiplier of cell side for wall thickness
 
 # a3 parameter(s) for each density ---------------------------------------- #
 
-if False: # (unrealistic conditions) determine the asymptotic behavior
-    # /!\ don't forget to reduce the number of steps to ~ 5 in xrd.py
-    step = [[0.05*1e9/np.sqrt(densities[k])] for k in range(n)]
-elif False: # (unrealistic conditions) fix the value of a3*sqrt(rho)
-    B_list = [0.17, ] # [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
-    step = [[B*1e9/np.sqrt(densities[k]) for B in B_list] for k in range(n)]
-elif True: # (realistic conditions) hybrid method
-    # this gives ~ 10 points in the linear zone (when possible)
-    step = [[min(max(1e9/np.sqrt(densities[k])/10, 1.5), 5)] for k in range(n)]
-else: # (realistic conditions) take the same a3 for all densities
-    step = [[1.5] for k in range(n)]
+step = []
+
+match "hybrid":
+
+    case "asymtote": # /!\ reduce the number of steps to ~ 5 in xrd.py
+        # (unrealistic conditions) only to determine the asymptotic behavior
+        B = 0.4e-9*np.sqrt(densities[-1]) # a3=0.4nm for the highest density
+        for k in range(n):
+            step.append([B*1e9/np.sqrt(densities[k])])
+
+    case "constant_B":
+        # (unrealistic conditions) fix the value of B=a3*sqrt(rho)
+        list_B = [
+            0.8e-9*np.sqrt(densities[-1]),
+            #1.6e-9*np.sqrt(densities[-1]),
+        ]
+        for k in range(n):
+            step.append([B*1e9/np.sqrt(densities[k]) for B in list_B])
+       
+    case "constant_a3":
+        # (realistic conditions) fix the value of a3 for all densities
+        list_a3 = [
+            1.5, # minimum realistic value of a
+            #5.0 # maximum realistic value of a
+        ]
+        for k in range(n):
+            step.append(list_a3)
+
+    case "hybrid":
+        # (realistic conditions) hybrid method
+        B = 0.1 # this gives ~ 10 points in the linear zone (when possible)
+        for k in range(n):
+            step.append([min(max(B*1e9/np.sqrt(densities[k]), 1.5), 5.0)])
+
+# /!\ pay attention to the rounding of a3 when exporting
+for k in range(n): 
+    for i in range(len(step[k])):
+        step[k][i] = round(step[k][i], 1)
 
 # number of distributions per sample for each density --------------------- #
 
-if False: # vary the number of files generated as a function of density
-    splsiz = rk[::-1]
-else: # take the same number of file for every density
-    splsiz = 16*np.ones(n)
+match "constant":
+
+    # vary the number of files generated as a function of density
+    case "variable": 
+        splsiz = rk[::-1]
+
+    # take the same number of file for every density
+    case "constant": 
+        splsiz = 32*np.ones(n)
 
 # groups generation ------------------------------------------------------- #
 
@@ -142,7 +174,7 @@ if False: # to determine the optimal number of replications (PBC)
             print(args['stm'])
             groups[f"RRDD-E_test_PBC"].append(args)
 
-if __name__ == "__main__":
+if __name__ == "__main__" and input("\nDisplay density chooser? (y/n) ") == "y":
     print("\nd0 must be of form 2/i**2 with i an integer (to have 2 disl/cell)")
     a_candidates = []
     for i in range(1, 1000):
