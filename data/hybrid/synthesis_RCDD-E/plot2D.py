@@ -3,6 +3,7 @@
 
 import csv
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 from matplotlib import cm
 import os
@@ -52,23 +53,35 @@ for model in names:
     order = np.argsort(T[1,:])
     T = T.T[order].T
 
-    fig, ax = plt.subplots(figsize=(7.5,5))
+    fig, ax_lin = plt.subplots(figsize=(7.5,5))
     fig.subplots_adjust(top=0.9, left=0.1, right=0.95, bottom=0.15)
-    ax.set_xlabel(fr"$ \ln \left( {M_latex} \right) $")
-    ax.set_ylabel(r"error $ (\%)$")
-    ax.set_yscale('log')
-    ax.set_xscale('log')
+    ax_lin.set_xlabel(fr"$ {M_latex} $")
+    ax_lin.set_ylabel(r"error $ (\%)$")
+    ax_lin.set_xscale('log')
+    
+    divider = make_axes_locatable(ax_lin)
+    split_value = 5
+
+    ax_log = divider.append_axes("top", size=2.0, pad=0, sharex=ax_lin)
+    ax_log.xaxis.set_ticks_position('top')
+    plt.setp(ax_log.get_xticklabels(), visible=False)
+    
+    ax_log.set_ylim((split_value, 115))
+    ax_lin.set_ylim((0, split_value))
 
     for d in d_order:
         mask = T[0,:] == d
         _, x, y = T.T[mask].T
         label = equality(d_latex, number(d, c='ttl', w=7), c='ttl')+" m$^{-2}$"
-        ax.plot(x, y, label=label)
+        ax_log.plot(x, y, ".-", label=label)
+        ax_lin.plot(x, y, ".-", label=label)
 
     prm = r"$ a_3 = \min\left(\max\left(0.1/\sqrt{\rho}, 1.5\right), 5.0\right) $ nm"
     plt.title(f"${names[model]}$ applied to {group} with {prm}")
     plt.legend()
-    plt.grid(which='major', linestyle='-')
-    plt.grid(which='minor', linestyle='--')
+    ax_log.grid(which='major', linestyle='-')
+    ax_log.grid(which='minor', linestyle='--')
+    ax_lin.grid(which='major', linestyle='-')
+    ax_lin.grid(which='minor', linestyle='--')
     plt.savefig(f"plot2D_{names[model]}.pdf")
     #plt.show()
