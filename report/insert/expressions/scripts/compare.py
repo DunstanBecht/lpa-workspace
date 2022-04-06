@@ -29,6 +29,8 @@ for dis in disord:
                 plt.xlabel(r"$r$ (nm)")
                 plt.legend()
                 plt.grid()
-                print('_'.join((geo, dis, fun, edg)))
-                plt.savefig(f"../plots/{'_'.join((fun, edg, dis, geo))}.pdf")
+                subs = '_'.join([fun+sub for sub in funord[fun][1]])
+                filnam = f"{'_'.join((subs, edg, dis, geo))}.pdf"
+                print(filnam)
+                plt.savefig(f"../plots/{filnam}")
                 plt.clf()

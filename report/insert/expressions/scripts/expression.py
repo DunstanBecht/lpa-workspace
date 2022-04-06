@@ -5,14 +5,19 @@ import os
 import numpy as np
 from lpa.input import overlap, analyze, notation
 
-if True:
-    EAcc = overlap.mean_circle_circle_interpolation
-    EAcs = overlap.mean_circle_square_interpolation
-    method = 'interpolation'
-else:
-    EAcc = overlap.mean_circle_circle_analytic
-    EAcs = overlap.mean_circle_square_analytic
-    method = 'analytic'
+method = 'interpolation'
+
+def EAcc(*args):
+    if method == 'interpolation':
+        return overlap.mean_circle_circle_interpolation(*args)
+    elif method == 'analytic':
+        return overlap.mean_circle_circle_analytic(*args)
+
+def EAcs(*args):
+    if method == 'interpolation':
+        return overlap.mean_circle_square_interpolation(*args)
+    elif method == 'analytic':
+        return overlap.mean_circle_square_analytic(*args)
 
 def Aroi_Broi_dr(r, geo, siz):
     if geo == 'square':
