@@ -629,6 +629,66 @@ From equation \eqref{eq:rrdd-M-easy} it is possible to define \( \gls{funM}_{\al
     \label{eq:rrdd-M-gbb}
 \end{align}
 
+In \cite{VB1994} the density fluctuation (used in equation \eqref{eq:guw}) is expressed as in equation \eqref{eq:phd-fluctuation}.
+\( w_{\alpha \beta} \left( \vec{r}, \vec{r}' \right) \) is the probability density of finding a dislocation of sign \( \alpha \) at \( \vec{r} \) and a dislocation of sign \( \beta \) at \( \vec{r}' \).
+\( w_{\alpha} \left( \vec{r} \right) \) is the probability density of finding a dislocation of sign \( \alpha \) at \( \vec{r} \).
+
+\bigskip
+
+\begin{equation}
+  \delta = \frac{
+  \left\langle w_{++} \left( \vec{r}, \vec{r} \right) \right\rangle +
+  \left\langle w_{+-} \left( \vec{r}, \vec{r} \right) \right\rangle +
+  \left\langle w_{-+} \left( \vec{r}, \vec{r} \right) \right\rangle +
+  \left\langle w_{--} \left( \vec{r}, \vec{r} \right) \right\rangle
+  }{
+  \left(
+  \left\langle w_{+} \left( \vec{r} \right) \right\rangle +
+  \left\langle w_{-} \left( \vec{r} \right) \right\rangle
+  \right)^2
+  } - 1
+  \label{eq:phd-fluctuation}
+\end{equation}
+
+\bigskip
+
+In the original paper \( w_{\alpha} = \gls{dst}_{\alpha} \) and the function \( w_{\alpha \beta} \) is approximed.
+Here is proposed in equation \eqref{eq:phd-revised-w} an exact formulation of \( w_{\alpha \beta} \) using the analytical expression of the function \( \gls{funM}_{\alpha \beta} \).
+
+\begin{equation}
+  w_{\alpha \beta} (\vec{r}, \vec{r}') = \frac{\gls{dst}_\alpha}{2 \pi r} \frac{d\gls{funM}_{\alpha \beta}}{dr}\left( \left| \vec{r}- \vec{r}' \right| \right)
+  \label{eq:phd-revised-w}
+\end{equation}
+
+\bigskip
+
+Finally the density fluctuation \( \delta \) can be expressed in equation \eqref{eq:analytic-delta}.
+It can be noticed that the expression takes a form very similar to the symmetric function of Gaal and Geszti in equation \eqref{eq:analysis-functions-Gs}.
+
+\bigskip
+
+\begin{equation}
+  \delta^* = \lim_{r \rightarrow 0}
+  \frac{1}{4 \pi r \gls{dst}}
+  \left(
+  \frac{d\gls{funM}^*_{++}}{dr}(r) +
+  \frac{d\gls{funM}^*_{+-}}{dr}(r) +
+  \frac{d\gls{funM}^*_{--}}{dr}(r) +
+  \frac{d\gls{funM}^*_{-+}}{dr}(r)
+  \right) - 1
+  \label{eq:analytic-delta}
+\end{equation}
+
+\bigskip
+
+By substituting the function \( \gls{funM}^*_{\alpha \beta} \) by its expression for \gls{rrdde} and \gls{rrddr} we obtain:
+
+\bigskip
+
+\begin{equation}
+  \delta = - \frac{1}{s^2 \sqrt{\gls{dst}}}
+\end{equation}
+
 \subsubsection{\glsentrytext{rrdde}}
 
 The coefficients \( \tau_{\alpha \beta} \) and \( \eta_{\alpha \beta} \) for the distribution model \gls{rrdde} are given in equation \eqref{eq:rrdde-tau} and \eqref{eq:rrdde-eta}.
@@ -653,7 +713,7 @@ The closed form of the latter is compared to simulation results in \figref{fig:r
 \smallfig{fig:rrdde-g-woa}{insert/expressions/plots}{g++_g+-_WOA_RRDD-E_square}{\( \gls{fung}^{\gls{woa}}(r) \)}%
 \smallfig{fig:rrdde-g-gbb}{insert/expressions/plots}{g++_g+-_GBB_RRDD-E_square}{\( \gls{fung}^{\gls{gbb}}(r) \)}%
 
-\newpage
+\bigskip
 
 \figref{fig:rrdde-Ga-nec}, \figref{fig:rrdde-Ga-woa} and \figref{fig:rrdde-Ga-gbb} show the plot of \gls{funGa} expressed for each edge consideration in equations \eqref{eq:rrdde-Ga-nec-gbb} and \eqref{eq:rrdde-Ga-woa}.
 
@@ -772,65 +832,6 @@ Let \( q \) be the fraction of the surface occupied by the walls.
     \frac{\langle \gls{dst}^2 \rangle - \langle \gls{dst} \rangle^2}{\langle \gls{dst} \rangle^2} =
     \frac{1}{q}-1
 \end{equation}
-
-\subsubsection{Density fluctuation}
-
-In \cite{VB1994} the density fluctuation (used in equation \eqref{eq:guw}) is expressed as in equation \eqref{eq:phd-fluctuation}.
-\( w_{\alpha \beta} \left( \vec{r}, \vec{r}' \right) \) is the probability density of finding a dislocation of sign \( \alpha \) at \( \vec{r} \) and a dislocation of sign \( \beta \) at \( \vec{r}' \).
-\( w_{\alpha} \left( \vec{r} \right) \) is the probability density of finding a dislocation of sign \( \alpha \) at \( \vec{r} \).
-
-\bigskip
-
-\begin{equation}
-  \delta = \frac{
-  \left\langle w_{++} \left( \vec{r}, \vec{r} \right) \right\rangle +
-  \left\langle w_{+-} \left( \vec{r}, \vec{r} \right) \right\rangle +
-  \left\langle w_{-+} \left( \vec{r}, \vec{r} \right) \right\rangle +
-  \left\langle w_{--} \left( \vec{r}, \vec{r} \right) \right\rangle
-  }{
-  \left(
-  \left\langle w_{+} \left( \vec{r} \right) \right\rangle +
-  \left\langle w_{-} \left( \vec{r} \right) \right\rangle
-  \right)^2
-  } - 1
-  \label{eq:phd-fluctuation}
-\end{equation}
-
-\bigskip
-
-In the original paper \( w_{\alpha} = \gls{dst}_{\alpha} \) and the function \( w_{\alpha \beta} \) is approximed.
-Here is proposed in equation \eqref{eq:phd-revised-w} an exact formulation of \( w_{\alpha \beta} \) using the analytical expression of the function \( \gls{funM}_{\alpha \beta} \).
-
-\begin{equation}
-  w_{\alpha \beta} (\vec{r}, \vec{r}') = \frac{\gls{dst}_\alpha}{2 \pi r} \frac{d\gls{funM}_{\alpha \beta}}{dr}\left( \left| \vec{r}- \vec{r}' \right| \right)
-  \label{eq:phd-revised-w}
-\end{equation}
-
-\bigskip
-
-Finally the density fluctuation \( \delta \) can be expressed in equation \eqref{eq:analytic-delta}.
-It can be noticed that the expression takes a form very similar to the symmetric function of Gaal and Geszti in equation \eqref{eq:analysis-functions-Gs}.
-
-\bigskip
-
-\begin{equation}
-  \delta^* = \lim_{r \rightarrow 0}
-  \frac{1}{4 \pi r \gls{dst}}
-  \left(
-  \frac{d\gls{funM}^*_{++}}{dr}(r) +
-  \frac{d\gls{funM}^*_{+-}}{dr}(r) +
-  \frac{d\gls{funM}^*_{--}}{dr}(r) +
-  \frac{d\gls{funM}^*_{-+}}{dr}(r)
-  \right) - 1
-  \label{eq:analytic-delta}
-\end{equation}
-
-\bigskip
-
-By substituting the function \( \gls{funM}^*_{\alpha \beta} \) by its expression for \gls{rrdde} and \gls{rrddr} we obtain the value of \( \delta \) in \figref{fig:rrdde-fluctuation} and \figref{fig:rrddr-fluctuation}.
-
-\medfig{fig:rrdde-fluctuation}{insert/expressions/plots}{delta_RRDD-E}{Density fluctuation in \gls{rrdde}.}%
-\medfig{fig:rrddr-fluctuation}{insert/expressions/plots}{delta_RRDD-R}{Density fluctuation in \gls{rrddr}.}%
 
 \newpage
 

@@ -34,27 +34,27 @@ edgcon = 'GBB'
 geo = 'square'
 d = 5e-5
 
+s = M/np.sqrt(d)
+
 defmodprm = {
     'RRDD-E': {'d': d, 'v': 'E'},
     'RRDD-R': {'d': d, 'v': 'R'},
-    'RCDD-E': {'d': d, 'v': 'E'},
-    'RCDD-R': {'d': d, 'v': 'R'},
 }
 
-for dis in ['RRDD-E', 'RRDD-R', 'RCDD-E', 'RCDD-R']:
-
-    s = M/np.sqrt(d)
+for dis in ['RRDD-E', 'RRDD-R']:
 
     x = M
-    
+
     modprm = defmodprm[dis]
     y = [delta(dis, geo, 1000, edgcon, dict(modprm, s=s_)) for s_ in s]
 
     plt.cla()
-    plt.plot(x, y)
+    plt.plot(x, y, label="analytic")
+    plt.plot(x, -1/(s**2*d), label=r"$ - \frac{1}{N_d} = - \frac{1}{s^2 \sqrt{\rho}} $")
     plt.xlabel(r"$ s \sqrt{\rho} $")
     plt.ylabel(r"$ \delta $")
     plt.grid()
     plt.title(dis)
+    plt.legend()
     #plt.show()
     plt.savefig(f'../plots/delta_{dis}.pdf')
