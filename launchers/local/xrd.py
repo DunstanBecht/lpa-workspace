@@ -26,7 +26,7 @@ def steps(impdir, impstm):
     return int(Lmax/a3)
 
 wgs = 64 # work-group size
-nrp = wgs*31250 # number of random points
+nrp = wgs*3125*5 # number of random points
 
 if not os.path.isdir('xrd'):
     print("\nClone code.")
