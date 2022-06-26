@@ -2,6 +2,16 @@
 
 \begin{appendix}
 
+\printbibliography[heading=bibintoc, heading=bibnumbered]
+
+\newpage
+
+\section{Glossary}
+
+\printnoidxglossaries
+
+\newpage
+
 \section{Mathematical developments}
 
 \subsection{Random positioning optimization}
@@ -294,41 +304,5 @@ They introduce an equivalent effective size of the latter.
     \int_{r=r_0}^{\mathcal{D}_{\symcirclesquare f} S} f(r) 2 \pi r dr
   \label{eq-conjecture-square}
 \end{align}
-
-\section{Data}\label{sec:data}
-
-The construction and analysis of the data produced for the study was automated.
-Everything was done from a same directory called \textit{workspace}.
-This repository contains the parameters and the the scripts that will allow you to replicate the results obtained.
-The installation of the three packages mentioned above is necessary for the execution of the scripts.
-
-\bigskip
-
-You can find the scripts and documentations here: \github{lpa-workspace}
-
-\bigskip
-
-You can also clone the project in tour local directory with git:
-
-\begin{tcolorbox}[width=\linewidth, title=shell]
-\begin{verbatim}
-$ cd <the-place-you-want-to-clone-the-repository>
-$ git clone https://github.com/DunstanBecht/lpa-workspace.git
-\end{verbatim}
-\end{tcolorbox}
-
-\bigskip
-
-The following pages provide a summary of the data generated for each distribution studied.
-
-\newpage
-
-\section{Glossary}
-
-\printnoidxglossaries
-
-\newpage
-
-\printbibliography[heading=bibintoc, heading=bibnumbered]
 
 \end{appendix}
